@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[linfan's blog]]></title>
+  <link href="http://linfan.info/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2012-02-21T21:54:56+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+</feed>

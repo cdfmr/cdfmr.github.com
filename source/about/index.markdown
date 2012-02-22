@@ -6,15 +6,15 @@ comments: false
 sharing: false
 footer: false
 ---
-码农一名，从事过Windows/Unix/Mac开发。
+码农一名，从事Windows/Unix/Mac开发。
 
-###作品网站
+###我的网站
 [Linasoft](http://www.linasoft.com)  
 [Galaworks](http://www.galaworks.com)
 
-###作品列表
+###我的应用
 [AutoPlay Menu Builder](http://www.linasoft.com/apmbuilder.php)  
-功能强大的光盘自动运行菜单制作工具。
+功能强大的光盘自动运行菜单制作工具
 
 [EZ MP3 Creator](http://code.google.com/p/ezmp3c/)  
 免费开源的CD音乐抓取/转换工具

@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-02-21T23:58:49+08:00</updated>
+  <updated>2012-02-22T21:11:38+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,5 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hello, Octopress!]]></title>
+    <link href="http://linfan.info/blog/2012/02/22/hello-octopress/"/>
+    <updated>2012-02-22T10:15:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/02/22/hello-octopress</id>
+    <content type="html"><![CDATA[
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>octopress
+</span><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;hello octopress&quot;</span><span class="o">]</span>
+</span><span class='line'>vi <span class="nb">source</span>/_post/2012-02-22-hello-octopress.markdown
+</span><span class='line'>rake generate
+</span><span class='line'>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
 </feed>

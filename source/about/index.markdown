@@ -16,7 +16,7 @@ footer: false
 [AutoPlay Menu Builder](http://www.linasoft.com/apmbuilder.php)  
 功能强大的光盘自动运行菜单制作工具
 
-[EZ MP3 Creator](http://code.google.com/p/ezmp3c/)  
+[EZ MP3 Creator](https://github.com/cdfmr/ezmp3c)  
 免费开源的CD音乐抓取/转换工具
 
 [PDF Image Reverser](http://www.galaworks.com/pdfimgrev/) (Mac)  

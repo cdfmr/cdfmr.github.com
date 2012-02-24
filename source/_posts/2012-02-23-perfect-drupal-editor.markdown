@@ -76,7 +76,7 @@ if (file_exists($_editor_path . 'plugins/syntaxhighlight/plugin.js'))
 
 4\. 进入CKEditor的配置页面，编辑`Full`配置档案，展开`EDITOR APPEARANCE`，在`Plugins`分组中勾选`Syntaxhighlight plugin`，保存设置。
 
-好了，新建一篇`Full HTML`格式的文章，看看CKEditor工具栏上最后一排是不是新增了一个`code`按钮，点击一下看看。如果看不到新增的按钮，在CKEditor的Full配置中，展开`EDITOR APPEARANCE`，在`工具栏`分组中，重新`Load sample toolbar: Full`，保存设置。
+好了，新建一篇`Full HTML`格式的文章，看看CKEditor工具栏上最后一排是不是新增了一个`code`按钮，点击一下看看。如果看不到新增的按钮，在CKEditor的`Full`配置中，展开`EDITOR APPEARANCE`，在`工具栏`分组中，重新`Load sample toolbar: Full`，保存设置。
 
 大功告成！
 

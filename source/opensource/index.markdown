@@ -7,7 +7,7 @@ sharing: true
 footer: true
 ---
 
-这里记录我的一些开源代码
+这里记录我的一些开源代码。
 
 [EZ MP3 Creator](https://github.com/cdfmr/ezmp3c) (Delphi/C++)  
 CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通过freedb查询音乐信息保存到输出文件中。

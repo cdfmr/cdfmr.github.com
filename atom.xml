@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-02-26T14:32:41+08:00</updated>
+  <updated>2012-02-27T21:10:49+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,77 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[让Mac OS X的终端多姿多彩]]></title>
+    <link href="http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/"/>
+    <updated>2012-02-27T13:57:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac</id>
+    <content type="html"><![CDATA[<p>与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。</p>
+
+<!--more-->
+
+
+<h2>彩色化ls的输出</h2>
+
+<p>Mac中BSD的ls命令可以使用<code>-G</code>参数彩色化输出的文件列表，需要配置LSCOLORS环境变量定义颜色，具体配置方法可以输入<code>man ls</code>查看。</p>
+
+<p>不过，我推荐安装Linux使用的GNU Coreutils替换Mac的ls命令，因为：</p>
+
+<ul>
+<li>Coreutils提供了配置工具，定义颜色代码更加方便；</li>
+<li>Coreutils包含的不仅仅是ls，作为曾经的Linux用户，我更习惯于使用GNU的各种shell工具。</li>
+</ul>
+
+
+<p>Coreutils的安装与配置方法如下：</p>
+
+<ol>
+<li><p>通过<a href="../../../../2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Coreutils<br/>
+<code>brew install xz coreutils</code><br/>
+注：Coreutils并不依赖于xz，但它的源码是用xz格式压缩的，安装xz才能解压。</p></li>
+<li><p>生成颜色定义文件<br/>
+<code>gdircolors --print-database &gt; ~/.dir_colors</code></p></li>
+<li><p>在<code>~/.bash_profile</code>配置文件中加入以下代码</p></li>
+</ol>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if </span>brew list | grep coreutils &gt; /dev/null ; <span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$(brew --prefix coreutils)/libexec/gnubin:$PATH&quot;</span>
+</span><span class='line'>  <span class="nb">alias </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls -F --show-control-chars --color=auto&#39;</span>
+</span><span class='line'>  <span class="nb">eval</span> <span class="sb">`</span>gdircolors -b <span class="nv">$HOME</span>/.dir_colors<span class="sb">`</span>
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>gdircolor的作用就是设置ls命令使用的环境变量LS_COLORS（BSD是LSCOLORS），我们可以修改~/.dir_colors自定义文件的颜色，此文件中的注释已经包含各种颜色取值的说明。</p>
+
+<p>看看默认颜色的显示效果。<br/>
+<img src="../../../../images/2012-02-27-colorful-terminal-in-mac_ls.png" alt="ls screenshot" /></p>
+
+<h2>grep高亮显示关键字</h2>
+
+<p>这个很简单，加上<code>--color</code>参数就可以了，为了使用方便，可以在<code>~/.bash_profile</code>配置文件中加上alias定义。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">grep</span><span class="o">=</span><span class="s1">&#39;grep --color&#39;</span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">egrep</span><span class="o">=</span><span class="s1">&#39;egrep --color&#39;</span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">fgrep</span><span class="o">=</span><span class="s1">&#39;fgrep --color&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Vim语法高亮</h2>
+
+<p>在Vim中输入命令<code>:syntax on</code>激活语法高亮，若需要Vim启动时自动激活，在<code>~/.vimrc</code>中添加一行<code>syntax on</code>即可。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Homebrew的安装与使用]]></title>
@@ -31,7 +102,7 @@
 <!--more-->
 
 
-<h3>Homebrew的安装</h3>
+<h2>Homebrew的安装</h2>
 
 <p>首先确保你的系统满足如下要求：</p>
 
@@ -53,7 +124,7 @@
 
 <p>安装过程需要输入root口令。</p>
 
-<h3>Homebrew的使用</h3>
+<h2>Homebrew的使用</h2>
 
 <p>Homebrew的可执行命令是brew，其基本使用方法如下（以wget为例）。</p>
 
@@ -84,7 +155,7 @@
 <p>更新过时的软件包（全部或指定）<br/>
 <code>brew upgrade</code> 或 <code>brew upgrade wget</code></p>
 
-<h3>定制自己的软件包</h3>
+<h2>定制自己的软件包</h2>
 
 <p>如果自己需要的软件包并不能在Homebrew中找到，怎么办呢，毕竟Homebrew是一个新生项目，不可能满足所有人的需求。当然，我们可以自行编译安装，但手工安装的软件包游离于Homebrew之外，管理起来不是很方便。</p>
 
@@ -103,6 +174,8 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 </ol>
 
 
+<h2></h2>
+
 <p>关于Homebrew的其它功能，比如将自定义软件包提交到官方发布等，请参考Homebrew项目的<a href="http://mxcl.github.com/homebrew/">主页</a>及其Man Page。你将发现Homebrew不仅是“家酿”，更是“佳酿”。</p>
 ]]></content>
   </entry>
@@ -119,13 +192,13 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 <!--more-->
 
 
-<h3>安装CKEditor</h3>
+<h2>安装CKEditor</h2>
 
 <p>CKEditor是最好的在线HTML编辑器之一，也是将要实现的Drupal编辑器的核心组成部分。</p>
 
 <p>下载<a href="http://download.cksource.com/CKEditor%20for%20Drupal/CKEditor%203.6.2%20for%20Drupal/ckeditor_3.6.2_for_drupal_7.zip">CKEditor 3.6 for Drupal 7</a>并在Drupal模块管理界面中安装（也可直接通过URL安装）。启用CKEditor，此时Drupal已经有了一个不错的所见即所得编辑器。</p>
 
-<h3>安装IMCE</h3>
+<h2>安装IMCE</h2>
 
 <p>IMCE是一个文件管理器，用于实现图像文件的上传。其实，CKEditor本身就捆绑了一个非常好的文件管理器CKFinder，但CKFinder是收费软件（CKEditor是免费/收费双重授权的，我们使用其免费授权），故使用免费的IMCE进行替换，本文也不讨论CKFinder的配置。</p>
 
@@ -133,7 +206,7 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 
 <p>进入CKEditor的配置页面，编辑<code>Advanced</code>配置档案，展开<code>FILE BROWSER SETTINGS</code>，可以看到<code>File browser type</code>设置为<code>CKFinder</code>，将其修改为<code>IMCE</code>。按同样方法修改<code>Full</code>配置档案。</p>
 
-<h3>代码高亮</h3>
+<h2>代码高亮</h2>
 
 <p>到目前为止，Drupal编辑器已经基本成型了，可以应付绝大部分的编辑需要。不过作为<del> 酷毙 </del>苦逼的码农，怎么能缺少代码高亮功能呢。</p>
 
@@ -166,7 +239,7 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>让CKEditor支持代码高亮</h3>
+<h2>让CKEditor支持代码高亮</h2>
 
 <p>这样显然不够，虽然实现了代码高亮显示，但怎样才能在CKEditor中直接输入代码呢？我们需要安装一个叫做<a href="http://code.google.com/p/ckeditor-syntaxhighlight/">ckeditor-syntaxhighlight</a>的插件。</p>
 
@@ -205,7 +278,7 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 
 <p>大功告成！</p>
 
-<h3>题外话</h3>
+<h2>题外话</h2>
 
 <p>如果你是一名程序员，不排斥控制台操作方式，并且只想简简单单地写一写博客，强烈推荐<a href="http://octopress.org">Octopress</a>，个中好处请自行<a href="http://www.google.com/search?q=Octopress">Google</a>之。</p>
 ]]></content>

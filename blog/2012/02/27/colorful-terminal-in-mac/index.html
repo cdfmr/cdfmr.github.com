@@ -5,20 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hello, Octopress! - linfan's blog</title>
+  <title>让Mac OS X的终端多姿多彩 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content=" 1
-2
-3
-4
-5
-cd octopress
-rake new_post[&quot;hello octopress&quot;]
-vi source/_post/2012-02-22-hello-octopress.markdown
-rake generate
-rake deploy ">
+  <meta name="description" content="与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。 彩色化ls的输出 Mac中BSD的ls命令可以使用- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +18,7 @@ rake deploy ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/02/22/hello-octopress">
+  <link rel="canonical" href="http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -76,7 +67,7 @@ rake deploy ">
   
   <header>
     
-      <h1 class="entry-title">Hello, Octopress!</h1>
+      <h1 class="entry-title">让Mac OS X的终端多姿多彩</h1>
     
     
       <p class="meta">
@@ -92,29 +83,76 @@ rake deploy ">
   
 
 
-<time datetime="2012-02-22T10:15:00+08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2012</time>
+<time datetime="2012-02-27T13:57:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。</p>
+
+<!--more-->
+
+
+<h2>彩色化ls的输出</h2>
+
+<p>Mac中BSD的ls命令可以使用<code>-G</code>参数彩色化输出的文件列表，需要配置LSCOLORS环境变量定义颜色，具体配置方法可以输入<code>man ls</code>查看。</p>
+
+<p>不过，我推荐安装Linux使用的GNU Coreutils替换Mac的ls命令，因为：</p>
+
+<ul>
+<li>Coreutils提供了配置工具，定义颜色代码更加方便；</li>
+<li>Coreutils包含的不仅仅是ls，作为曾经的Linux用户，我更习惯于使用GNU的各种shell工具。</li>
+</ul>
+
+
+<p>Coreutils的安装与配置方法如下：</p>
+
+<ol>
+<li><p>通过<a href="../../../../2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Coreutils<br/>
+<code>brew install xz coreutils</code><br/>
+注：Coreutils并不依赖于xz，但它的源码是用xz格式压缩的，安装xz才能解压。</p></li>
+<li><p>生成颜色定义文件<br/>
+<code>gdircolors --print-database &gt; ~/.dir_colors</code></p></li>
+<li><p>在<code>~/.bash_profile</code>配置文件中加入以下代码</p></li>
+</ol>
+
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>octopress
-</span><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;hello octopress&quot;</span><span class="o">]</span>
-</span><span class='line'>vi <span class="nb">source</span>/_post/2012-02-22-hello-octopress.markdown
-</span><span class='line'>rake generate
-</span><span class='line'>rake deploy
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if </span>brew list | grep coreutils &gt; /dev/null ; <span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$(brew --prefix coreutils)/libexec/gnubin:$PATH&quot;</span>
+</span><span class='line'>  <span class="nb">alias </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls -F --show-control-chars --color=auto&#39;</span>
+</span><span class='line'>  <span class="nb">eval</span> <span class="sb">`</span>gdircolors -b <span class="nv">$HOME</span>/.dir_colors<span class="sb">`</span>
+</span><span class='line'><span class="k">fi</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<p>gdircolor的作用就是设置ls命令使用的环境变量LS_COLORS（BSD是LSCOLORS），我们可以修改~/.dir_colors自定义文件的颜色，此文件中的注释已经包含各种颜色取值的说明。</p>
 
+<p>看看默认颜色的显示效果。<br/>
+<img src="../../../../images/2012-02-27-colorful-terminal-in-mac_ls.png" alt="ls screenshot" /></p>
+
+<h2>grep高亮显示关键字</h2>
+
+<p>这个很简单，加上<code>--color</code>参数就可以了，为了使用方便，可以在<code>~/.bash_profile</code>配置文件中加上alias定义。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">grep</span><span class="o">=</span><span class="s1">&#39;grep --color&#39;</span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">egrep</span><span class="o">=</span><span class="s1">&#39;egrep --color&#39;</span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">fgrep</span><span class="o">=</span><span class="s1">&#39;fgrep --color&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Vim语法高亮</h2>
+
+<p>在Vim中输入命令<code>:syntax on</code>激活语法高亮，若需要Vim启动时自动激活，在<code>~/.vimrc</code>中添加一行<code>syntax on</code>即可。</p>
 </div>
 
 
@@ -137,15 +175,21 @@ rake deploy ">
   
 
 
-<time datetime="2012-02-22T10:15:00+08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2012</time>
+<time datetime="2012-02-27T13:57:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2012</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/22/hello-octopress/" data-via="" data-counturl="http://linfan.info/blog/2012/02/22/hello-octopress/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/" data-via="" data-counturl="http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/" >Tweet</a>
   
   
   
@@ -154,8 +198,8 @@ rake deploy ">
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2012/02/25/homebrew-installation-and-usage/" title="Previous Post: Homebrew的安装与使用">&laquo; Homebrew的安装与使用</a>
       
-        <a class="basic-alignment right" href="/blog/2012/02/23/perfect-drupal-editor/" title="Next Post: 打造完美的Drupal编辑器">打造完美的Drupal编辑器 &raquo;</a>
       
     </p>
   </footer>
@@ -241,8 +285,8 @@ rake deploy ">
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/blog/2012/02/22/hello-octopress/';
-        var disqus_url = 'http://linfan.info/blog/2012/02/22/hello-octopress/';
+        var disqus_identifier = 'http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/';
+        var disqus_url = 'http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/';
         var disqus_script = 'embed.js';
       
     (function () {

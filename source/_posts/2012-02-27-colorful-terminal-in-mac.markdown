@@ -17,7 +17,7 @@ Mac中BSD的ls命令可以使用`-G`参数彩色化输出的文件列表，需�
 不过，我推荐安装Linux使用的GNU Coreutils替换Mac的ls命令，因为：
 
 * Coreutils提供了配置工具，定义颜色代码更加方便；  
-* Coreutils包含的不仅仅是ls，作为曾经的Linux用户，我更习惯于使用GNU的各种shell工具。
+* Coreutils包含的不仅仅是ls，同时作为Linux用户，我更习惯于使用GNU的各种shell工具。
 
 Coreutils的安装与配置方法如下：
 

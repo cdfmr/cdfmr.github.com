@@ -18,7 +18,7 @@ Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发�
 
 <!--more-->
 
-###Homebrew的安装
+## Homebrew的安装
 
 首先确保你的系统满足如下要求：
 
@@ -37,7 +37,7 @@ Homebrew的安装非常简单，在终端程序中输入以下命令即可。
 
 安装过程需要输入root口令。
 
-###Homebrew的使用
+## Homebrew的使用
 
 Homebrew的可执行命令是brew，其基本使用方法如下（以wget为例）。
 
@@ -68,7 +68,7 @@ Homebrew的可执行命令是brew，其基本使用方法如下（以wget为例�
 更新过时的软件包（全部或指定）  
 `brew upgrade` 或 `brew upgrade wget`
 
-###定制自己的软件包
+## 定制自己的软件包
 
 如果自己需要的软件包并不能在Homebrew中找到，怎么办呢，毕竟Homebrew是一个新生项目，不可能满足所有人的需求。当然，我们可以自行编译安装，但手工安装的软件包游离于Homebrew之外，管理起来不是很方便。
 
@@ -86,5 +86,7 @@ Homebrew自动建立的formula已经包含了基本的`configure`和`make instal
 
 4. 输入以下命令安装自定义的软件包  
 `brew install bar`
+
+## 
 
 关于Homebrew的其它功能，比如将自定义软件包提交到官方发布等，请参考Homebrew项目的[主页](http://mxcl.github.com/homebrew/)及其Man Page。你将发现Homebrew不仅是“家酿”，更是“佳酿”。

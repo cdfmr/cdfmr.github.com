@@ -11,13 +11,13 @@ categories: Drupal
 
 <!--more-->
 
-###安装CKEditor
+## 安装CKEditor
 
 CKEditor是最好的在线HTML编辑器之一，也是将要实现的Drupal编辑器的核心组成部分。
 
 下载[CKEditor 3.6 for Drupal 7](http://download.cksource.com/CKEditor%20for%20Drupal/CKEditor%203.6.2%20for%20Drupal/ckeditor_3.6.2_for_drupal_7.zip)并在Drupal模块管理界面中安装（也可直接通过URL安装）。启用CKEditor，此时Drupal已经有了一个不错的所见即所得编辑器。
 
-###安装IMCE
+## 安装IMCE
 
 IMCE是一个文件管理器，用于实现图像文件的上传。其实，CKEditor本身就捆绑了一个非常好的文件管理器CKFinder，但CKFinder是收费软件（CKEditor是免费/收费双重授权的，我们使用其免费授权），故使用免费的IMCE进行替换，本文也不讨论CKFinder的配置。
 
@@ -25,7 +25,7 @@ IMCE是一个文件管理器，用于实现图像文件的上传。其实，CKEd
 
 进入CKEditor的配置页面，编辑`Advanced`配置档案，展开`FILE BROWSER SETTINGS`，可以看到`File browser type`设置为`CKFinder`，将其修改为`IMCE`。按同样方法修改`Full`配置档案。
 
-###代码高亮
+## 代码高亮
 
 到目前为止，Drupal编辑器已经基本成型了，可以应付绝大部分的编辑需要。不过作为~~ 酷毙 ~~苦逼的码农，怎么能缺少代码高亮功能呢。
 
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 </code>
 {% endcodeblock %}
 
-###让CKEditor支持代码高亮
+## 让CKEditor支持代码高亮
 
 这样显然不够，虽然实现了代码高亮显示，但怎样才能在CKEditor中直接输入代码呢？我们需要安装一个叫做[ckeditor-syntaxhighlight](http://code.google.com/p/ckeditor-syntaxhighlight/)的插件。
 
@@ -80,6 +80,6 @@ if (file_exists($_editor_path . 'plugins/syntaxhighlight/plugin.js'))
 
 大功告成！
 
-###题外话
+## 题外话
 
 如果你是一名程序员，不排斥控制台操作方式，并且只想简简单单地写一写博客，强烈推荐[Octopress](http://octopress.org)，个中好处请自行[Google](http://www.google.com/search?q=Octopress)之。

@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>open source - linfan's blog</title>
+  <title>Mac OS X下使用bindfs实现mount的目录绑定功能 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="Open Source Feb 24th, 2012 这里记录我的一些开源代码。 EZ MP3 Creator (Delphi/C++)
-CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通过freedb查询音乐信息保存到输出文件中。 Galapdf (C++) &hellip;">
+  <meta name="description" content="Linux下的mount命令有一个--bind参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持--bind，不过我们可以使用bindfs实现相同的功能。 bindfs是一个基于FUSE的文件系统实现，并非Mac OS X的预装工具，但通过Homebrew安装非常简单。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/opensource">
+  <link rel="canonical" href="http://linfan.info/blog/2012/02/28/bindfs-on-mac">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,41 +63,15 @@ CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通�
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Open Source</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-24T10:18:00+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2012</time></p>
-  </header>
-  
-  <p>这里记录我的一些开源代码。</p>
-
-<p><a href="https://github.com/cdfmr/ezmp3c">EZ MP3 Creator</a> (Delphi/C++)<br/>
-CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通过freedb查询音乐信息保存到输出文件中。</p>
-
-<p><a href="https://github.com/cdfmr/galapdf">Galapdf</a> (C++)<br/>
-基于命令行的PDF文件转换工具，使用Xpdf库操作PDF文件，可将PDF文件转换为图像或文本，以及提取PDF文件中嵌入的图像，并通过FreeImage支持多种图像格式。</p>
-
-<p><a href="https://github.com/cdfmr/pas417lib">Pas417lib</a> (Delphi)<br/>
-PDF417Lib的Pascal/Delphi移植，用于生成PDF417二维码。</p>
-
-  
-    <footer>
+    
+      <h1 class="entry-title">Mac OS X下使用bindfs实现mount的目录绑定功能</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -110,21 +83,90 @@ PDF417Lib的Pascal/Delphi移植，用于生成PDF417二维码。</p>
   
 
 
-<time datetime="2012-02-24T10:18:00+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2012</time>
+<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
+
+<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="../../../../2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
+
+<!--more-->
+
+
+<p><code>brew install bindfs</code></p>
+
+<p>Homebrew会自动安装bindfs以及其依赖的gettext和fuse4x。如果出现未找到pkg-config的错误，请先输入<code>brew install pkg-config</code>安装。</p>
+
+<p>安装完成后，需要在系统启动时加载FUSE内核扩展。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp -rfX /usr/local/Cellar/fuse4x-kext/0.8.14/Library/Extensions/fuse4x.kext /System/Library/Extensions
+</span><span class='line'>sudo chmod +s /System/Library/Extensions/fuse4x.kext/Support/load_fuse4x
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>重启生效。</p>
+
+<p>bindfs的使用也非常简单，跟<code>mount --bind</code>基本一样。</p>
+
+<p><code>bindfs 源目录 挂载点</code></p>
+
+<p>更多信息可以在终端里输入<code>man bindfs</code>查阅。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/opensource/index.html" data-via="" data-counturl="http://linfan.info/opensource/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">linfan</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/28/bindfs-on-mac/" data-via="" data-counturl="http://linfan.info/blog/2012/02/28/bindfs-on-mac/" >Tweet</a>
   
   
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2012/02/27/colorful-terminal-in-mac/" title="Previous Post: 让Mac OS X的终端多姿多彩">&laquo; 让Mac OS X的终端多姿多彩</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
   <section>
@@ -211,8 +253,8 @@ PDF417Lib的Pascal/Delphi移植，用于生成PDF417二维码。</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/opensource/index.html';
-        var disqus_url = 'http://linfan.info/opensource/index.html';
+        var disqus_identifier = 'http://linfan.info/blog/2012/02/28/bindfs-on-mac/';
+        var disqus_url = 'http://linfan.info/blog/2012/02/28/bindfs-on-mac/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。 ">
+  <meta name="description" content="Linux下的mount命令有一个--bind参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持--bind，不过我们可以使用bindfs实现相同的功能。 bindfs是一个基于FUSE的文件系统实现，并非Mac OS X的预装工具，但通过Homebrew安装非常简单。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
+
+<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="../../../../2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/28/bindfs-on-mac/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -137,12 +180,6 @@
   <div class="entry-content"><p>Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发的软件。然而，如果只是以使用为目的，对每个软件都进行手工编译不是很方便，也不利于管理已安装的软件，于是出现了类似于Linux中APT、Yum等类似的软件包管理系统，其中最著名的有MacPorts、Fink、Homebrew等。</p>
 
 <p>我曾经是MacPorts的使用者，但了解Homebrew之后，立即“弃暗投明”了。其实MacPorts也是一个很不错的解决方案，除了一个实在让我头疼的特性。MacPorts有个原则，对于软件包之间的依赖，都在MacPorts内部解决（/opt/local），无论系统本身是否包含了需要的库，都不会加以利用。这使得MacPorts过分的庞大臃肿，导致系统出现大量软件包的冗余，占用不小的磁盘空间，同时稍大型一点的软件编译时间都会难以忍受。</p>
-
-<p>而Homebrew的原则恰恰相反，它尽可能地利用系统自带的各种库，使得软件包的编译时间大为缩短；同时由于几乎不会造成冗余，软件包的管理也清晰、灵活了许多。Homebrew的另一个特点是使用Ruby定义软件包安装配置（叫做formula），定制非常简单。</p>
-
-<p>至于Fink，由于并未安装使用过，不加讨论。（从互联网上的消息看，Fink由于维护人手的问题，软件包的更新不是很及时。）于我而言，Homebrew已经足够完善，除非发现重大的问题或者出现新的具有突破性的竞争对手，否则我没兴趣折腾别的软件包管理系统了。</p>
-
-<p>下面说说Homebrew的安装与使用。</p>
 
 </div>
   
@@ -260,6 +297,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/02/27/colorful-terminal-in-mac/">让Mac OS X的终端多姿多彩</a>

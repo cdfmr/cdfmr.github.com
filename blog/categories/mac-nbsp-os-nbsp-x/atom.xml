@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-02-27T21:10:49+08:00</updated>
+  <updated>2012-02-28T00:09:06+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Mac OS X下使用bindfs实现mount的目录绑定功能]]></title>
+    <link href="http://linfan.info/blog/2012/02/28/bindfs-on-mac/"/>
+    <updated>2012-02-28T00:02:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/02/28/bindfs-on-mac</id>
+    <content type="html"><![CDATA[<p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
+
+<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="../../../../2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
+
+<!--more-->
+
+
+<p><code>brew install bindfs</code></p>
+
+<p>Homebrew会自动安装bindfs以及其依赖的gettext和fuse4x。如果出现未找到pkg-config的错误，请先输入<code>brew install pkg-config</code>安装。</p>
+
+<p>安装完成后，需要在系统启动时加载FUSE内核扩展。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp -rfX /usr/local/Cellar/fuse4x-kext/0.8.14/Library/Extensions/fuse4x.kext /System/Library/Extensions
+</span><span class='line'>sudo chmod +s /System/Library/Extensions/fuse4x.kext/Support/load_fuse4x
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>重启生效。</p>
+
+<p>bindfs的使用也非常简单，跟<code>mount --bind</code>基本一样。</p>
+
+<p><code>bindfs 源目录 挂载点</code></p>
+
+<p>更多信息可以在终端里输入<code>man bindfs</code>查阅。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[让Mac OS X的终端多姿多彩]]></title>
@@ -31,7 +65,7 @@
 
 <ul>
 <li>Coreutils提供了配置工具，定义颜色代码更加方便；</li>
-<li>Coreutils包含的不仅仅是ls，作为曾经的Linux用户，我更习惯于使用GNU的各种shell工具。</li>
+<li>Coreutils包含的不仅仅是ls，同时作为Linux用户，我更习惯于使用GNU的各种shell工具。</li>
 </ul>
 
 
@@ -97,14 +131,14 @@
 
 <p>我曾经是MacPorts的使用者，但了解Homebrew之后，立即“弃暗投明”了。其实MacPorts也是一个很不错的解决方案，除了一个实在让我头疼的特性。MacPorts有个原则，对于软件包之间的依赖，都在MacPorts内部解决（/opt/local），无论系统本身是否包含了需要的库，都不会加以利用。这使得MacPorts过分的庞大臃肿，导致系统出现大量软件包的冗余，占用不小的磁盘空间，同时稍大型一点的软件编译时间都会难以忍受。</p>
 
+<!--more-->
+
+
 <p>而Homebrew的原则恰恰相反，它尽可能地利用系统自带的各种库，使得软件包的编译时间大为缩短；同时由于几乎不会造成冗余，软件包的管理也清晰、灵活了许多。Homebrew的另一个特点是使用Ruby定义软件包安装配置（叫做formula），定制非常简单。</p>
 
 <p>至于Fink，由于并未安装使用过，不加讨论。（从互联网上的消息看，Fink由于维护人手的问题，软件包的更新不是很及时。）于我而言，Homebrew已经足够完善，除非发现重大的问题或者出现新的具有突破性的竞争对手，否则我没兴趣折腾别的软件包管理系统了。</p>
 
 <p>下面说说Homebrew的安装与使用。</p>
-
-<!--more-->
-
 
 <h2>Homebrew的安装</h2>
 

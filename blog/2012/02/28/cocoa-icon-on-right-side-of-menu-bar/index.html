@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cocoa菜单栏右侧图标的实现 - linfan's blog</title>
+  <meta name="author" content="linfan">
+
+  
+  <meta name="description" content="与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。 1
+2
+3
+4
+5
+6
+NSStatusBar * &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="linfan's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">linfan's blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:linfan.info" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/opensource">Open Source</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Cocoa菜单栏右侧图标的实现</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T21:35:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSStatusBar</span> <span class="o">*</span><span class="n">statusBar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSStatusBar</span> <span class="n">systemStatusBar</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSStatusItem</span> <span class="o">*</span><span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">statusItemWithLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setImage:</span><span class="n">image</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setMenu:</span><span class="n">menu</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setHighlightMode:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用这种方法创建的图标，位于菜单栏图标区域的最左侧，如果菜单栏上图标太多，很容易就被程序菜单遮挡了。那么，有没有办法在菜单栏的右侧添加图标呢？</p>
+
+<!--more-->
+
+
+<p>根据Apple的开发文档，这是不可能实现的。不过，Apple留了后门，通过调用NSStatusBar类的一些非公开API，是可以将图标移动到菜单栏右侧的。我们来看看怎么做。</p>
+
+<p>首先要声明将要调用的非公开API。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">NSStatusBar</span> <span class="nl">(NSStatusBar_Private)</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">_statusItemWithLength:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">l</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">_insertStatusItem:</span><span class="p">(</span><span class="n">NSStatusItem</span> <span class="o">*</span><span class="p">)</span><span class="n">i</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>与NSStatusBar的常规接口相比，最关键的是新增的withPriority参数，这个参数指明了图标的优先级，实际上就是图标在菜单栏上的位置。</p>
+
+<p>那么，怎么使用这两个API呢？根据我从茫茫网络收集的资料，有不完全相同的两种方法，各有优劣。</p>
+
+<p><strong>方法一</strong></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">if</span> <span class="p">([</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_statusItemWithLength:withPriority:</span><span class="p">)]</span> <span class="o">&amp;&amp;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_insertStatusItem:withPriority:</span><span class="p">)])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">priority</span> <span class="o">=</span> <span class="n">INT_MAX</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">statusItem</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">_statusItemWithLength:</span><span class="mi">0</span> <span class="nl">withPriority:</span><span class="n">priority</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">statusBar</span> <span class="nl">removeStatusItem:</span><span class="n">statusItem</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">statusBar</span> <span class="nl">_insertStatusItem:</span><span class="n">statusItem</span> <span class="nl">withPriority:</span><span class="n">priority</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">statusItem</span> <span class="nl">setLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>方法二</strong></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">restartSystemUIServer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSTask</span> <span class="o">*</span><span class="n">killSystemUITask</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSTask</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">args</span> <span class="nl">addObject:</span><span class="s">@&quot;SystemUIServer&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">args</span> <span class="nl">addObject:</span><span class="s">@&quot;-HUP&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">killSystemUITask</span> <span class="nl">setLaunchPath:</span><span class="s">@&quot;/usr/bin/killall&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">killSystemUITask</span> <span class="nl">setArguments:</span><span class="n">args</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">killSystemUITask</span> <span class="n">launch</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">createStatusBar</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_statusItemWithLength:withPriority:</span><span class="p">)])</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">statusItem</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">_statusItemWithLength:</span><span class="mi">0</span> <span class="nl">withPriority:</span><span class="n">INT_MAX</span><span class="p">];</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">statusItem</span> <span class="nl">setLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="n">restartSystemUIServer</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>方法一不需要重新启动SystemUIServer服务，但是在Lion的全屏模式下，右侧一部分会被Spotlight的图标所遮挡；方法二没有此问题，但重启SystemUIServer服务的过程会删除菜单栏上所有图标并重建，视觉效果不好。</p>
+
+<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的&#8221;com.apple.menuextra.added&#8221;通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[[</span><span class="n">NSDistributedNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
+</span><span class='line'>                                                    <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">menuExtrasWereAddedHandler:</span><span class="p">)</span>
+</span><span class='line'>                                                        <span class="nl">name:</span><span class="s">@&quot;com.apple.menuextra.added&quot;</span>
+</span><span class='line'>                                                      <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>两种方法都在Snow Leopard和Lion操作系统中通过测试。</p>
+
+<p>另，Mac OS X系统内建的各种图标并非由上述方法创建，而使用了另一个非公开的类NSMenuExtra，可以按住⌘键拖动调整位置。</p>
+
+<p>方法一来自<a href="http://code.google.com/p/tunnelblick/">Tunnelblick</a>项目，方法二来自<a href="http://shauninman.com/archive/2011/10/20/day_o_mac_menu_bar_clock">Day-O</a>作者Shaun Inman的指导，特此感谢！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">linfan</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T21:35:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" data-via="" data-counturl="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/28/bindfs-on-mac/" title="Previous Post: Mac OS X下使用bindfs实现mount的目录绑定功能">&laquo; Mac OS X下使用bindfs实现mount的目录绑定功能</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Cocoa菜单栏右侧图标的实现</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/27/colorful-terminal-in-mac/">让Mac OS X的终端多姿多彩</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew的安装与使用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/23/perfect-drupal-editor/">打造完美的Drupal编辑器</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul>
+  <li>
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+  </li>
+  </ul>
+</section>
+<section>
+  <h1>Links</h1>
+  <ul>
+      <li class="post">
+        <a href="http://www.linasoft.com">Linasoft</a>
+      </li>
+      <li>
+        <a href="http://www.galaworks.com">Galaworks</a>
+      </li>
+  </ul>
+</section>
+
+
+
+
+
+<section>
+  <h1>Copyright</h1>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" style="margin-top: 11px"></a>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'linfan';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/';
+        var disqus_url = 'http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

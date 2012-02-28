@@ -9,7 +9,13 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="Linux下的mount命令有一个--bind参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持--bind，不过我们可以使用bindfs实现相同的功能。 bindfs是一个基于FUSE的文件系统实现，并非Mac OS X的预装工具，但通过Homebrew安装非常简单。 ">
+  <meta name="description" content="与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。 1
+2
+3
+4
+5
+6
+NSStatusBar * &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +76,64 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Cocoa菜单栏右侧图标的实现</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T21:35:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSStatusBar</span> <span class="o">*</span><span class="n">statusBar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSStatusBar</span> <span class="n">systemStatusBar</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSStatusItem</span> <span class="o">*</span><span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">statusItemWithLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setImage:</span><span class="n">image</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setMenu:</span><span class="n">menu</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setHighlightMode:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用这种方法创建的图标，位于菜单栏图标区域的最左侧，如果菜单栏上图标太多，很容易就被程序菜单遮挡了。那么，有没有办法在菜单栏的右侧添加图标呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a></h1>
     
     
@@ -93,9 +157,9 @@
   </header>
 
 
-  <div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
+  <div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="http://code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
 
-<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="../../../../2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
+<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
 
 </div>
   
@@ -299,6 +363,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Cocoa菜单栏右侧图标的实现</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a>
       </li>
     
@@ -314,17 +382,13 @@
         <a href="/blog/2012/02/23/perfect-drupal-editor/">打造完美的Drupal编辑器</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/02/22/hello-octopress/">Hello, Octopress!</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
   </li>
   </ul>
 </section>

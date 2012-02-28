@@ -21,7 +21,7 @@ Mac中BSD的ls命令可以使用`-G`参数彩色化输出的文件列表，需�
 
 Coreutils的安装与配置方法如下：
 
-1. 通过[Homebrew](../../../../2012/02/25/homebrew-installation-and-usage/)安装Coreutils  
+1. 通过[Homebrew](/blog/2012/02/25/homebrew-installation-and-usage/)安装Coreutils  
 `brew install xz coreutils`  
 注：Coreutils并不依赖于xz，但它的源码是用xz格式压缩的，安装xz才能解压。
 

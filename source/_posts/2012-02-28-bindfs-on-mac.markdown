@@ -5,9 +5,9 @@ date: 2012-02-28 00:02
 comments: true
 categories: Mac&nbsp;OS&nbsp;X
 ---
-Linux下的mount命令有一个`--bind`参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持`--bind`，不过我们可以使用[bindfs](code.google.com/p/bindfs/)实现相同的功能。
+Linux下的mount命令有一个`--bind`参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持`--bind`，不过我们可以使用[bindfs](http://code.google.com/p/bindfs/)实现相同的功能。
 
-bindfs是一个基于[FUSE](http://fuse.sourceforge.net/)的文件系统实现，并非Mac OS X的预装工具，但通过[Homebrew](../../../../2012/02/25/homebrew-installation-and-usage/)安装非常简单。
+bindfs是一个基于[FUSE](http://fuse.sourceforge.net/)的文件系统实现，并非Mac OS X的预装工具，但通过[Homebrew](/blog/2012/02/25/homebrew-installation-and-usage/)安装非常简单。
 
 <!--more-->
 

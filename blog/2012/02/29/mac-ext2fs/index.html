@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Mac OS X下使用bindfs实现mount的目录绑定功能 - linfan's blog</title>
+  <title>Mac OS X下读写ext2/ext3文件系统 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="Linux下的mount命令有一个--bind参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持--bind，不过我们可以使用bindfs实现相同的功能。 bindfs是一个基于FUSE的文件系统实现，并非Mac OS X的预装工具，但通过Homebrew安装非常简单。 &hellip;">
+  <meta name="description" content="我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。 fuse-ext2是ext2文件系统在FUSE上的实现，支持Linux和Mac OS X。FUSE是在操作系统用户态下实现的文件系统，源自Linux &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/02/28/bindfs-on-mac">
+  <link rel="canonical" href="http://linfan.info/blog/2012/02/29/mac-ext2fs">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">Mac OS X下使用bindfs实现mount的目录绑定功能</h1>
+      <h1 class="entry-title">Mac OS X下读写ext2/ext3文件系统</h1>
     
     
       <p class="meta">
@@ -83,40 +83,61 @@
   
 
 
-<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+<time datetime="2012-02-29T09:24:00+08:00" pubdate data-updated="true">Feb 29<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="http://code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
+<div class="entry-content"><p>我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。</p>
 
-<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
+<p><a href="http://fuse-ext2.sourceforge.net">fuse-ext2</a>是ext2文件系统在<a href="http://fuse.sourceforge.net">FUSE</a>上的实现，支持Linux和Mac OS X。FUSE是在操作系统用户态下实现的文件系统，源自Linux，Mac OS X的移植版本主要有三个，<a href="http://code.google.com/p/macfuse/">MacFUSE</a>、<a href="http://fuse4x.org">Fuse4X</a>和<a href="http://osxfuse.github.com">OSXFUSE</a>，其中，MacFUSE已经停止开发，后二者是MacFUSE的继承者。Fuse4X和OSXFUSE都把对FUSE最新API的支持作为项目目标，但Fuse4X不提供对MacFUSE旧版本接口的兼容，OSXFUSE则同时兼容MacFUSE旧接口。fuse-ext2二进制安装包是基于MacFUSE编译的，所以我们选择OSXFUSE，获取最佳的功能与兼容性。</p>
 
 <!--more-->
 
 
-<p><code>brew install bindfs</code></p>
+<p>分别下载<a href="https://github.com/osxfuse/osxfuse/downloads">OSXFUSE</a>和<a href="http://sourceforge.net/projects/fuse-ext2/files/">fuse-ext2</a>的.dmg二进制包并安装。<strong>注意：安装OSXFUSE时，一定要勾选<code>MacFUSE Compatibility Layer</code></strong>。安装完成后重启，就可以自动挂载ext2/ext3文件系统了。当然，也可以使用mount命令挂载，<code>mount -t fuse-ext2 &lt;device&gt; &lt;mountpoint&gt;</code>。</p>
 
-<p>Homebrew会自动安装bindfs以及其依赖的gettext和fuse4x。如果出现未找到pkg-config的错误，请先输入<code>brew install pkg-config</code>安装。</p>
-
-<p>安装完成后，需要在系统启动时加载FUSE内核扩展。</p>
+<p>默认情况下，fuse-ext2进行只读挂载，可以修改<code>/System/Library/Filesystems/fuse-ext2.fs/fuse-ext2.util</code>文件进行读写挂载。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp -rfX /usr/local/Cellar/fuse4x-kext/0.8.14/Library/Extensions/fuse4x.kext /System/Library/Extensions
-</span><span class='line'>sudo chmod +s /System/Library/Extensions/fuse4x.kext/Support/load_fuse4x
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo vi /System/Library/Filesystems/fuse-ext2.fs/fuse-ext2.util
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>重启生效。</p>
+<p>修改Mount函数（第200行前后），为OPTIONS变量增加<code>rw+</code>标志。</p>
 
-<p>bindfs的使用也非常简单，跟<code>mount --bind</code>基本一样。</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">function </span>Mount <span class="o">()</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>    LogDebug <span class="s2">&quot;[Mount] Entering function Mount...&quot;</span>
+</span><span class='line'>    <span class="c"># Setting both defer_auth and defer_permissions. The option was renamed</span>
+</span><span class='line'>    <span class="c"># starting with MacFUSE 1.0.0, and there seems to be no backward</span>
+</span><span class='line'>    <span class="c"># compatibility on the options.</span>
+</span><span class='line'>    <span class="nv">OPTIONS</span><span class="o">=</span><span class="s2">&quot;auto_xattr,defer_permissions,rw+&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c"># The local option is only enabled on Leopard. It causes strange</span>
+</span><span class='line'>    ...
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p><code>bindfs 源目录 挂载点</code></p>
 
-<p>更多信息可以在终端里输入<code>man bindfs</code>查阅。</p>
+<p>在Finder中对ext2/ext3文件系统进行写操作，时常出现<code>error code -36</code>错误，但在终端中使用命令行则没有任何问题，可能是FUSE和Mac OS X的兼容性导致。</p>
+
+<p>虽然名为fuse-ext2，实际也支持ext3的读写，只是不支持ext3文件系统的日志。</p>
+
+<p>OSXFUSE和fuse-ext2都可以在系统偏好设置中卸载。</p>
 </div>
 
 
@@ -139,7 +160,7 @@
   
 
 
-<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+<time datetime="2012-02-29T09:24:00+08:00" pubdate data-updated="true">Feb 29<span>th</span>, 2012</time>
       
 
 <span class="categories">
@@ -153,7 +174,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/28/bindfs-on-mac/" data-via="" data-counturl="http://linfan.info/blog/2012/02/28/bindfs-on-mac/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/29/mac-ext2fs/" data-via="" data-counturl="http://linfan.info/blog/2012/02/29/mac-ext2fs/" >Tweet</a>
   
   
   
@@ -162,10 +183,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/02/27/colorful-terminal-in-mac/" title="Previous Post: 让Mac OS X的终端多姿多彩">&laquo; 让Mac OS X的终端多姿多彩</a>
+        <a class="basic-alignment left" href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" title="Previous Post: Cocoa菜单栏右侧图标的实现">&laquo; Cocoa菜单栏右侧图标的实现</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" title="Next Post: Cocoa菜单栏右侧图标的实现">Cocoa菜单栏右侧图标的实现 &raquo;</a>
       
     </p>
   </footer>
@@ -255,8 +274,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/blog/2012/02/28/bindfs-on-mac/';
-        var disqus_url = 'http://linfan.info/blog/2012/02/28/bindfs-on-mac/';
+        var disqus_identifier = 'http://linfan.info/blog/2012/02/29/mac-ext2fs/';
+        var disqus_url = 'http://linfan.info/blog/2012/02/29/mac-ext2fs/';
         var disqus_script = 'embed.js';
       
     (function () {

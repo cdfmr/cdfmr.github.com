@@ -41,7 +41,7 @@ fi
 gdircolor的作用就是设置ls命令使用的环境变量LS_COLORS（BSD是LSCOLORS），我们可以修改~/.dir_colors自定义文件的颜色，此文件中的注释已经包含各种颜色取值的说明。
 
 看看默认颜色的显示效果。  
-![ls screenshot](../../../../images/2012-02-27-colorful-terminal-in-mac_ls.png)
+![ls screenshot](/blog/images/2012-02-27-colorful-terminal-in-mac_ls.png)
 
 ## grep高亮显示关键字
 

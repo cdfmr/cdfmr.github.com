@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用Wine在Mac OS X中运行Windows程序 - linfan's blog</title>
+  <meta name="author" content="linfan">
+
+  
+  <meta name="description" content="目前，在Mac OS X中运行Windows程序，不外乎两种方法。一是在虚拟机软件如VirtualBox、VMware Fusion、Parallels Desktop中安装完整的Windows操作系统；另一种则是利用Wine或其商业版本Crossover Office直接运行Windows软件 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://linfan.info/blog/2012/03/01/wine-mac">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="linfan's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">linfan's blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:linfan.info" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/opensource">Open Source</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">使用Wine在Mac OS X中运行Windows程序</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-01T00:06:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>目前，在Mac OS X中运行Windows程序，不外乎两种方法。一是在虚拟机软件如<a href="http://www.virtualbox.org">VirtualBox</a>、<a href="http://www.vmware.com/mac">VMware Fusion</a>、<a href="http://www.parallels.com/products/desktop/">Parallels Desktop</a>中安装完整的Windows操作系统；另一种则是利用<a href="http://www.winehq.org">Wine</a>或其商业版本<a href="http://www.codeweavers.com">Crossover Office</a>直接运行Windows软件。</p>
+
+<p>Wine的名字是一个有意思的缩写，Wine Is Not an Emulator，如其所表，Wine并非虚拟机，它实现功能的方法是提供对Windows API的兼容，从而使Windows程序能够运行在Linux/Mac OS X操作系统中。与虚拟机相比，Wine的运行效率和系统资源占用都有很大优势，但兼容性会差一些，不过很多软件包括Office、Photoshop之类的大型软件都能运行。<a href="http://appdb.winehq.org">这里</a>有一个Wine的兼容性列表。</p>
+
+<p>本文谈一下Wine在Mac OS X中的安装和配置。</p>
+
+<!--more-->
+
+
+<h2>Wine的安装</h2>
+
+<p>通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令就行。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine --devel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>命令中的<code>--devel</code>参数表示安装开发版，否则默认安装稳定版。Wine的开发版本也足够稳定，不必担心，而其兼容性会高于稳定版。</p>
+
+<p>安装完成后，在终端运行<code>winecfg</code>，可以调出Wine的配置面板，同时也会创建<code>~/.wine</code>目录。输入<code>wine program.exe</code>这样的命令就可以运行Windows程序了，比如<code>wine winemine.exe</code>可启动Wine自带的扫雷游戏。</p>
+
+<h2>字体平滑</h2>
+
+<p>Wine支持字体平滑，默认情况下未开启，下载这个注册表文件并使用<code>wine regedit wine_smoothfonts.reg</code>导入即可开启字体平滑。</p>
+
+<div><script src='https://gist.github.com/1947925.js?file='></script>
+<noscript><pre><code>REGEDIT4
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+&quot;FontSmoothing&quot;=&quot;2&quot;
+&quot;FontSmoothingType&quot;=dword:00000002
+&quot;FontSmoothingGamma&quot;=dword:00000578
+&quot;FontSmoothingOrientation&quot;=dword:00000001</code></pre></noscript></div>
+
+
+<h2>中文字体替换</h2>
+
+<p>使用Wine运行中文软件，发现汉字都显示成方块，这是因为Wine在使用默认的英文字体渲染汉字时，不会自动调用中文字体进行替换，我们可以在注册表中指明字体替换规则来解决。我选择了使用<a href="http://wenq.org/index.cgi?MicroHei">文泉驿微米黑</a>字体来替换，你可以根据自己的喜好进行修改，比如使用Mac OS X的冬青黑字体。</p>
+
+<p>下载<a href="http://downloads.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz">文泉驿微米黑</a>字体文件，解压其中的<code>wqy-microhei.ttc</code>文件到<code>~/.wine/drive_c/windows/Fonts</code>目录中，或者直接安装到Mac OS X系统中。然后下载下面的注册表文件，使用<code>wine regedit wine_fontsubstitutes_wqymicrohei.reg</code>导入。使用系统字体时，将文件中的<code>WenQuanYi Micro Hei</code>和<code>WenQuanYi Micro Hei Mono</code>替换成相应的系统字体名称，且不需要另外安装到<code>~/.wine</code>目录中，Wine会自动扫描系统字体。</p>
+
+<div><script src='https://gist.github.com/1947935.js?file='></script>
+<noscript><pre><code>REGEDIT4
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+&quot;Arial&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Comic Sans MS&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Courier&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;Courier New&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;Fixedsys&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Helv&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Helvetica&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Lucida Console&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;Lucida Sans&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Microsoft Sans Serif&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MingLiU&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;PMingLiu&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;MS Shell Dlg&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Shell Dlg 2&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Dialog&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Gothic&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS PGothic&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;MS UI Gothic&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Mincho&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS PMincho&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;SimHei&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;SimSun&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;NSimSun&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;System&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Tahoma&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Times&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Times New Roman&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Tms Rmn&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Trebuchet MS&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Verdana&quot;=&quot;WenQuanYi Micro Hei&quot;</code></pre></noscript></div>
+
+
+<p>此外，需要在<code>~/.bash_profile</code>中增加以下两行，否则文件名中的汉字还是乱码。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">LC_CTYPE</span><span class="o">=</span>en_US.UTF-8
+</span><span class='line'><span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>输入法</h2>
+
+<p>Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在<code>system "make install"</code>之前增加一行<code>system "make"</code>。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install fcitx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装完成后，在<code>~/.bash_profile</code>中增加一行。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&quot;@im=fcitx&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装完成后，运行<code>fcitx</code>，之后按<code>⌃C</code>结束，这会让Fcitx创建它的配置文件。编辑<code>~/.fcitx/profile</code>，将<code>主窗口位置Y</code>的值修改为22以上，这样Fcitx的状态条就不会被菜单栏挡住了（菜单栏的高度是22）。Fcitx的所有设置都可以在<code>~/.fcitx/profile</code>和<code>~/.fcitx/config</code>这两个文件中修改，请参考Fcitx的相关文档。</p>
+
+<p>需要输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.x.X11 app_to_run /usr/local/bin/fcitx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果使用XQuartz而非系统预装的X11，输入以下命令设置。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.macosforge.xquartz.X11 app_to_run /usr/local/bin/fcitx
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>程序菜单</h2>
+
+<p>将常用的Windows程序放置到X11的<code>应用程序</code>菜单中，就不需要使用命令行操作了；也可以利用Automator把它们包装成Mac应用。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">linfan</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-01T00:06:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/01/wine-mac/" data-via="" data-counturl="http://linfan.info/blog/2012/03/01/wine-mac/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/29/mac-ext2fs/" title="Previous Post: Mac OS X下读写ext2/ext3文件系统">&laquo; Mac OS X下读写ext2/ext3文件系统</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/03/01/wine-mac/">使用Wine在Mac OS X中运行Windows程序</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/29/mac-ext2fs/">Mac OS X下读写ext2/ext3文件系统</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Cocoa菜单栏右侧图标的实现</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/27/colorful-terminal-in-mac/">让Mac OS X的终端多姿多彩</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul>
+  <li>
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>
+  </li>
+  </ul>
+</section>
+<section>
+  <h1>Links</h1>
+  <ul>
+      <li class="post">
+        <a href="http://www.linasoft.com">Linasoft</a>
+      </li>
+      <li>
+        <a href="http://www.galaworks.com">Galaworks</a>
+      </li>
+  </ul>
+</section>
+
+
+
+
+
+<section>
+  <h1>Copyright</h1>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" style="margin-top: 11px"></a>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'linfan';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://linfan.info/blog/2012/03/01/wine-mac/';
+        var disqus_url = 'http://linfan.info/blog/2012/03/01/wine-mac/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

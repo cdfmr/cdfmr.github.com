@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-02-29T20:47:52+08:00</updated>
+  <updated>2012-03-01T22:03:24+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,136 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[使用Wine在Mac OS X中运行Windows程序]]></title>
+    <link href="http://linfan.info/blog/2012/03/01/wine-mac/"/>
+    <updated>2012-03-01T00:06:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/03/01/wine-mac</id>
+    <content type="html"><![CDATA[<p>目前，在Mac OS X中运行Windows程序，不外乎两种方法。一是在虚拟机软件如<a href="http://www.virtualbox.org">VirtualBox</a>、<a href="http://www.vmware.com/mac">VMware Fusion</a>、<a href="http://www.parallels.com/products/desktop/">Parallels Desktop</a>中安装完整的Windows操作系统；另一种则是利用<a href="http://www.winehq.org">Wine</a>或其商业版本<a href="http://www.codeweavers.com">Crossover Office</a>直接运行Windows软件。</p>
+
+<p>Wine的名字是一个有意思的缩写，Wine Is Not an Emulator，如其所表，Wine并非虚拟机，它实现功能的方法是提供对Windows API的兼容，从而使Windows程序能够运行在Linux/Mac OS X操作系统中。与虚拟机相比，Wine的运行效率和系统资源占用都有很大优势，但兼容性会差一些，不过很多软件包括Office、Photoshop之类的大型软件都能运行。<a href="http://appdb.winehq.org">这里</a>有一个Wine的兼容性列表。</p>
+
+<p>本文谈一下Wine在Mac OS X中的安装和配置。</p>
+
+<!--more-->
+
+
+<h2>Wine的安装</h2>
+
+<p>通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令就行。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine --devel
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>命令中的<code>--devel</code>参数表示安装开发版，否则默认安装稳定版。Wine的开发版本也足够稳定，不必担心，而其兼容性会高于稳定版。</p>
+
+<p>安装完成后，在终端运行<code>winecfg</code>，可以调出Wine的配置面板，同时也会创建<code>~/.wine</code>目录。输入<code>wine program.exe</code>这样的命令就可以运行Windows程序了，比如<code>wine winemine.exe</code>可启动Wine自带的扫雷游戏。</p>
+
+<h2>字体平滑</h2>
+
+<p>Wine支持字体平滑，默认情况下未开启，下载这个注册表文件并使用<code>wine regedit wine_smoothfonts.reg</code>导入即可开启字体平滑。</p>
+
+<p><div><script src='https://gist.github.com/1947925.js?file='></script>
+<noscript><pre><code>REGEDIT4
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+&quot;FontSmoothing&quot;=&quot;2&quot;
+&quot;FontSmoothingType&quot;=dword:00000002
+&quot;FontSmoothingGamma&quot;=dword:00000578
+&quot;FontSmoothingOrientation&quot;=dword:00000001</code></pre></noscript></div>
+</p>
+
+<h2>中文字体替换</h2>
+
+<p>使用Wine运行中文软件，发现汉字都显示成方块，这是因为Wine在使用默认的英文字体渲染汉字时，不会自动调用中文字体进行替换，我们可以在注册表中指明字体替换规则来解决。我选择了使用<a href="http://wenq.org/index.cgi?MicroHei">文泉驿微米黑</a>字体来替换，你可以根据自己的喜好进行修改，比如使用Mac OS X的冬青黑字体。</p>
+
+<p>下载<a href="http://downloads.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz">文泉驿微米黑</a>字体文件，解压其中的<code>wqy-microhei.ttc</code>文件到<code>~/.wine/drive_c/windows/Fonts</code>目录中，或者直接安装到Mac OS X系统中。然后下载下面的注册表文件，使用<code>wine regedit wine_fontsubstitutes_wqymicrohei.reg</code>导入。使用系统字体时，将文件中的<code>WenQuanYi Micro Hei</code>和<code>WenQuanYi Micro Hei Mono</code>替换成相应的系统字体名称，且不需要另外安装到<code>~/.wine</code>目录中，Wine会自动扫描系统字体。</p>
+
+<p><div><script src='https://gist.github.com/1947935.js?file='></script>
+<noscript><pre><code>REGEDIT4
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
+&quot;Arial&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Comic Sans MS&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Courier&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;Courier New&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;Fixedsys&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Helv&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Helvetica&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Lucida Console&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;Lucida Sans&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Microsoft Sans Serif&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MingLiU&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;PMingLiu&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;MS Shell Dlg&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Shell Dlg 2&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Dialog&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Gothic&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS PGothic&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;MS UI Gothic&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS Mincho&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;MS PMincho&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;SimHei&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;SimSun&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;NSimSun&quot;=&quot;WenQuanYi Micro Hei Mono&quot;
+&quot;System&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Tahoma&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Times&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Times New Roman&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Tms Rmn&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Trebuchet MS&quot;=&quot;WenQuanYi Micro Hei&quot;
+&quot;Verdana&quot;=&quot;WenQuanYi Micro Hei&quot;</code></pre></noscript></div>
+</p>
+
+<p>此外，需要在<code>~/.bash_profile</code>中增加以下两行，否则文件名中的汉字还是乱码。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">LC_CTYPE</span><span class="o">=</span>en_US.UTF-8
+</span><span class='line'><span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>输入法</h2>
+
+<p>Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在<code>system "make install"</code>之前增加一行<code>system "make"</code>。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install fcitx
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>安装完成后，在<code>~/.bash_profile</code>中增加一行。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&quot;@im=fcitx&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>安装完成后，运行<code>fcitx</code>，之后按<code>⌃C</code>结束，这会让Fcitx创建它的配置文件。编辑<code>~/.fcitx/profile</code>，将<code>主窗口位置Y</code>的值修改为22以上，这样Fcitx的状态条就不会被菜单栏挡住了（菜单栏的高度是22）。Fcitx的所有设置都可以在<code>~/.fcitx/profile</code>和<code>~/.fcitx/config</code>这两个文件中修改，请参考Fcitx的相关文档。</p>
+
+<p>需要输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.x.X11 app_to_run /usr/local/bin/fcitx
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>如果使用XQuartz而非系统预装的X11，输入以下命令设置。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.macosforge.xquartz.X11 app_to_run /usr/local/bin/fcitx
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>程序菜单</h2>
+
+<p>将常用的Windows程序放置到X11的<code>应用程序</code>菜单中，就不需要使用命令行操作了；也可以利用Automator把它们包装成Mac应用。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac OS X下读写ext2/ext3文件系统]]></title>
@@ -346,7 +476,7 @@
 <p>gdircolor的作用就是设置ls命令使用的环境变量LS_COLORS（BSD是LSCOLORS），我们可以修改~/.dir_colors自定义文件的颜色，此文件中的注释已经包含各种颜色取值的说明。</p>
 
 <p>看看默认颜色的显示效果。<br/>
-<img src="../../../../images/2012-02-27-colorful-terminal-in-mac_ls.png" alt="ls screenshot" /></p>
+<img src="/blog/images/2012-02-27-colorful-terminal-in-mac_ls.png" alt="ls screenshot" /></p>
 
 <h2>grep高亮显示关键字</h2>
 
@@ -363,102 +493,6 @@
 <h2>Vim语法高亮</h2>
 
 <p>在Vim中输入命令<code>:syntax on</code>激活语法高亮，若需要Vim启动时自动激活，在<code>~/.vimrc</code>中添加一行<code>syntax on</code>即可。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Homebrew的安装与使用]]></title>
-    <link href="http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/"/>
-    <updated>2012-02-25T19:50:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage</id>
-    <content type="html"><![CDATA[<p>Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发的软件。然而，如果只是以使用为目的，对每个软件都进行手工编译不是很方便，也不利于管理已安装的软件，于是出现了类似于Linux中APT、Yum等类似的软件包管理系统，其中最著名的有MacPorts、Fink、Homebrew等。</p>
-
-<p>我曾经是MacPorts的使用者，但了解Homebrew之后，立即“弃暗投明”了。其实MacPorts也是一个很不错的解决方案，除了一个实在让我头疼的特性。MacPorts有个原则，对于软件包之间的依赖，都在MacPorts内部解决（/opt/local），无论系统本身是否包含了需要的库，都不会加以利用。这使得MacPorts过分的庞大臃肿，导致系统出现大量软件包的冗余，占用不小的磁盘空间，同时稍大型一点的软件编译时间都会难以忍受。</p>
-
-<!--more-->
-
-
-<p>而Homebrew的原则恰恰相反，它尽可能地利用系统自带的各种库，使得软件包的编译时间大为缩短；同时由于几乎不会造成冗余，软件包的管理也清晰、灵活了许多。Homebrew的另一个特点是使用Ruby定义软件包安装配置（叫做formula），定制非常简单。</p>
-
-<p>至于Fink，由于并未安装使用过，不加讨论。（从互联网上的消息看，Fink由于维护人手的问题，软件包的更新不是很及时。）于我而言，Homebrew已经足够完善，除非发现重大的问题或者出现新的具有突破性的竞争对手，否则我没兴趣折腾别的软件包管理系统了。</p>
-
-<p>下面说说Homebrew的安装与使用。</p>
-
-<h2>Homebrew的安装</h2>
-
-<p>首先确保你的系统满足如下要求：</p>
-
-<ol>
-<li>基于Intel CPU</li>
-<li>操作系统为Mac OS X 10.5 Leopard或更高版本</li>
-<li>已安装版本管理工具Git（Mac OS X 10.7 Lion已经预安装）</li>
-<li>已安装Xcode开发工具<sup>1</sup></li>
-<li>已安装Java Developer Update<sup>2</sup></li>
-</ol>
-
-
-<p>注1：Xcode 4.3中，命令行编译工具是可选安装，需要在<code>Preferences</code> > <code>Downloads</code>中激活。<br/>
-注2：可选，Homebrew本身不依赖于Java，只有部分软件包的安装需要Java支持。</p>
-
-<p>Homebrew的安装非常简单，在终端程序中输入以下命令即可。</p>
-
-<p><code>/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"</code></p>
-
-<p>安装过程需要输入root口令。</p>
-
-<h2>Homebrew的使用</h2>
-
-<p>Homebrew的可执行命令是brew，其基本使用方法如下（以wget为例）。</p>
-
-<p>查找软件包<br/>
-<code>brew search wget</code></p>
-
-<p>安装软件包<br/>
-<code>brew install wget</code></p>
-
-<p>列出已安装的软件包<br/>
-<code>brew list</code></p>
-
-<p>删除软件包<br/>
-<code>brew remove wget</code></p>
-
-<p>查看软件包信息<br/>
-<code>brew info wget</code></p>
-
-<p>列出软件包的依赖关系<br/>
-<code>brew deps wget</code></p>
-
-<p>更新brew<br/>
-<code>brew update</code></p>
-
-<p>列出过时的软件包（已安装但不是最新版本）<br/>
-<code>brew outdated</code></p>
-
-<p>更新过时的软件包（全部或指定）<br/>
-<code>brew upgrade</code> 或 <code>brew upgrade wget</code></p>
-
-<h2>定制自己的软件包</h2>
-
-<p>如果自己需要的软件包并不能在Homebrew中找到，怎么办呢，毕竟Homebrew是一个新生项目，不可能满足所有人的需求。当然，我们可以自行编译安装，但手工安装的软件包游离于Homebrew之外，管理起来不是很方便。</p>
-
-<p>前文说过，Homebrew使用Ruby实现的软件包配置非常方便，下面简单谈一谈软件包的定制（假定软件包名称是bar，来自foo站点）。</p>
-
-<ol>
-<li><p>首先找到待安装软件的源码下载地址<br/>
-<code>http://foo.com/bar-1.0.tgz</code></p></li>
-<li><p>建立自己的formula<br/>
-<code>brew create http://foo.com/bar-1.0.tgz</code></p></li>
-<li><p>编辑formula，上一步建立成功后，Homebrew会自动打开新建的formula进行编辑，也可用如下命令打开formula进行编辑。<br/>
-<code>brew edit bar</code><br/>
-Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<code>make install</code>命令，对于大部分软件，不需要进行修改，退出编辑即可。</p></li>
-<li><p>输入以下命令安装自定义的软件包<br/>
-<code>brew install bar</code></p></li>
-</ol>
-
-
-<h2></h2>
-
-<p>关于Homebrew的其它功能，比如将自定义软件包提交到官方发布等，请参考Homebrew项目的<a href="http://mxcl.github.com/homebrew/">主页</a>及其Man Page。你将发现Homebrew不仅是“家酿”，更是“佳酿”。</p>
 ]]></content>
   </entry>
   

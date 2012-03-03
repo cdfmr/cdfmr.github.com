@@ -67,7 +67,7 @@ brew install fcitx
 export XMODIFIERS="@im=fcitx"
 {% endcodeblock %}
 
-安装完成后，运行`fcitx`，之后按`⌃C`结束，这会让Fcitx创建它的配置文件。编辑`~/.fcitx/profile`，将`主窗口位置Y`的值修改为22以上，这样Fcitx的状态条就不会被菜单栏挡住了（菜单栏的高度是22）。Fcitx的所有设置都可以在`~/.fcitx/profile`和`~/.fcitx/config`这两个文件中修改，请参考Fcitx的相关文档。
+安装完成后，运行`fcitx`，之后按`⌃C`结束，这会让Fcitx创建它的配置文件。编辑`~/.fcitx/profile`，将`主窗口位置Y`的值修改为22以上，这样Fcitx的状态条就不会被菜单栏挡住了（菜单栏的高度是22）。新版XQuartz中，这个步骤不是必须，因为X服务器在计算坐标时已经考虑了菜单栏的存在。Fcitx的所有设置都可以在`~/.fcitx/profile`和`~/.fcitx/config`这两个文件中修改，请参考Fcitx的相关文档。
 
 需要输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。
 

@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-03-02T22:50:43+08:00</updated>
+  <updated>2012-03-03T18:16:21+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -29,7 +29,7 @@
 
 <h2>Wine的安装</h2>
 
-<p>通过<a href="http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令就行。</p>
+<p>通过<a href="http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令即可。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine --devel
@@ -121,7 +121,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>安装完成后，在<code>~/.bash_profile</code>中增加一行。</p>
+<p>在<code>~/.bash_profile</code>中增加一行。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&quot;@im=fcitx&quot;</span>
@@ -130,7 +130,7 @@
 
 <p>安装完成后，运行<code>fcitx</code>，之后按<code>⌃C</code>结束，这会让Fcitx创建它的配置文件。编辑<code>~/.fcitx/profile</code>，将<code>主窗口位置Y</code>的值修改为22以上，这样Fcitx的状态条就不会被菜单栏挡住了（菜单栏的高度是22）。新版XQuartz中，这个步骤不是必须，因为X服务器在计算坐标时已经考虑了菜单栏的存在。Fcitx的所有设置都可以在<code>~/.fcitx/profile</code>和<code>~/.fcitx/config</code>这两个文件中修改，请参考Fcitx的相关文档。</p>
 
-<p>需要输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。</p>
+<p>输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.x.X11 app_to_run /usr/local/bin/fcitx

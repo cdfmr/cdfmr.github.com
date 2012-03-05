@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>open source - linfan's blog</title>
+  <title>HP-UX中SFTP的一个小问题 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="Open Source Feb 24th, 2012 这里记录我的一些开源代码。 EZ MP3 Creator (Delphi/C++)
-CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通过freedb查询音乐信息保存到输出文件中。 Galapdf (C++) &hellip;">
+  <meta name="description" content="最近工作的一个项目，使用libssh2在HP-UX环境下实现SFTP的文件传输。测试时发现一个问题，使用libssh2_sftp_rename重命名文件时，若目标文件已经存在，总是不能成功。使用libssh2_sftp_last_error得到的错误代码是LIBSSH2_FX_FAILURE(4 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/opensource">
+  <link rel="canonical" href="http://linfan.info/blog/2012/03/05/hpux-sftp">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,41 +63,15 @@ CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通�
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Open Source</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-24T10:18:00+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2012</time></p>
-  </header>
-  
-  <p>这里记录我的一些开源代码。</p>
-
-<p><a href="https://github.com/cdfmr/ezmp3c">EZ MP3 Creator</a> (Delphi/C++)<br/>
-CD音乐抓取/转换工具，支持输出为MP3/Ogg/WMA/Wave格式，并可通过freedb查询音乐信息保存到输出文件中。</p>
-
-<p><a href="https://github.com/cdfmr/galapdf">Galapdf</a> (C++)<br/>
-基于命令行的PDF文件转换工具，使用Xpdf库操作PDF文件，可将PDF文件转换为图像或文本，以及提取PDF文件中嵌入的图像，并通过FreeImage支持多种图像格式。</p>
-
-<p><a href="https://github.com/cdfmr/pas417lib">Pas417lib</a> (Delphi)<br/>
-PDF417Lib的Pascal/Delphi移植，用于生成PDF417二维码。</p>
-
-  
-    <footer>
+    
+      <h1 class="entry-title">HP-UX中SFTP的一个小问题</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -110,21 +83,89 @@ PDF417Lib的Pascal/Delphi移植，用于生成PDF417二维码。</p>
   
 
 
-<time datetime="2012-02-24T10:18:00+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2012</time>
+<time datetime="2012-03-05T22:44:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2012</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>最近工作的一个项目，使用<a href="http://www.libssh2.org">libssh2</a>在HP-UX环境下实现SFTP的文件传输。测试时发现一个问题，使用libssh2_sftp_rename重命名文件时，若目标文件已经存在，总是不能成功。使用libssh2_sftp_last_error得到的错误代码是LIBSSH2_FX_FAILURE(4)，基本没有参考价值；另外可排除用户权限因素。</p>
+
+<!--more-->
+
+
+<p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续查阅libssh2_sftp_rename_ex的实现代码，逐步追查到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">sftp</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">_libssh2_store_u32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sftp</span><span class="o">-&gt;</span><span class="n">rename_s</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到下列输出。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">sftp</span><span class="o">&gt;</span> <span class="n">version</span>
+</span><span class='line'><span class="n">SFTP</span> <span class="n">protocol</span> <span class="n">version</span> <span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>显然，SFTP服务协议版本就是造成这个问题的原因，解决办法很简单，重命名文件之前调用libssh2_sftp_unlink删除目标文件即可。libssh2应该在文档中说明SFTP服务协议版本对不同函数的影响。</p>
+
+<p>此问题在HP-UX B.11.31/IA-64和B.11.11/PA-RISC中都存在。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/opensource/index.html" data-via="" data-counturl="http://linfan.info/opensource/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">linfan</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-05T22:44:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/05/hpux-sftp/" data-via="" data-counturl="http://linfan.info/blog/2012/03/05/hpux-sftp/" >Tweet</a>
   
   
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/blog/2012/03/01/wine-mac/" title="Previous Post: 使用Wine在Mac OS X中运行Windows程序">&laquo; 使用Wine在Mac OS X中运行Windows程序</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
   <section>
@@ -211,8 +252,8 @@ PDF417Lib的Pascal/Delphi移植，用于生成PDF417二维码。</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/opensource/index.html';
-        var disqus_url = 'http://linfan.info/opensource/index.html';
+        var disqus_identifier = 'http://linfan.info/blog/2012/03/05/hpux-sftp/';
+        var disqus_url = 'http://linfan.info/blog/2012/03/05/hpux-sftp/';
         var disqus_script = 'embed.js';
       
     (function () {

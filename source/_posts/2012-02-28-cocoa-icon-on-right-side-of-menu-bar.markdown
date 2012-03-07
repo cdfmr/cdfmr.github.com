@@ -85,7 +85,7 @@ if ([statusBar respondsToSelector:@selector(_statusItemWithLength:withPriority:)
 
 方法一不需要重新启动SystemUIServer服务，但是在Lion的全屏模式下，右侧一部分会被Spotlight的图标所遮挡；方法二没有此问题，但重启SystemUIServer服务的过程会删除菜单栏上所有图标并重建，视觉效果不好。
 
-另外，方法一在Snow Leopard下运行时，如果用户输入`killall SystemUIServer`重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的"com.apple.menuextra.added"通知（这个通知也是非公开的），调用方法一重新添加图标。
+另外，方法一在Snow Leopard下运行时，如果用户输入`killall SystemUIServer`重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。
 
 {% codeblock lang:objc %}
 [[NSDistributedNotificationCenter defaultCenter] addObserver:self

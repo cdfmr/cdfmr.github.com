@@ -223,7 +223,7 @@ NSStatusBar * &hellip;">
 
 <p>方法一不需要重新启动SystemUIServer服务，但是在Lion的全屏模式下，右侧一部分会被Spotlight的图标所遮挡；方法二没有此问题，但重启SystemUIServer服务的过程会删除菜单栏上所有图标并重建，视觉效果不好。</p>
 
-<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的&#8221;com.apple.menuextra.added&#8221;通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
+<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -310,6 +310,10 @@ NSStatusBar * &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/07/xcode-tips/">Xcode的点滴记录</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/03/05/hpux-sftp/">HP-UX中SFTP的一个小问题</a>
       </li>
     
@@ -325,17 +329,13 @@ NSStatusBar * &hellip;">
         <a href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Cocoa菜单栏右侧图标的实现</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

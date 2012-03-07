@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>HP-UX中SFTP的一个小问题 - linfan's blog</title>
+  <title>Xcode的点滴记录 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="最近工作的一个项目，使用libssh2在HP-UX环境下实现SFTP的文件传输。测试时发现一个问题，使用libssh2_sftp_rename重命名文件时，若目标文件已经存在，总是不能成功。使用libssh2_sftp_last_error得到的错误代码是LIBSSH2_FX_FAILURE(4 &hellip;">
+  <meta name="description" content="升级到Lion以及Xcode 4之后，发现Xcode 4在配置上与Xcode 3有些不同，记录于此备忘。 代码中的公司名称 Xcode生成代码时，自动在文件头插入注释，其中的公司名称需要设置，否则以__MyCompanyName__代替。 Xcode 3中设置ORGANIZATIONNAME宏定义 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/03/05/hpux-sftp">
+  <link rel="canonical" href="http://linfan.info/blog/2012/03/07/xcode-tips">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">HP-UX中SFTP的一个小问题</h1>
+      <h1 class="entry-title">Xcode的点滴记录</h1>
     
     
       <p class="meta">
@@ -83,39 +83,102 @@
   
 
 
-<time datetime="2012-03-05T22:44:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2012</time>
+<time datetime="2012-03-07T09:58:00+08:00" pubdate data-updated="true">Mar 7<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>最近工作的一个项目，使用<a href="http://www.libssh2.org">libssh2</a>在HP-UX环境下实现SFTP的文件传输。测试时发现一个问题，使用libssh2_sftp_rename重命名文件时，若目标文件已经存在，总是不能成功。使用libssh2_sftp_last_error得到的错误代码是LIBSSH2_FX_FAILURE(4)，基本没有参考价值；另外可排除用户权限因素。</p>
+<div class="entry-content"><p>升级到Lion以及Xcode 4之后，发现Xcode 4在配置上与Xcode 3有些不同，记录于此备忘。</p>
 
 <!--more-->
 
 
-<p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续追查libssh2_sftp_rename_ex的实现，逐步跟踪到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
+<h2>代码中的公司名称</h2>
+
+<p>Xcode生成代码时，自动在文件头插入注释，其中的公司名称需要设置，否则以<code>__MyCompanyName__</code>代替。</p>
+
+<p>Xcode 3中设置ORGANIZATIONNAME宏定义。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">sftp</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">_libssh2_store_u32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sftp</span><span class="o">-&gt;</span><span class="n">rename_s</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode PBXCustomTemplateMacroDefinitions <span class="s1">&#39;{ORGANIZATIONNAME=&quot;YourNameHere&quot;;}&#39;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到以下输出。</p>
+<p>Xcode 4不再使用此宏定义，直接读取系统地址簿中的公司信息，所以需要在地址簿中给自己设定一个公司名称。</p>
+
+<p>Xcode 3和Xcode 4都可以针对项目单独设置公司名称，其中Xcode 3的设置项是项目信息窗口中<code>General</code>选项卡的<code>Organization Name</code>，而Xcode 4是右边栏项目文件信息中<code>Project Document</code>分组下的<code>Organization</code>。</p>
+
+<h2>让大括号另起一行</h2>
+
+<p>使用Xcode自动完成功能生成的代码，左大括号是位于行末的。如果要让大括号另起一行，Xcode 3与Xcode 4的设置并不相同。</p>
+
+<p>Xcode 3的设置：</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">sftp</span><span class="o">&gt;</span> <span class="n">version</span>
-</span><span class='line'><span class="n">SFTP</span> <span class="n">protocol</span> <span class="n">version</span> <span class="mi">3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode XCCodeSenseFormattingOptions -dict BlockSeparator <span class="s2">&quot;\n&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>显然，SFTP服务协议版本就是造成这个问题的原因，解决办法很简单，重命名文件之前调用libssh2_sftp_unlink删除目标文件即可。libssh2应该在文档中说明SFTP服务协议版本对相关函数的影响。</p>
+<p>Xcode 4中，自动完成功能是由代码片段库<code>Code Snippet Library</code>控制的，因此需要修改相应的代码片段模板。点击代码片段，会弹出窗口显示其内容，并提供编辑功能。但是，Apple并不允许我们修改内建的代码模板。不过，我们可以绕过Xcode进行修改。Xcode 4内建的代码片段保存在/Developer/Library/Xcode/PrivatePlugIns/IDECodeSnippetLibrary.ideplugin/Contents/Resources/SystemCodeSnippets.codesnippets文件中，这是一个plist文件，直接编辑即可。<a href="https://gist.github.com/1992813">这里</a>是我修改好的文件。</p>
 
-<p>此问题在HP-UX B.11.31/IA-64和B.11.11/PA-RISC中都存在。</p>
+<h2>烦人的调试权限问题</h2>
+
+<p>将Lion升级到10.7.3之后，每次在Xcode 4中运行程序都会弹出如下信息提示，输入用户密码才能继续。</p>
+
+<pre><code>“Developer Tools Access”需控制另一进程，才能继续调试。键入您的密码以允许执行此操作。
+</code></pre>
+
+<p>以及</p>
+
+<pre><code>“gdb-i386-apple-darwin”需控制另一进程，才能继续调试。键入您的密码以允许执行此操作。
+</code></pre>
+
+<p><a href="http://stackoverflow.com/questions/9132826/stop-developer-tools-access-needs-to-take-control-of-another-process-for-debugg">Stack Overflow</a>上给出了两种解决方案。</p>
+
+<ul>
+<li><p>重新安装Xcode</p></li>
+<li><p>按如下方法修改/etc/authorization文件</p></li>
+</ul>
+
+
+<div><script src='https://gist.github.com/1992771.js?file='></script>
+<noscript><pre><code>--- /etc/authorization.bak 2012-03-07 10:44:43.000000000 +0800
++++ /etc/authorization  2012-03-07 10:50:41.000000000 +0800
+@@ -7568,7 +7568,7 @@
+            &lt;key&gt;allow-root&lt;/key&gt;
+            &lt;false/&gt;
+            &lt;key&gt;class&lt;/key&gt;
+-           &lt;string&gt;user&lt;/string&gt;
++           &lt;string&gt;rule&lt;/string&gt;
+            &lt;key&gt;comment&lt;/key&gt;
+            &lt;string&gt;For use by Apple.  WARNING: administrators are advised
+             not to modify this right.&lt;/string&gt;
+@@ -7698,12 +7698,16 @@
+                &lt;key&gt;zh-Hant&lt;/key&gt;
+                &lt;string&gt;“__APPNAME__”需要控制另一個程序才能繼續除錯。&lt;/string&gt;
+            &lt;/dict&gt;
+-           &lt;key&gt;group&lt;/key&gt;
+-           &lt;string&gt;_developer&lt;/string&gt;
+            &lt;key&gt;shared&lt;/key&gt;
+            &lt;true/&gt;
+-           &lt;key&gt;timeout&lt;/key&gt;
+-           &lt;integer&gt;36000&lt;/integer&gt;
++           &lt;key&gt;k-of-n&lt;/key&gt;
++           &lt;integer&gt;1&lt;/integer&gt;
++           &lt;key&gt;rule&lt;/key&gt;
++           &lt;array&gt;
++               &lt;string&gt;is-admin&lt;/string&gt;
++               &lt;string&gt;is-developer&lt;/string&gt;
++               &lt;string&gt;authenticate-developer&lt;/string&gt;
++           &lt;/array&gt;
+        &lt;/dict&gt;
+        &lt;key&gt;system.privilege.taskport.safe&lt;/key&gt;
+        &lt;dict&gt;</code></pre></noscript></div>
+
+
+<p>没有验证第一种方法，第二种方法经验证有效（修改前切记备份原文件）。</p>
 </div>
 
 
@@ -138,12 +201,12 @@
   
 
 
-<time datetime="2012-03-05T22:44:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2012</time>
+<time datetime="2012-03-07T09:58:00+08:00" pubdate data-updated="true">Mar 7<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>
+    <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   
 </span>
 
@@ -152,7 +215,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/05/hpux-sftp/" data-via="" data-counturl="http://linfan.info/blog/2012/03/05/hpux-sftp/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/07/xcode-tips/" data-via="" data-counturl="http://linfan.info/blog/2012/03/07/xcode-tips/" >Tweet</a>
   
   
   
@@ -161,10 +224,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/01/wine-mac/" title="Previous Post: 使用Wine在Mac OS X中运行Windows程序">&laquo; 使用Wine在Mac OS X中运行Windows程序</a>
+        <a class="basic-alignment left" href="/blog/2012/03/05/hpux-sftp/" title="Previous Post: HP-UX中SFTP的一个小问题">&laquo; HP-UX中SFTP的一个小问题</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/03/07/xcode-tips/" title="Next Post: Xcode的点滴记录">Xcode的点滴记录 &raquo;</a>
       
     </p>
   </footer>
@@ -254,8 +315,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/blog/2012/03/05/hpux-sftp/';
-        var disqus_url = 'http://linfan.info/blog/2012/03/05/hpux-sftp/';
+        var disqus_identifier = 'http://linfan.info/blog/2012/03/07/xcode-tips/';
+        var disqus_url = 'http://linfan.info/blog/2012/03/07/xcode-tips/';
         var disqus_script = 'embed.js';
       
     (function () {

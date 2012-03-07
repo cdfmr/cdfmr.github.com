@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-03-05T23:28:58+08:00</updated>
+  <updated>2012-03-07T21:06:47+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,101 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode的点滴记录]]></title>
+    <link href="http://linfan.info/blog/2012/03/07/xcode-tips/"/>
+    <updated>2012-03-07T09:58:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/03/07/xcode-tips</id>
+    <content type="html"><![CDATA[<p>升级到Lion以及Xcode 4之后，发现Xcode 4在配置上与Xcode 3有些不同，记录于此备忘。</p>
+
+<!--more-->
+
+
+<h2>代码中的公司名称</h2>
+
+<p>Xcode生成代码时，自动在文件头插入注释，其中的公司名称需要设置，否则以<code>__MyCompanyName__</code>代替。</p>
+
+<p>Xcode 3中设置ORGANIZATIONNAME宏定义。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode PBXCustomTemplateMacroDefinitions <span class="s1">&#39;{ORGANIZATIONNAME=&quot;YourNameHere&quot;;}&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Xcode 4不再使用此宏定义，直接读取系统地址簿中的公司信息，所以需要在地址簿中给自己设定一个公司名称。</p>
+
+<p>Xcode 3和Xcode 4都可以针对项目单独设置公司名称，其中Xcode 3的设置项是项目信息窗口中<code>General</code>选项卡的<code>Organization Name</code>，而Xcode 4是右边栏项目文件信息中<code>Project Document</code>分组下的<code>Organization</code>。</p>
+
+<h2>让大括号另起一行</h2>
+
+<p>使用Xcode自动完成功能生成的代码，左大括号是位于行末的。如果要让大括号另起一行，Xcode 3与Xcode 4的设置并不相同。</p>
+
+<p>Xcode 3的设置：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode XCCodeSenseFormattingOptions -dict BlockSeparator <span class="s2">&quot;\n&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Xcode 4中，自动完成功能是由代码片段库<code>Code Snippet Library</code>控制的，因此需要修改相应的代码片段模板。点击代码片段，会弹出窗口显示其内容，并提供编辑功能。但是，Apple并不允许我们修改内建的代码模板。不过，我们可以绕过Xcode进行修改。Xcode 4内建的代码片段保存在/Developer/Library/Xcode/PrivatePlugIns/IDECodeSnippetLibrary.ideplugin/Contents/Resources/SystemCodeSnippets.codesnippets文件中，这是一个plist文件，直接编辑即可。<a href="https://gist.github.com/1992813">这里</a>是我修改好的文件。</p>
+
+<h2>烦人的调试权限问题</h2>
+
+<p>将Lion升级到10.7.3之后，每次在Xcode 4中运行程序都会弹出如下信息提示，输入用户密码才能继续。</p>
+
+<pre><code>“Developer Tools Access”需控制另一进程，才能继续调试。键入您的密码以允许执行此操作。
+</code></pre>
+
+<p>以及</p>
+
+<pre><code>“gdb-i386-apple-darwin”需控制另一进程，才能继续调试。键入您的密码以允许执行此操作。
+</code></pre>
+
+<p><a href="http://stackoverflow.com/questions/9132826/stop-developer-tools-access-needs-to-take-control-of-another-process-for-debugg">Stack Overflow</a>上给出了两种解决方案。</p>
+
+<ul>
+<li><p>重新安装Xcode</p></li>
+<li><p>按如下方法修改/etc/authorization文件</p></li>
+</ul>
+
+
+<p><div><script src='https://gist.github.com/1992771.js?file='></script>
+<noscript><pre><code>--- /etc/authorization.bak	2012-03-07 10:44:43.000000000 +0800
++++ /etc/authorization	2012-03-07 10:50:41.000000000 +0800
+@@ -7568,7 +7568,7 @@
+ 			&lt;key&gt;allow-root&lt;/key&gt;
+ 			&lt;false/&gt;
+ 			&lt;key&gt;class&lt;/key&gt;
+-			&lt;string&gt;user&lt;/string&gt;
++			&lt;string&gt;rule&lt;/string&gt;
+ 			&lt;key&gt;comment&lt;/key&gt;
+ 			&lt;string&gt;For use by Apple.  WARNING: administrators are advised
+             not to modify this right.&lt;/string&gt;
+@@ -7698,12 +7698,16 @@
+ 				&lt;key&gt;zh-Hant&lt;/key&gt;
+ 				&lt;string&gt;“__APPNAME__”需要控制另一個程序才能繼續除錯。&lt;/string&gt;
+ 			&lt;/dict&gt;
+-			&lt;key&gt;group&lt;/key&gt;
+-			&lt;string&gt;_developer&lt;/string&gt;
+ 			&lt;key&gt;shared&lt;/key&gt;
+ 			&lt;true/&gt;
+-			&lt;key&gt;timeout&lt;/key&gt;
+-			&lt;integer&gt;36000&lt;/integer&gt;
++			&lt;key&gt;k-of-n&lt;/key&gt;
++			&lt;integer&gt;1&lt;/integer&gt;
++			&lt;key&gt;rule&lt;/key&gt;
++			&lt;array&gt;
++				&lt;string&gt;is-admin&lt;/string&gt;
++				&lt;string&gt;is-developer&lt;/string&gt;
++				&lt;string&gt;authenticate-developer&lt;/string&gt;
++			&lt;/array&gt;
+ 		&lt;/dict&gt;
+ 		&lt;key&gt;system.privilege.taskport.safe&lt;/key&gt;
+ 		&lt;dict&gt;</code></pre></noscript></div>
+</p>
+
+<p>没有验证第一种方法，第二种方法经验证有效（修改前切记备份原文件）。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[使用Wine在Mac OS X中运行Windows程序]]></title>
@@ -359,7 +454,7 @@
 
 <p>方法一不需要重新启动SystemUIServer服务，但是在Lion的全屏模式下，右侧一部分会被Spotlight的图标所遮挡；方法二没有此问题，但重启SystemUIServer服务的过程会删除菜单栏上所有图标并重建，视觉效果不好。</p>
 
-<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的"com.apple.menuextra.added"通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
+<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -418,81 +513,6 @@
 <p><code>bindfs 源目录 挂载点</code></p>
 
 <p>更多信息可以在终端里输入<code>man bindfs</code>查阅。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[让Mac OS X的终端多姿多彩]]></title>
-    <link href="http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/"/>
-    <updated>2012-02-27T13:57:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac</id>
-    <content type="html"><![CDATA[<p>与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。</p>
-
-<!--more-->
-
-
-<h2>彩色化ls的输出</h2>
-
-<p>Mac中BSD的ls命令可以使用<code>-G</code>参数彩色化输出的文件列表，需要配置LSCOLORS环境变量定义颜色，具体配置方法可以输入<code>man ls</code>查看。</p>
-
-<p>不过，我推荐安装Linux使用的GNU Coreutils替换Mac的ls命令，因为：</p>
-
-<ul>
-<li>Coreutils提供了配置工具，定义颜色代码更加方便；</li>
-<li>Coreutils包含的不仅仅是ls，同时作为Linux用户，我更习惯于使用GNU的各种shell工具。</li>
-</ul>
-
-
-<p>Coreutils的安装与配置方法如下：</p>
-
-<ol>
-<li><p>通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Coreutils<br/>
-<code>brew install xz coreutils</code><br/>
-注：Coreutils并不依赖于xz，但它的源码是用xz格式压缩的，安装xz才能解压。</p></li>
-<li><p>生成颜色定义文件<br/>
-<code>gdircolors --print-database &gt; ~/.dir_colors</code></p></li>
-<li><p>在<code>~/.bash_profile</code>配置文件中加入以下代码</p></li>
-</ol>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="k">if </span>brew list | grep coreutils &gt; /dev/null ; <span class="k">then</span>&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;PATH<span class="o">=</span><span class="s2">&quot;$(brew --prefix coreutils)/libexec/gnubin:$PATH&quot;</span>
-</span><span class='line'><span class="nb">alias </span><span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls -F --show-control-chars --color=auto&#39;</span>
-</span><span class='line'><span class="nb">eval</span> <span class="sb">`</span>gdircolors -b <span class="nv">$HOME</span>/.dir_colors<span class="sb">`</span>
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;fi
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>gdircolor的作用就是设置ls命令使用的环境变量LS_COLORS（BSD是LSCOLORS），我们可以修改~/.dir_colors自定义文件的颜色，此文件中的注释已经包含各种颜色取值的说明。</p>
-
-<p>看看默认颜色的显示效果。<br/>
-<img src="/blog/images/2012-02-27-colorful-terminal-in-mac_ls.png" alt="ls screenshot" /></p>
-
-<h2>grep高亮显示关键字</h2>
-
-<p>这个很简单，加上<code>--color</code>参数就可以了，为了使用方便，可以在<code>~/.bash_profile</code>配置文件中加上alias定义。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">grep</span><span class="o">=</span><span class="s1">&#39;grep --color&#39;</span>
-</span><span class='line'><span class="nb">alias </span><span class="nv">egrep</span><span class="o">=</span><span class="s1">&#39;egrep --color&#39;</span>
-</span><span class='line'><span class="nb">alias </span><span class="nv">fgrep</span><span class="o">=</span><span class="s1">&#39;fgrep --color&#39;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<h2>Vim语法高亮</h2>
-
-<p>在Vim中输入命令<code>:syntax on</code>激活语法高亮，若需要Vim启动时自动激活，在<code>~/.vimrc</code>中添加一行<code>syntax on</code>即可。</p>
 ]]></content>
   </entry>
   

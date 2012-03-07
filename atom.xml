@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-03-05T23:28:58+08:00</updated>
+  <updated>2012-03-07T21:06:47+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,103 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode的点滴记录]]></title>
+    <link href="http://linfan.info/blog/2012/03/07/xcode-tips/"/>
+    <updated>2012-03-07T09:58:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/03/07/xcode-tips</id>
+    <content type="html"><![CDATA[<p>升级到Lion以及Xcode 4之后，发现Xcode 4在配置上与Xcode 3有些不同，记录于此备忘。</p>
+
+<!--more-->
+
+
+<h2>代码中的公司名称</h2>
+
+<p>Xcode生成代码时，自动在文件头插入注释，其中的公司名称需要设置，否则以<code>__MyCompanyName__</code>代替。</p>
+
+<p>Xcode 3中设置ORGANIZATIONNAME宏定义。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode PBXCustomTemplateMacroDefinitions <span class="s1">&#39;{ORGANIZATIONNAME=&quot;YourNameHere&quot;;}&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Xcode 4不再使用此宏定义，直接读取系统地址簿中的公司信息，所以需要在地址簿中给自己设定一个公司名称。</p>
+
+<p>Xcode 3和Xcode 4都可以针对项目单独设置公司名称，其中Xcode 3的设置项是项目信息窗口中<code>General</code>选项卡的<code>Organization Name</code>，而Xcode 4是右边栏项目文件信息中<code>Project Document</code>分组下的<code>Organization</code>。</p>
+
+<h2>让大括号另起一行</h2>
+
+<p>使用Xcode自动完成功能生成的代码，左大括号是位于行末的。如果要让大括号另起一行，Xcode 3与Xcode 4的设置并不相同。</p>
+
+<p>Xcode 3的设置：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode XCCodeSenseFormattingOptions -dict BlockSeparator <span class="s2">&quot;\n&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Xcode 4中，自动完成功能是由代码片段库<code>Code Snippet Library</code>控制的，因此需要修改相应的代码片段模板。点击代码片段，会弹出窗口显示其内容，并提供编辑功能。但是，Apple并不允许我们修改内建的代码模板。不过，我们可以绕过Xcode进行修改。Xcode 4内建的代码片段保存在/Developer/Library/Xcode/PrivatePlugIns/IDECodeSnippetLibrary.ideplugin/Contents/Resources/SystemCodeSnippets.codesnippets文件中，这是一个plist文件，直接编辑即可。<a href="https://gist.github.com/1992813">这里</a>是我修改好的文件。</p>
+
+<h2>烦人的调试权限问题</h2>
+
+<p>将Lion升级到10.7.3之后，每次在Xcode 4中运行程序都会弹出如下信息提示，输入用户密码才能继续。</p>
+
+<pre><code>“Developer Tools Access”需控制另一进程，才能继续调试。键入您的密码以允许执行此操作。
+</code></pre>
+
+<p>以及</p>
+
+<pre><code>“gdb-i386-apple-darwin”需控制另一进程，才能继续调试。键入您的密码以允许执行此操作。
+</code></pre>
+
+<p><a href="http://stackoverflow.com/questions/9132826/stop-developer-tools-access-needs-to-take-control-of-another-process-for-debugg">Stack Overflow</a>上给出了两种解决方案。</p>
+
+<ul>
+<li><p>重新安装Xcode</p></li>
+<li><p>按如下方法修改/etc/authorization文件</p></li>
+</ul>
+
+
+<div><script src='https://gist.github.com/1992771.js?file='></script>
+<noscript><pre><code>--- /etc/authorization.bak 2012-03-07 10:44:43.000000000 +0800
++++ /etc/authorization  2012-03-07 10:50:41.000000000 +0800
+@@ -7568,7 +7568,7 @@
+            &lt;key&gt;allow-root&lt;/key&gt;
+            &lt;false/&gt;
+            &lt;key&gt;class&lt;/key&gt;
+-           &lt;string&gt;user&lt;/string&gt;
++           &lt;string&gt;rule&lt;/string&gt;
+            &lt;key&gt;comment&lt;/key&gt;
+            &lt;string&gt;For use by Apple.  WARNING: administrators are advised
+             not to modify this right.&lt;/string&gt;
+@@ -7698,12 +7698,16 @@
+                &lt;key&gt;zh-Hant&lt;/key&gt;
+                &lt;string&gt;“__APPNAME__”需要控制另一個程序才能繼續除錯。&lt;/string&gt;
+            &lt;/dict&gt;
+-           &lt;key&gt;group&lt;/key&gt;
+-           &lt;string&gt;_developer&lt;/string&gt;
+            &lt;key&gt;shared&lt;/key&gt;
+            &lt;true/&gt;
+-           &lt;key&gt;timeout&lt;/key&gt;
+-           &lt;integer&gt;36000&lt;/integer&gt;
++           &lt;key&gt;k-of-n&lt;/key&gt;
++           &lt;integer&gt;1&lt;/integer&gt;
++           &lt;key&gt;rule&lt;/key&gt;
++           &lt;array&gt;
++               &lt;string&gt;is-admin&lt;/string&gt;
++               &lt;string&gt;is-developer&lt;/string&gt;
++               &lt;string&gt;authenticate-developer&lt;/string&gt;
++           &lt;/array&gt;
+        &lt;/dict&gt;
+        &lt;key&gt;system.privilege.taskport.safe&lt;/key&gt;
+        &lt;dict&gt;</code></pre></noscript></div>
+
+
+<p>没有验证第一种方法，第二种方法经验证有效（修改前切记备份原文件）。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[HP-UX中SFTP的一个小问题]]></title>
@@ -23,7 +120,7 @@
 <!--more-->
 
 
-<p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续查阅libssh2_sftp_rename_ex的实现代码，逐步追查到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
+<p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续追查libssh2_sftp_rename_ex的实现，逐步跟踪到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -32,7 +129,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到下列输出。</p>
+<p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到以下输出。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -41,7 +138,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>显然，SFTP服务协议版本就是造成这个问题的原因，解决办法很简单，重命名文件之前调用libssh2_sftp_unlink删除目标文件即可。libssh2应该在文档中说明SFTP服务协议版本对不同函数的影响。</p>
+<p>显然，SFTP服务协议版本就是造成这个问题的原因，解决办法很简单，重命名文件之前调用libssh2_sftp_unlink删除目标文件即可。libssh2应该在文档中说明SFTP服务协议版本对相关函数的影响。</p>
 
 <p>此问题在HP-UX B.11.31/IA-64和B.11.11/PA-RISC中都存在。</p>
 ]]></content>
@@ -372,7 +469,7 @@
 
 <p>方法一不需要重新启动SystemUIServer服务，但是在Lion的全屏模式下，右侧一部分会被Spotlight的图标所遮挡；方法二没有此问题，但重启SystemUIServer服务的过程会删除菜单栏上所有图标并重建，视觉效果不好。</p>
 
-<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的&#8221;com.apple.menuextra.added&#8221;通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
+<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

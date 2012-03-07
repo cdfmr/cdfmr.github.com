@@ -4,7 +4,7 @@
   <title><![CDATA[Category: HP-UX | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/hp-ux/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-03-05T23:28:58+08:00</updated>
+  <updated>2012-03-07T21:06:47+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -23,7 +23,7 @@
 <!--more-->
 
 
-<p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续查阅libssh2_sftp_rename_ex的实现代码，逐步追查到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
+<p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续追查libssh2_sftp_rename_ex的实现，逐步跟踪到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -39,7 +39,7 @@
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到下列输出。</p>
+<p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到以下输出。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -47,7 +47,7 @@
 </span><span class='line'><span class="n">SFTP</span> <span class="n">protocol</span> <span class="n">version</span> <span class="mi">3</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>显然，SFTP服务协议版本就是造成这个问题的原因，解决办法很简单，重命名文件之前调用libssh2_sftp_unlink删除目标文件即可。libssh2应该在文档中说明SFTP服务协议版本对不同函数的影响。</p>
+<p>显然，SFTP服务协议版本就是造成这个问题的原因，解决办法很简单，重命名文件之前调用libssh2_sftp_unlink删除目标文件即可。libssh2应该在文档中说明SFTP服务协议版本对相关函数的影响。</p>
 
 <p>此问题在HP-UX B.11.31/IA-64和B.11.11/PA-RISC中都存在。</p>
 ]]></content>

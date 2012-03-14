@@ -33,7 +33,7 @@ Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发�
 
 Homebrew的安装非常简单，在终端程序中输入以下命令即可。
 
-`/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"`
+`/usr/bin/ruby -e "$(/usr/bin/curl -fksSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"`
 
 安装过程需要输入root口令。
 

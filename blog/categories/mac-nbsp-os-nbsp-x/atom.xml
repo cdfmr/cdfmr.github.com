@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-03-14T20:23:36+08:00</updated>
+  <updated>2012-03-26T20:07:14+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[实现Mac应用的自我重启]]></title>
+    <link href="http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/"/>
+    <updated>2012-03-26T19:31:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/03/26/mac-app-self-relaunch</id>
+    <content type="html"><![CDATA[<p>对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。</p>
+
+<p>实现自我重启的方法很多，易于理解且实现简单的一种如下。</p>
+
+<ol>
+<li>启动一个子进程；</li>
+<li>主进程退出；</li>
+<li>子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。</li>
+</ol>
+
+
+<!--more-->
+
+
+<p>子进程可以是一个简单的命令行程序，不过最简易的方法莫过于使用Shell，以下是代码片段。</p>
+
+<p><div><script src='https://gist.github.com/2204627.js?file='></script>
+<noscript><pre><code>@implementation NSApplication (Relaunch)
+
+- (void)relaunchAfterDelay:(float)seconds
+{
+	NSTask *task = [[[NSTask alloc] init] autorelease];
+	NSMutableArray *args = [NSMutableArray array];
+	[args addObject:@&quot;-c&quot;];
+	[args addObject:[NSString stringWithFormat:@&quot;sleep %f; open \&quot;%@\&quot;&quot;, seconds, [[NSBundle mainBundle] bundlePath]]];
+	[task setLaunchPath:@&quot;/bin/sh&quot;];
+	[task setArguments:args];
+	[task launch];
+	
+	[self terminate:nil];
+}
+
+@end</code></pre></noscript></div>
+</p>
+
+<p>以上代码只实现了延时重启，并未检测主进程状态。</p>
+
+<p>使用方法：</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSApp</span> <span class="nl">relaunchAfterDelay:</span><span class="mf">2.0</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode的点滴记录]]></title>
@@ -479,40 +529,6 @@
 <p>另，Mac OS X系统内建的各种图标并非由上述方法创建，而使用了另一个非公开的类NSMenuExtra，可以按住⌘键拖动调整位置。</p>
 
 <p>方法一来自<a href="http://code.google.com/p/tunnelblick/">Tunnelblick</a>项目，方法二来自<a href="http://shauninman.com/archive/2011/10/20/day_o_mac_menu_bar_clock">Day-O</a>作者Shaun Inman的指导，特此感谢！</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mac OS X下使用bindfs实现mount的目录绑定功能]]></title>
-    <link href="http://linfan.info/blog/2012/02/28/bindfs-on-mac/"/>
-    <updated>2012-02-28T00:02:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/02/28/bindfs-on-mac</id>
-    <content type="html"><![CDATA[<p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="http://code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
-
-<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
-
-<!--more-->
-
-
-<p><code>brew install bindfs</code></p>
-
-<p>Homebrew会自动安装bindfs以及其依赖的gettext和fuse4x。如果出现未找到pkg-config的错误，请先输入<code>brew install pkg-config</code>安装。</p>
-
-<p>安装完成后，需要在系统启动时加载FUSE内核扩展。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp -rfX /usr/local/Cellar/fuse4x-kext/0.8.14/Library/Extensions/fuse4x.kext /System/Library/Extensions
-</span><span class='line'>sudo chmod +s /System/Library/Extensions/fuse4x.kext/Support/load_fuse4x
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>重启生效。</p>
-
-<p>bindfs的使用也非常简单，跟<code>mount --bind</code>基本一样。</p>
-
-<p><code>bindfs 源目录 挂载点</code></p>
-
-<p>更多信息可以在终端里输入<code>man bindfs</code>查阅。</p>
 ]]></content>
   </entry>
   

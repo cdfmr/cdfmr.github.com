@@ -9,9 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。 实现自我重启的方法很多，易于理解且实现简单的一种如下。 启动一个子进程；
-主进程退出；
-子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。 ">
+  <meta name="description" content="本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +64,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-27T15:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/27/xcode-build-number-with-git/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -472,49 +511,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/23/perfect-drupal-editor/">打造完美的Drupal编辑器</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-23T10:06:00+08:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>一个Octopress架设的博客，怎么上来就是一篇Drupal的文章呢？很简单，本来是打算用Drupal来架设个人博客的，结果在上线前发现了Octopress，于是叛逃了 :) 。尽管不再使用Drupal，但安装Drupal过程中的一些经验还是值得记录与分享的。</p>
-
-<p>言归正传，Drupal预设的编辑器过于简陋，而我当时对“完美”的定义是：可视化、图像上传、代码高亮，并且使用 <a href="http://ckeditor.com/">CKEditor</a> + <a href="http://drupal.org/project/imce">IMCE</a> + <a href="http://alexgorbatchev.com/">SyntaxHighlighter</a> 实现了预期目标。以下是安装过程，基于Drupal 7环境。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/23/perfect-drupal-editor/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -530,6 +526,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/03/26/mac-app-self-relaunch/">实现Mac应用的自我重启</a>
       </li>
     
@@ -543,10 +543,6 @@
     
       <li class="post">
         <a href="/blog/2012/03/01/wine-mac/">使用Wine在Mac OS X中运行Windows程序</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/29/mac-ext2fs/">Mac OS X下读写ext2/ext3文件系统</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-03-26T20:07:14+08:00</updated>
+  <updated>2012-03-27T19:50:46+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode: 使用Git自动设置项目版本]]></title>
+    <link href="http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/"/>
+    <updated>2012-03-27T15:13:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/03/27/xcode-build-number-with-git</id>
+    <content type="html"><![CDATA[<p>本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。</p>
+
+<!--more-->
+
+
+<p>与SVN不同，Git使用散列值作为每次提交的标记，而不是像SVN那样使用递增序列，因此不便直接用作CFBundleVersion。正愁以后每次都要麻烦地手工设置了，苦思冥想一番之后豁然开朗，虽然Git没有数值化的版本号，但我可以自己数一数提交次数啊，于是有了这个脚本。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>/usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion &lt;code&gt;git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l&lt;/code&gt;&quot;</span> <span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>很简单，数一下Git版本库的提交次数，使用PlistBuddy将其设置为CFBundleVersion。</p>
+
+<p>顺便附上以前使用的SVN脚本，稍稍不同的是将版本号补齐到3位。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">rev</span><span class="o">=</span>&lt;code&gt;svnversion -n&lt;/code&gt;
+</span><span class='line'><span class="k">while</span> <span class="o">[</span> <span class="k">${#</span><span class="nv">rev</span><span class="k">}</span> -lt 3 <span class="o">]</span> ; <span class="k">do</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;rev<span class="o">=</span><span class="s2">&quot;0${rev}&quot;</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;done
+</span><span class='line'><span class="nb">echo</span> -n <span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[实现Mac应用的自我重启]]></title>
@@ -345,190 +387,6 @@
 <p>虽然名为fuse-ext2，实际也支持ext3的读写，只是不支持ext3文件系统的日志。</p>
 
 <p>OSXFUSE和fuse-ext2都可以在系统偏好设置中卸载。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cocoa菜单栏右侧图标的实现]]></title>
-    <link href="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/"/>
-    <updated>2012-02-28T21:35:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar</id>
-    <content type="html"><![CDATA[<p>与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSStatusBar</span> <span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">statusBar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSStatusBar</span> <span class="n">systemStatusBar</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSStatusItem</span> <span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">statusItemWithLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setImage:</span><span class="n">image</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setMenu:</span><span class="n">menu</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setHighlightMode:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>使用这种方法创建的图标，位于菜单栏图标区域的最左侧，如果菜单栏上图标太多，很容易就被程序菜单遮挡了。那么，有没有办法在菜单栏的右侧添加图标呢？</p>
-
-<!--more-->
-
-
-<p>根据Apple的开发文档，这是不可能实现的。不过，Apple留了后门，通过调用NSStatusBar类的一些非公开API，是可以将图标移动到菜单栏右侧的。我们来看看怎么做。</p>
-
-<p>首先要声明将要调用的非公开API。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">NSStatusBar</span> <span class="nl">(NSStatusBar_Private)</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="o">&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="nl">statusItemWithLength:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">l</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;</span><span class="nl">insertStatusItem:</span><span class="p">(</span><span class="n">NSStatusItem</span> <span class="o">*</span><span class="p">)</span><span class="n">i</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>与NSStatusBar的常规接口相比，最关键的是新增的withPriority参数，这个参数指明了图标的优先级，实际上就是图标在菜单栏上的位置。</p>
-
-<p>那么，怎么使用这两个API呢？根据我从茫茫网络收集的资料，有不完全相同的两种方法，各有优劣。</p>
-
-<p><strong>方法一</strong></p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">if</span> <span class="p">([</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_statusItemWithLength:withPriority:</span><span class="p">)]</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="p">[</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_insertStatusItem:withPriority:</span><span class="p">)])</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kt">int</span> <span class="n">priority</span> <span class="o">=</span> <span class="n">INT_MAX</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">statusItem</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">_statusItemWithLength:</span><span class="mi">0</span> <span class="nl">withPriority:</span><span class="n">priority</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusBar</span> <span class="nl">removeStatusItem:</span><span class="n">statusItem</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusBar</span> <span class="nl">_insertStatusItem:</span><span class="n">statusItem</span> <span class="nl">withPriority:</span><span class="n">priority</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p><strong>方法二</strong></p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">restartSystemUIServer</span>
-</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">NSTask</span> <span class="o">*</span><span class="n">killSystemUITask</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSTask</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">args</span> <span class="nl">addObject:</span><span class="s">@&quot;SystemUIServer&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">args</span> <span class="nl">addObject:</span><span class="s">@&quot;-HUP&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">killSystemUITask</span> <span class="nl">setLaunchPath:</span><span class="s">@&quot;/usr/bin/killall&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">killSystemUITask</span> <span class="nl">setArguments:</span><span class="n">args</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">killSystemUITask</span> <span class="n">launch</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">createStatusBar</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">([</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_statusItemWithLength:withPriority:</span><span class="p">)])</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">statusItem</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">_statusItemWithLength:</span><span class="mi">0</span> <span class="nl">withPriority:</span><span class="n">INT_MAX</span><span class="p">];</span>
-</span><span class='line'>      <span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">statusItem</span> <span class="nl">setLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">self</span> <span class="n">restartSystemUIServer</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p></li>
-</ul>
-
-
-<p>方法一不需要重新启动SystemUIServer服务，但是在Lion的全屏模式下，右侧一部分会被Spotlight的图标所遮挡；方法二没有此问题，但重启SystemUIServer服务的过程会删除菜单栏上所有图标并重建，视觉效果不好。</p>
-
-<p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[[</span><span class="n">NSDistributedNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>                                                <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">menuExtrasWereAddedHandler:</span><span class="p">)</span>
-</span><span class='line'>                                                    <span class="nl">name:</span><span class="s">@&quot;com.apple.menuextra.added&quot;</span>
-</span><span class='line'>                                                  <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>两种方法都在Snow Leopard和Lion操作系统中通过测试。</p>
-
-<p>另，Mac OS X系统内建的各种图标并非由上述方法创建，而使用了另一个非公开的类NSMenuExtra，可以按住⌘键拖动调整位置。</p>
-
-<p>方法一来自<a href="http://code.google.com/p/tunnelblick/">Tunnelblick</a>项目，方法二来自<a href="http://shauninman.com/archive/2011/10/20/day_o_mac_menu_bar_clock">Day-O</a>作者Shaun Inman的指导，特此感谢！</p>
 ]]></content>
   </entry>
   

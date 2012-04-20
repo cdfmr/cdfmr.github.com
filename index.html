@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。 ">
+  <meta name="description" content="开发人员或多或少都应该知道UUID或GUID，这是摘自维基百科的一段描述。 通用唯一识别码 (Universally Unique Identifier, UUID) 是一个软件建构的标准，亦为自由软件基金会 (Open Software Foundation, OSF) 的组织在分散式计算环境 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/20/uuid/">各种OS中生成UUID的方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-20T20:50:00+08:00" pubdate data-updated="true">Apr 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>开发人员或多或少都应该知道UUID或GUID，这是摘自<a href="http://zh.wikipedia.org/zh-cn/UUID">维基百科</a>的一段描述。</p>
+
+<p><code>通用唯一识别码 (Universally Unique Identifier, UUID) 是一个软件建构的标准，亦为自由软件基金会 (Open Software Foundation, OSF) 的组织在分散式计算环境 (Distributed Computing Environment, DCE) 领域的一部份。</code></p>
+
+<p><code>UUID 的目的，是让分散式系统中的所有元素，都能有唯一的辨识资讯，而不需要透过中央控制端来做辨识资讯的指定。如此一来，每个人都可以建立不与其它人冲突的 UUID。在这样的情况下，就不需考虑数据库建立时的名称重复问题。目前最广泛应用的 UUID，即是微软的 Microsoft's Globally Unique Identifiers (GUIDs)，而其他重要的应用，则有 Linux ext2/ext3 档案系统、LUKS 加密分割区、GNOME、KDE、Mac OS X 等等。另外我们也可以在 e2fsprogs 套件中的 UUID 函式库找到实作。</code></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/04/20/uuid/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -468,49 +513,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew的安装与使用</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-25T19:50:00+08:00" pubdate data-updated="true">Feb 25<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发的软件。然而，如果只是以使用为目的，对每个软件都进行手工编译不是很方便，也不利于管理已安装的软件，于是出现了类似于Linux中APT、Yum等类似的软件包管理系统，其中最著名的有MacPorts、Fink、Homebrew等。</p>
-
-<p>我曾经是MacPorts的使用者，但了解Homebrew之后，立即“弃暗投明”了。其实MacPorts也是一个很不错的解决方案，除了一个实在让我头疼的特性。MacPorts有个原则，对于软件包之间的依赖，都在MacPorts内部解决（/opt/local），无论系统本身是否包含了需要的库，都不会加以利用。这使得MacPorts过分的庞大臃肿，导致系统出现大量软件包的冗余，占用不小的磁盘空间，同时稍大型一点的软件编译时间都会难以忍受。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/25/homebrew-installation-and-usage/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -524,6 +526,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/04/20/uuid/">各种OS中生成UUID的方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a>
@@ -541,17 +547,13 @@
         <a href="/blog/2012/03/05/hpux-sftp/">HP-UX中SFTP的一个小问题</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/03/01/wine-mac/">使用Wine在Mac OS X中运行Windows程序</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

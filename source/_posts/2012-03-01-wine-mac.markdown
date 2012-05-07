@@ -83,4 +83,8 @@ defaults write org.macosforge.xquartz.X11 app_to_run /usr/local/bin/fcitx
 
 ## 程序菜单
 
-将常用的Windows程序放置到X11的`应用程序`菜单中，就不需要使用命令行操作了；也可以利用Automator把它们包装成Mac应用。
+将常用的Windows程序放置到X11的`应用程序`菜单中，就不需要使用命令行操作了；也可以利用Automator把它们包装成Mac应用。推荐使用Automator，同时启动Fcitx和Windows应用，效果完美，参见如下截图。
+
+![launchpad](/blog/images/2012-03-01-wine-mac_launchpad.jpg)
+
+![automator](/blog/images/2012-03-01-wine-mac_automator.png)

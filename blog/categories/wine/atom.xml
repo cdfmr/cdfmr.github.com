@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Wine | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/wine/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-04-20T22:59:43+08:00</updated>
+  <updated>2012-05-07T20:42:24+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -139,7 +139,11 @@
 
 <h2>程序菜单</h2>
 
-<p>将常用的Windows程序放置到X11的<code>应用程序</code>菜单中，就不需要使用命令行操作了；也可以利用Automator把它们包装成Mac应用。</p>
+<p>将常用的Windows程序放置到X11的<code>应用程序</code>菜单中，就不需要使用命令行操作了；也可以利用Automator把它们包装成Mac应用。推荐使用Automator，同时启动Fcitx和Windows应用，效果完美，参见如下截图。</p>
+
+<p><img src="/blog/images/2012-03-01-wine-mac_launchpad.jpg" alt="launchpad" /></p>
+
+<p><img src="/blog/images/2012-03-01-wine-mac_automator.png" alt="automator" /></p>
 ]]></content>
   </entry>
   

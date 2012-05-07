@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SVN | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/svn/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2012-05-07T20:42:24+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode: 使用Git自动设置项目版本]]></title>
+    <link href="http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/"/>
+    <updated>2012-03-27T15:13:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/03/27/xcode-build-number-with-git</id>
+    <content type="html"><![CDATA[<p>本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。</p>
+
+<!--more-->
+
+
+<p>与SVN不同，Git使用散列值作为每次提交的标记，而不是像SVN那样使用递增序列，因此不便直接用作CFBundleVersion。正愁以后每次都要麻烦地手工设置了，苦思冥想一番之后豁然开朗，虽然Git没有数值化的版本号，但我可以自己数一数提交次数啊，于是有了这个脚本。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>/usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion &lt;code&gt;git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l&lt;/code&gt;&quot;</span> <span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>很简单，数一下Git版本库的提交次数，使用PlistBuddy将其设置为CFBundleVersion。</p>
+
+<p>顺便附上以前使用的SVN脚本，稍稍不同的是将版本号补齐到3位。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">rev</span><span class="o">=</span>&lt;code&gt;svnversion -n&lt;/code&gt;
+</span><span class='line'><span class="k">while</span> <span class="o">[</span> <span class="k">${#</span><span class="nv">rev</span><span class="k">}</span> -lt 3 <span class="o">]</span> ; <span class="k">do</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;rev<span class="o">=</span><span class="s2">&quot;0${rev}&quot;</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;done
+</span><span class='line'><span class="nb">echo</span> -n <span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>
+]]></content>
+  </entry>
+  
+</feed>

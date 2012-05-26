@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Xcode | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/xcode/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-05-07T20:42:24+08:00</updated>
+  <updated>2012-05-26T20:14:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -26,7 +26,17 @@
 <p>与SVN不同，Git使用散列值作为每次提交的标记，而不是像SVN那样使用递增序列，因此不便直接用作CFBundleVersion。正愁以后每次都要麻烦地手工设置了，苦思冥想一番之后豁然开朗，虽然Git没有数值化的版本号，但我可以自己数一数提交次数啊，于是有了这个脚本。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>/usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion &lt;code&gt;git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l&lt;/code&gt;&quot;</span> <span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;/usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion `git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l`&quot;</span> <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>很简单，数一下Git版本库的提交次数，使用PlistBuddy将其设置为CFBundleVersion。</p>
@@ -48,7 +58,7 @@
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;done
-</span><span class='line'><span class="nb">echo</span> -n <span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
+</span><span class='line'><span class="nb">echo</span> -n <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>

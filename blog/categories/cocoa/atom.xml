@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cocoa | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/cocoa/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-05-26T20:14:39+08:00</updated>
+  <updated>2012-06-23T16:26:18+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[在沙盒环境中使用Finder打开文件夹]]></title>
+    <link href="http://linfan.info/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/"/>
+    <updated>2012-06-23T15:39:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/06/23/open-folder-with-finder-in-app-sandbox</id>
+    <content type="html"><![CDATA[<p>从6月1日开始，Apple要求所有提交到App Store的应用程序都必须运行在沙盒环境中，这可苦了我们这些悲催的码农。一则受到沙盒环境的种种限制，一些很常用的操作都没法实现；二则App Sandbox本身就是BUG重重，这个更是有理没处说。</p>
+
+<p>举个例子，常规环境中，一般使用Shared File List API来设置程序随系统自动运行。到了沙盒环境中，Apple不许我们使用此API了，而建议使用Service Management来实现类似功能。Service Management不如传统方法直接，必须将一个Helper程序设置为启动项，由Helper程序唤起主程序，而且创建的启动项不能显示在系统设置中。这就算了，问题是Helper程序怎么也不能唤起主程序，这个BUG直到10.7.4才解决。</p>
+
+<p>言归正传，本文要说的是另一个BUG。通常，如果需要展示某个文件夹的内容，我们会使用NSWorkspace的OpenURL方法。即使在沙盒环境中，只要已经取得了该文件夹的相关权限，此方法显然也应该没问题。但Apple不这么想，直到目前的Lion 10.7.4中，即便是打开沙盒容器中的目录都无法成功，可以在控制台看见这样的信息。</p>
+
+<!--more-->
+
+
+<p><code>CoreServicesUIAgent: Quarantine resolution refused to pid 5872 because it is not allowed to read /Users/xxxx/Library/Containers/com.xxxxx.xxxxx/Data/Library/Application Support</code></p>
+
+<p>这显然是一个BUG，而且实际上程序是可以对沙盒目录进行读写的，不可能真的没有权限。</p>
+
+<p>于是上网寻求解决方案，最终在<a href="http://code.google.com/p/theunarchiver/">The Unarchiver</a>的代码中找到了。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">static</span> <span class="kt">void</span> <span class="nf">OpenFolderWithAppleScriptBecauseTheSandboxIsTerrible</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="n">FSRef</span> <span class="n">ref</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">bzero</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">ref</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ref</span><span class="p">));</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">FSPathMakeRef</span><span class="p">((</span><span class="n">UInt8</span> <span class="o">*</span><span class="p">)[</span><span class="n">path</span> <span class="n">fileSystemRepresentation</span><span class="p">],</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">ref</span><span class="p">,</span><span class="nb">NULL</span><span class="p">)</span><span class="o">!=</span><span class="n">noErr</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">static</span> <span class="k">const</span> <span class="n">OSType</span> <span class="n">signature</span><span class="o">=</span><span class="err">&#39;</span><span class="n">MACS</span><span class="err">&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">AppleEvent</span> <span class="n">event</span><span class="o">=</span><span class="p">{</span><span class="n">typeNull</span><span class="p">,</span><span class="nb">nil</span><span class="p">};</span>
+</span><span class='line'>    <span class="n">AEBuildError</span> <span class="n">builderror</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">AEDesc</span> <span class="n">filedesc</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">AEInitializeDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">filedesc</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">AECoercePtr</span><span class="p">(</span><span class="n">typeFSRef</span><span class="p">,</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">ref</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">ref</span><span class="p">),</span><span class="n">typeAlias</span><span class="p">,</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">filedesc</span><span class="p">)</span><span class="o">!=</span><span class="n">noErr</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">AEBuildAppleEvent</span><span class="p">(</span>
+</span><span class='line'>    <span class="n">kCoreEventClass</span><span class="p">,</span><span class="n">kAEOpenDocuments</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">typeApplSignature</span><span class="p">,</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">signature</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">OSType</span><span class="p">),</span>
+</span><span class='line'>    <span class="n">kAutoGenerateReturnID</span><span class="p">,</span><span class="n">kAnyTransactionID</span><span class="p">,</span>
+</span><span class='line'>    <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">event</span><span class="p">,</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">builderror</span><span class="p">,</span>
+</span><span class='line'>    <span class="s">&quot;&#39;----&#39;:(@)&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">filedesc</span><span class="p">)</span><span class="o">!=</span><span class="n">noErr</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">AEDisposeDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">filedesc</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">AppleEvent</span> <span class="n">reply</span><span class="o">=</span><span class="p">{</span><span class="n">typeNull</span><span class="p">,</span><span class="nb">nil</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">AESendMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">event</span><span class="p">,</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">reply</span><span class="p">,</span><span class="n">kAENoReply</span><span class="p">,</span><span class="n">kAEDefaultTimeout</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">AEDisposeDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">reply</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">AEDisposeDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">event</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSArray</span> <span class="o">*</span><span class="n">apps</span><span class="o">=</span><span class="p">[</span><span class="n">NSRunningApplication</span> <span class="nl">runningApplicationsWithBundleIdentifier:</span><span class="s">@&quot;com.apple.finder&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">apps</span> <span class="nl">objectAtIndex:</span><span class="mi">0</span><span class="p">]</span> <span class="nl">activateWithOptions:</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>看看函数名称，看来抱怨App Sandbox的人不仅仅只是我。:)</p>
+
+<p>使用这个方法，必须在App Sandbox的授权文件中为Finder增加特例。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="nl">Key:</span>   <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">security</span><span class="p">.</span><span class="n">temporary</span><span class="o">-</span><span class="n">exception</span><span class="p">.</span><span class="n">apple</span><span class="o">-</span><span class="n">events</span>
+</span><span class='line'><span class="nl">Value:</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">finder</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>至于这样能否通过App Store的审核，要看审核人员的心情了，至少The Unarchiver是通过了，我的App还在等待审核，前途未卜。说到这个，小小发下牢骚，为了实现将文件解压到压缩包所在的目录，The Unarchiver在授权文件中加了一堆目录的读写权限；而我为了实现类似的功能（从PDF文件中提取图片）使用了相同的方法，死活不能通过审核！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[各种OS中生成UUID的方法]]></title>

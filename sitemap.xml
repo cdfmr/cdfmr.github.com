@@ -2,70 +2,74 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://linfan.info/blog/2012/02/22/hello-octopress/</loc>
-        <lastmod>2012-02-22T16:52:12+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/02/23/perfect-drupal-editor/</loc>
-        <lastmod>2012-02-27T16:26:27+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/</loc>
-        <lastmod>2012-03-14T20:08:28+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/</loc>
-        <lastmod>2012-03-01T13:57:41+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/02/28/bindfs-on-mac/</loc>
-        <lastmod>2012-02-28T21:33:23+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/</loc>
-        <lastmod>2012-03-07T14:17:55+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/02/29/mac-ext2fs/</loc>
-        <lastmod>2012-02-29T20:45:55+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/03/01/wine-mac/</loc>
-        <lastmod>2012-05-07T20:39:55+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/03/05/hpux-sftp/</loc>
-        <lastmod>2012-03-07T14:25:58+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/03/07/xcode-tips/</loc>
-        <lastmod>2012-03-07T20:54:55+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/</loc>
-        <lastmod>2012-03-26T20:04:28+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/</loc>
-        <lastmod>2012-05-26T20:12:25+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/2012/04/20/uuid/</loc>
-        <lastmod>2012-04-20T22:58:26+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://linfan.info/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/</loc>
+        <lastmod>2012-06-23T16:23:48+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/about/</loc>
-        <lastmod>2012-03-27T20:09:17+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/archives/</loc>
-        <lastmod>2012-05-26T20:12:25+08:00</lastmod>
+        <lastmod>2012-06-23T16:23:48+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/</loc>
-        <lastmod>2012-05-26T20:12:25+08:00</lastmod>
+        <lastmod>2012-06-23T16:23:48+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/opensource/</loc>
-        <lastmod>2012-02-24T14:16:08+08:00</lastmod>
+        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
 </urlset>

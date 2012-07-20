@@ -68,3 +68,8 @@ Value: com.apple.finder
 至于这样能否通过App Store的审核，要看审核人员的心情了，至少The Unarchiver是通过了，我的App还在等待审核，前途未卜。说到这个，小小发下牢骚，为了实现将文件解压到压缩包所在的目录，The Unarchiver在授权文件中加了一堆目录的读写权限；而我为了实现类似的功能（从PDF文件中提取图片）使用了相同的方法，死活不能通过审核！
 
 补充：又一次被拒了，就是因为这个Finder的例外。苹果的双重标准太恶心了，而且还在文档中明确指出不能以别的App通过审核作为申诉的理由，去TNND。
+
+再补充：
+
+* 发现一个奇怪的现象，若沙盒下的子目录是由程序创建的，无法使用NSWorkspace的openURL或openFile方法打开；若子目录通过Finder或命令行手工创建，则上述BUG不存在。比较过两种方法创建的目录，所属用户、组、权限都一样，百思不得其解。
+* NSWorkspace的selectFile:inFileViewerRootedAtPath:方法可以正常工作。

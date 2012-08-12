@@ -123,6 +123,8 @@
 
 <p>Xcode 4中，自动完成功能是由代码片段库<code>Code Snippet Library</code>控制的，因此需要修改相应的代码片段模板。点击代码片段，会弹出窗口显示其内容，并提供编辑功能。但是，Apple并不允许我们修改内建的代码模板。不过，我们可以绕过Xcode进行修改。Xcode 4内建的代码片段保存在/Developer/Library/Xcode/PrivatePlugIns/IDECodeSnippetLibrary.ideplugin/Contents/Resources/SystemCodeSnippets.codesnippets文件中，这是一个plist文件，直接编辑即可。<a href="https://gist.github.com/1992813">这里</a>是我修改好的文件。</p>
 
+<p>补充：Xcode 4.3及之后版本，代码片段位于/Applications/Xcode.app/Contents/PlugIns/IDECodeSnippetLibrary.ideplugin/Contents/Resources/SystemCodeSnippets.codesnippets文件中。</p>
+
 <h2>烦人的调试权限问题</h2>
 
 <p>将Lion升级到10.7.3之后，每次在Xcode 4中运行程序都会弹出如下信息提示，输入用户密码才能继续。</p>

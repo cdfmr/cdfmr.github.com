@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。 ">
+  <meta name="description" content="Linux下的mount命令有一个--bind参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持--bind，不过我们可以使用bindfs实现相同的功能。 bindfs是一个基于FUSE的文件系统实现，并非Mac OS X的预装工具，但通过Homebrew安装非常简单。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="http://code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
+
+<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/28/bindfs-on-mac/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -258,6 +301,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/10/21/ubuntu-12-dot-04-email-server/">Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/">在沙盒环境中使用Finder打开文件夹</a>
       </li>
     
@@ -273,17 +320,13 @@
         <a href="/blog/2012/03/26/mac-app-self-relaunch/">实现Mac应用的自我重启</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/03/07/xcode-tips/">Xcode的点滴记录</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/app-nbsp-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/app-nbsp-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

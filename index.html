@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="从6月1日开始，Apple要求所有提交到App Store的应用程序都必须运行在沙盒环境中，这可苦了我们这些悲催的码农。一则受到沙盒环境的种种限制，一些很常用的操作都没法实现；二则App Sandbox本身就是BUG重重，这个更是有理没处说。 举个例子，常规环境中，一般使用Shared File &hellip;">
+  <meta name="description" content="基本可按照Linode上的这篇教学进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。 本文内容已经在Hostigation的KVM-VPS上测试通过。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/21/ubuntu-12-dot-04-email-server/">Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-21T16:14:00+08:00" pubdate data-updated="true">Oct 21<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>基本可按照Linode上的<a href="https://library.linode.com/email/postfix/dovecot-mysql-ubuntu-10.04-lucid#sph_setting-up-domains-and-users">这篇教学</a>进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。</p>
+
+<p>本文内容已经在<a href="https://hostigation.com/billing/aff.php?aff=405">Hostigation</a>的KVM-VPS上测试通过。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/10/21/ubuntu-12-dot-04-email-server/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -474,49 +517,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/28/bindfs-on-mac/">Mac OS X下使用bindfs实现mount的目录绑定功能</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-28T00:02:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Linux下的mount命令有一个<code>--bind</code>参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持<code>--bind</code>，不过我们可以使用<a href="http://code.google.com/p/bindfs/">bindfs</a>实现相同的功能。</p>
-
-<p>bindfs是一个基于<a href="http://fuse.sourceforge.net/">FUSE</a>的文件系统实现，并非Mac OS X的预装工具，但通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装非常简单。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/28/bindfs-on-mac/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -530,6 +530,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/21/ubuntu-12-dot-04-email-server/">Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/">在沙盒环境中使用Finder打开文件夹</a>
@@ -547,17 +551,13 @@
         <a href="/blog/2012/03/26/mac-app-self-relaunch/">实现Mac应用的自我重启</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/03/07/xcode-tips/">Xcode的点滴记录</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/app-nbsp-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/app-nbsp-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

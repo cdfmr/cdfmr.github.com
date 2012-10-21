@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Dovecot | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/dovecot/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2012-10-21T16:51:13+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器]]></title>
+    <link href="http://linfan.info/blog/2012/10/21/ubuntu-12-dot-04-email-server/"/>
+    <updated>2012-10-21T16:14:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/10/21/ubuntu-12-dot-04-email-server</id>
+    <content type="html"><![CDATA[<p>基本可按照Linode上的<a href="https://library.linode.com/email/postfix/dovecot-mysql-ubuntu-10.04-lucid#sph_setting-up-domains-and-users">这篇教学</a>进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。</p>
+
+<p>本文内容已经在<a href="https://hostigation.com/billing/aff.php?aff=405">Hostigation</a>的KVM-VPS上测试通过。</p>
+
+<!--more-->
+
+
+<h2>安装软件包</h2>
+
+<p>需增加<code>dovecot-mysql</code>包。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>apt-get install dovecot-mysql
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>配置Postfix</h2>
+
+<ul>
+<li>最后一步编辑<code>postfix.conf</code>文件时，执行以下代码替换原文代码，删除了新版本Postfix不支持的一些配置项了，注意将主机名替换为你自己的主机名。</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>postconf -e <span class="s1">&#39;myhostname = server.example.com&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;mydestination = server.example.com, localhost, localhost.localdomain&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;mynetworks = 127.0.0.0/8&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;message_size_limit = 30720000&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_alias_domains =&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_alias_maps = proxy:mysql:/etc/postfix/mysql-virtual_forwardings.cf, mysql:/etc/postfix/mysql-virtual_email2email.cf&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_mailbox_domains = proxy:mysql:/etc/postfix/mysql-virtual_domains.cf&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_mailbox_maps = proxy:mysql:/etc/postfix/mysql-virtual_mailboxes.cf&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_mailbox_base = /home/vmail&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_uid_maps = static:5000&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_gid_maps = static:5000&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_sasl_auth_enable = yes&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;broken_sasl_auth_clients = yes&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_sasl_authenticated_header = yes&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_use_tls = yes&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_tls_cert_file = /etc/postfix/smtpd.cert&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_tls_key_file = /etc/postfix/smtpd.key&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;proxy_read_maps = $local_recipient_maps $mydestination $virtual_alias_maps $virtual_alias_domains $virtual_mailbox_maps $virtual_mailbox_domains $relay_recipient_maps $relay_domains $canonical_maps $sender_canonical_maps $recipient_canonical_maps $relocated_maps $transport_maps $mynetworks $virtual_mailbox_limit_maps&#39;</span>
+</span><span class='line'>postconf -e <span class="s1">&#39;virtual_transport = dovecot&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>编辑/etc/postfix/master.cf文件，取消submission配置的注释，此举可打开STARTTLS默认的587端口。</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>submission inet n - n – – smtpd
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>配置SASL认证服务</h2>
+
+<p>修改文件<code>/etc/postfix/sasl/smtpd.conf</code>为如下内容。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>pwcheck_method: saslauthd
+</span><span class='line'>mech_list: plain login
+</span><span class='line'>allow_plaintext: <span class="nb">true</span>
+</span><span class='line'>auxprop_plugin: sql
+</span><span class='line'>sql_engine: mysql
+</span><span class='line'>sql_hostnames: 127.0.0.1
+</span><span class='line'>sql_user: mail_admin
+</span><span class='line'>sql_passwd: mail_admin_password
+</span><span class='line'>sql_database: mail
+</span><span class='line'>sql_select: <span class="k">select </span>password from users where <span class="nv">email</span> <span class="o">=</span> <span class="s1">&#39;%u@%r&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>配置Dovecot</h2>
+
+<ul>
+<li><p>删除<code>/etc/dovecot/dovecot.conf</code>文件<code>protocols</code>配置中的<code>imaps</code>和<code>pop3s</code>。</p></li>
+<li><p>注释<code>/etc/dovecot/dovecot.conf</code>文件<code>protocol lda</code>段中的几行。</p></li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>protocol lda <span class="o">{</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;log_path <span class="o">=</span> /home/vmail/dovecot-deliver.log
+</span><span class='line'><span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
+</span><span class='line'><span class="nv">postmaster_address</span> <span class="o">=</span> postmaster@example.com
+</span><span class='line'><span class="c">#mail_plugins = sieve</span>
+</span><span class='line'><span class="c">#global_script_path = /home/vmail/globalsieverc</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>将配置文件格式转换为新版本。</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> /etc/dovecot
+</span><span class='line'>doveconf -n &gt; dovecot-new.conf
+</span><span class='line'>mv dovecot-new.conf dovecot.conf
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

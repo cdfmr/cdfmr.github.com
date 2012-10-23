@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Dovecot | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/dovecot/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-10-22T19:49:22+08:00</updated>
+  <updated>2012-10-24T00:09:55+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -119,11 +119,7 @@
 
 <h2>配置Dovecot</h2>
 
-<ul>
-<li><p>删除<code>/etc/dovecot/dovecot.conf</code>文件<code>protocols</code>配置中的<code>imaps</code>和<code>pop3s</code>。</p></li>
-<li><p>注释<code>/etc/dovecot/dovecot.conf</code>文件<code>protocol lda</code>段中的几行。</p></li>
-</ul>
-
+<p>这是符合新版本Dovecot要求的<code>/etc/dovecot/dovecot.conf</code>配置文件。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -135,29 +131,90 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>protocol lda <span class="o">{</span>&lt;/p&gt;
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">log_timestamp</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-%d %H:%M:%S &quot;</span>
+</span><span class='line'><span class="nv">mail_location</span> <span class="o">=</span> maildir:/home/vmail/%d/%n/Maildir
+</span><span class='line'>namespace <span class="o">{</span>
+</span><span class='line'>  <span class="nv">inbox</span> <span class="o">=</span> yes
+</span><span class='line'>  <span class="nv">location</span> <span class="o">=</span>
+</span><span class='line'>  <span class="nv">prefix</span> <span class="o">=</span> INBOX.
+</span><span class='line'>  <span class="nv">separator</span> <span class="o">=</span> .
+</span><span class='line'>  <span class="nb">type</span> <span class="o">=</span> private
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>passdb <span class="o">{</span>
+</span><span class='line'>  <span class="nv">args</span> <span class="o">=</span> /etc/dovecot/dovecot-sql.conf
+</span><span class='line'>  <span class="nv">driver</span> <span class="o">=</span> sql
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="nv">protocols</span> <span class="o">=</span> imap pop3
+</span><span class='line'>service auth <span class="o">{</span>
+</span><span class='line'>  unix_listener /var/spool/postfix/private/auth <span class="o">{</span>&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;log_path <span class="o">=</span> /home/vmail/dovecot-deliver.log
-</span><span class='line'><span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
-</span><span class='line'><span class="nv">postmaster_address</span> <span class="o">=</span> postmaster@example.com
-</span><span class='line'><span class="c">#mail_plugins = sieve</span>
-</span><span class='line'><span class="c">#global_script_path = /home/vmail/globalsieverc</span>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;group <span class="o">=</span> postfix
+</span><span class='line'><span class="nv">mode</span> <span class="o">=</span> 0660
+</span><span class='line'><span class="nv">user</span> <span class="o">=</span> postfix
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;p&gt;<span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<ul>
-<li>将配置文件格式转换为新版本。</li>
-</ul>
-
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> /etc/dovecot
-</span><span class='line'>doveconf -n &gt; dovecot-new.conf
-</span><span class='line'>mv dovecot-new.conf dovecot.conf
+</span><span class='line'>&lt;p&gt;  <span class="o">}</span>
+</span><span class='line'>  unix_listener auth-master <span class="o">{</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;mode <span class="o">=</span> 0600
+</span><span class='line'><span class="nv">user</span> <span class="o">=</span> vmail
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  <span class="o">}</span>
+</span><span class='line'>  <span class="nv">user</span> <span class="o">=</span> root
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="nv">ssl</span> <span class="o">=</span> required
+</span><span class='line'><span class="nv">ssl_cert</span> <span class="o">=</span> &amp;lt;/etc/ssl/certs/dovecot.pem
+</span><span class='line'><span class="nv">ssl_key</span> <span class="o">=</span> &amp;lt;/etc/ssl/private/dovecot.pem
+</span><span class='line'>userdb <span class="o">{</span>
+</span><span class='line'>  <span class="nv">args</span> <span class="o">=</span> <span class="nv">uid</span><span class="o">=</span>5000 <span class="nv">gid</span><span class="o">=</span>5000 <span class="nv">home</span><span class="o">=</span>/home/vmail/%d/%n <span class="nv">allow_all_users</span><span class="o">=</span>yes
+</span><span class='line'>  <span class="nv">driver</span> <span class="o">=</span> static
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>protocol lda <span class="o">{</span>
+</span><span class='line'>  <span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
+</span><span class='line'>  <span class="nv">log_path</span> <span class="o">=</span> /home/vmail/dovecot-deliver.log
+</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> postmaster@linfan.info
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>protocol pop3 <span class="o">{</span>
+</span><span class='line'>  <span class="nv">pop3_uidl_format</span> <span class="o">=</span> %08Xu%08Xv
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>

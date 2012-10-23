@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-10-24T00:09:55+08:00</updated>
+  <updated>2012-10-24T00:12:35+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -202,7 +202,7 @@
 </span><span class='line'>protocol lda <span class="o">{</span>
 </span><span class='line'>  <span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
 </span><span class='line'>  <span class="nv">log_path</span> <span class="o">=</span> /home/vmail/dovecot-deliver.log
-</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> postmaster@linfan.info
+</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> postmaster@example.com
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>protocol pop3 <span class="o">{</span>
 </span><span class='line'>  <span class="nv">pop3_uidl_format</span> <span class="o">=</span> %08Xu%08Xv

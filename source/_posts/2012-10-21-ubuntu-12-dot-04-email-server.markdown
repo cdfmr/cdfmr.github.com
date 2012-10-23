@@ -72,24 +72,48 @@ sql_select: select password from users where email = '%u@%r'
 
 ## 配置Dovecot
 
-* 删除`/etc/dovecot/dovecot.conf`文件`protocols`配置中的`imaps`和`pop3s`。
-
-* 注释`/etc/dovecot/dovecot.conf`文件`protocol lda`段中的几行。
+这是符合新版本Dovecot要求的`/etc/dovecot/dovecot.conf`配置文件。
 
 {% codeblock lang:bash %}
-protocol lda {
-    log_path = /home/vmail/dovecot-deliver.log
-    auth_socket_path = /var/run/dovecot/auth-master
-    postmaster_address = postmaster@example.com
-    #mail_plugins = sieve
-    #global_script_path = /home/vmail/globalsieverc
+log_timestamp = "%Y-%m-%d %H:%M:%S "
+mail_location = maildir:/home/vmail/%d/%n/Maildir
+namespace {
+  inbox = yes
+  location =
+  prefix = INBOX.
+  separator = .
+  type = private
 }
-{% endcodeblock %}
-
-* 将配置文件格式转换为新版本。
-
-{% codeblock lang:bash %}
-cd /etc/dovecot
-doveconf -n > dovecot-new.conf
-mv dovecot-new.conf dovecot.conf
+passdb {
+  args = /etc/dovecot/dovecot-sql.conf
+  driver = sql
+}
+protocols = imap pop3
+service auth {
+  unix_listener /var/spool/postfix/private/auth {
+    group = postfix
+    mode = 0660
+    user = postfix
+  }
+  unix_listener auth-master {
+    mode = 0600
+    user = vmail
+  }
+  user = root
+}
+ssl = required
+ssl_cert = </etc/ssl/certs/dovecot.pem
+ssl_key = </etc/ssl/private/dovecot.pem
+userdb {
+  args = uid=5000 gid=5000 home=/home/vmail/%d/%n allow_all_users=yes
+  driver = static
+}
+protocol lda {
+  auth_socket_path = /var/run/dovecot/auth-master
+  log_path = /home/vmail/dovecot-deliver.log
+  postmaster_address = postmaster@example.com
+}
+protocol pop3 {
+  pop3_uidl_format = %08Xu%08Xv
+}
 {% endcodeblock %}

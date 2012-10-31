@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="基本可按照Linode上的这篇教学进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。 本文内容已经在Hostigation的KVM-VPS上测试通过。 ">
+  <meta name="description" content="Linode Library是Linode这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。 下载地址： &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/31/linode-library-offline/">Linode Library 离线文档</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-31T20:13:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://library.linode.com">Linode Library</a>是<a href="https://www.linode.com">Linode</a>这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。</p>
+
+<p>下载地址：<a href="https://github.com/downloads/cdfmr/cdfmr.github.com/linode_library_offline_2012.10.31.chm">Linode Library Offline 2012.10.31</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -459,64 +497,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Cocoa菜单栏右侧图标的实现</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-28T21:35:00+08:00" pubdate data-updated="true">Feb 28<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSStatusBar</span> <span class="o">*</span><span class="n">statusBar</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSStatusBar</span> <span class="n">systemStatusBar</span><span class="p">];</span>
-</span><span class='line'><span class="n">NSStatusItem</span> <span class="o">*</span><span class="n">statusItem</span> <span class="o">=</span> <span class="p">[</span><span class="n">statusBar</span> <span class="nl">statusItemWithLength:</span><span class="n">NSVariableStatusItemLength</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setImage:</span><span class="n">image</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setMenu:</span><span class="n">menu</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="nl">setHighlightMode:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">statusItem</span> <span class="n">retain</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用这种方法创建的图标，位于菜单栏图标区域的最左侧，如果菜单栏上图标太多，很容易就被程序菜单遮挡了。那么，有没有办法在菜单栏的右侧添加图标呢？</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -530,6 +510,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/31/linode-library-offline/">Linode Library 离线文档</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/21/ubuntu-12-dot-04-email-server/">Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器</a>
@@ -547,17 +531,13 @@
         <a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/03/26/mac-app-self-relaunch/">实现Mac应用的自我重启</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/app-nbsp-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/app-nbsp-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

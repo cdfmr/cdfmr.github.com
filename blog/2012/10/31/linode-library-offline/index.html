@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>实现Mac应用的自我重启 - linfan's blog</title>
+  <title>Linode Library 离线文档 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。 实现自我重启的方法很多，易于理解且实现简单的一种如下。 启动一个子进程；
-主进程退出；
-子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。 子进程可以是一个简单的命令行程序， &hellip;">
+  <meta name="description" content="Linode Library是Linode这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。 下载地址： &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/">
+  <link rel="canonical" href="http://linfan.info/blog/2012/10/31/linode-library-offline/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">实现Mac应用的自我重启</h1>
+      <h1 class="entry-title">Linode Library 离线文档</h1>
     
     
       <p class="meta">
@@ -85,58 +83,16 @@
   
 
 
-<time datetime="2012-03-26T19:31:00+08:00" pubdate data-updated="true">Mar 26<span>th</span>, 2012</time>
+<time datetime="2012-10-31T20:13:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。</p>
+<div class="entry-content"><p><a href="https://library.linode.com">Linode Library</a>是<a href="https://www.linode.com">Linode</a>这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。</p>
 
-<p>实现自我重启的方法很多，易于理解且实现简单的一种如下。</p>
-
-<ol>
-<li>启动一个子进程；</li>
-<li>主进程退出；</li>
-<li>子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。</li>
-</ol>
-
-
-<!--more-->
-
-
-<p>子进程可以是一个简单的命令行程序，不过最简易的方法莫过于使用Shell，以下是代码片段。</p>
-
-<div><script src='https://gist.github.com/2204627.js?file='></script>
-<noscript><pre><code>@implementation NSApplication (Relaunch)
-
-- (void)relaunchAfterDelay:(float)seconds
-{
-    NSTask *task = [[[NSTask alloc] init] autorelease];
-    NSMutableArray *args = [NSMutableArray array];
-    [args addObject:@&quot;-c&quot;];
-    [args addObject:[NSString stringWithFormat:@&quot;sleep %f; open \&quot;%@\&quot;&quot;, seconds, [[NSBundle mainBundle] bundlePath]]];
-    [task setLaunchPath:@&quot;/bin/sh&quot;];
-    [task setArguments:args];
-    [task launch];
-    
-    [self terminate:nil];
-}
-
-@end</code></pre></noscript></div>
-
-
-<p>以上代码只实现了延时重启，并未检测主进程状态。</p>
-
-<p>使用方法：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSApp</span> <span class="nl">relaunchAfterDelay:</span><span class="mf">2.0</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
+<p>下载地址：<a href="https://github.com/downloads/cdfmr/cdfmr.github.com/linode_library_offline_2012.10.31.chm">Linode Library Offline 2012.10.31</a></p>
 </div>
 
 
@@ -159,12 +115,12 @@
   
 
 
-<time datetime="2012-03-26T19:31:00+08:00" pubdate data-updated="true">Mar 26<span>th</span>, 2012</time>
+<time datetime="2012-10-31T20:13:00+08:00" pubdate data-updated="true">Oct 31<span>st</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+    <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>
   
 </span>
 
@@ -173,7 +129,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/" data-via="" data-counturl="http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/10/31/linode-library-offline/" data-via="" data-counturl="http://linfan.info/blog/2012/10/31/linode-library-offline/" >Tweet</a>
   
   
   
@@ -182,10 +138,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/07/xcode-tips/" title="Previous Post: Xcode的点滴记录">&laquo; Xcode的点滴记录</a>
+        <a class="basic-alignment left" href="/blog/2012/10/21/ubuntu-12-dot-04-email-server/" title="Previous Post: Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器">&laquo; Ubuntu 12.04上使用Postfix+Dovecot+MySQL安装支持多域名的邮件服务器</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/03/27/xcode-build-number-with-git/" title="Next Post: Xcode: 使用Git自动设置项目版本">Xcode: 使用Git自动设置项目版本 &raquo;</a>
       
     </p>
   </footer>
@@ -275,8 +229,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/';
-        var disqus_url = 'http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/';
+        var disqus_identifier = 'http://linfan.info/blog/2012/10/31/linode-library-offline/';
+        var disqus_url = 'http://linfan.info/blog/2012/10/31/linode-library-offline/';
         var disqus_script = 'embed.js';
       
     (function () {

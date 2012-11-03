@@ -22,7 +22,7 @@ apt-get install dovecot-mysql
 
 ## 配置Postfix
 
-* 最后一步编辑`postfix.conf`文件时，执行以下代码替换原文代码，删除了新版本Postfix不支持的一些配置项了，注意将主机名替换为你自己的主机名。
+* 最后一步编辑Postfix配置文件时，执行以下代码替换原文代码，删除了新版本Postfix不支持的一些配置项了，注意将主机名替换为你自己的主机名。
 
 {% codeblock lang:bash %}
 postconf -e 'myhostname = server.example.com'

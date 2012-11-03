@@ -4,7 +4,7 @@
   <title><![CDATA[Category: MySQL | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-10-31T20:27:45+08:00</updated>
+  <updated>2012-11-03T22:03:30+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -36,7 +36,7 @@
 <h2>配置Postfix</h2>
 
 <ul>
-<li>最后一步编辑<code>postfix.conf</code>文件时，执行以下代码替换原文代码，删除了新版本Postfix不支持的一些配置项了，注意将主机名替换为你自己的主机名。</li>
+<li>最后一步编辑Postfix配置文件时，执行以下代码替换原文代码，删除了新版本Postfix不支持的一些配置项了，注意将主机名替换为你自己的主机名。</li>
 </ul>
 
 

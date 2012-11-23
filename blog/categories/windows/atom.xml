@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Windows | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/windows/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-11-03T22:03:30+08:00</updated>
+  <updated>2012-11-23T21:51:10+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -298,6 +298,8 @@
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>补充，官方的下载地址已经失效，可以从<a href="http://files.linfan.info/fcitx-3.5-070703.tar.bz2">这里</a>下载。</p>
 
 <p>下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在<code>system "make install"</code>之前增加一行<code>system "make"</code>。</p>
 

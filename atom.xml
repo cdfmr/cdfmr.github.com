@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-11-03T22:03:30+08:00</updated>
+  <updated>2012-11-23T21:51:10+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -20,7 +20,7 @@
     <id>http://linfan.info/blog/2012/10/31/linode-library-offline</id>
     <content type="html"><![CDATA[<p><a href="https://library.linode.com">Linode Library</a>是<a href="https://www.linode.com">Linode</a>这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。</p>
 
-<p>下载地址：<a href="https://github.com/downloads/cdfmr/cdfmr.github.com/linode_library_offline_2012.10.31.chm">Linode Library Offline 2012.10.31</a></p>
+<p>下载地址：<a href="http://files.linfan.info/linode_library_offline_2012.10.31.chm">Linode Library Offline 2012.10.31</a></p>
 ]]></content>
   </entry>
   
@@ -823,6 +823,8 @@
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>补充，官方的下载地址已经失效，可以从<a href="http://files.linfan.info/fcitx-3.5-070703.tar.bz2">这里</a>下载。</p>
 
 <p>下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在<code>system "make install"</code>之前增加一行<code>system "make"</code>。</p>
 

@@ -55,6 +55,8 @@ Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，
 brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
 {% endcodeblock %}
 
+补充：官方的下载地址已经失效，可以从[这里](http://files.linfan.info/fcitx-3.5-070703.tar.bz2)下载。
+
 下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在`system "make install"`之前增加一行`system "make"`。
 
 {% codeblock lang:bash %}

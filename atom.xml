@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-11-23T21:57:42+08:00</updated>
+  <updated>2012-12-27T21:53:56+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[诡异的NSURLErrorDomain －3001错误]]></title>
+    <link href="http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/"/>
+    <updated>2012-12-27T21:36:00+08:00</updated>
+    <id>http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001</id>
+    <content type="html"><![CDATA[<p>最近在使用NSURLDownload下载文件时，遇到NSURLErrorDomain －3001错误，具体的错误日志如下。</p>
+
+<p><em>The operation couldn’t be completed. (NSURLErrorDomain error -3001.)</em></p>
+
+<p>Google无果，最后居然发现是因为目标目录只读所致。由于很难从错误信息得知真正原因，故记录于此备忘。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Linode Library 离线文档]]></title>

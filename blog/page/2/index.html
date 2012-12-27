@@ -9,13 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。 1
-2
-3
-4
-5
-6
-NSStatusBar * &hellip;">
+  <meta name="description" content="我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。 fuse-ext2是ext2文件系统在FUSE上的实现，支持Linux和Mac OS X。FUSE是在操作系统用户态下实现的文件系统，源自Linux &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +64,49 @@ NSStatusBar * &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/29/mac-ext2fs/">Mac OS X下读写ext2/ext3文件系统</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-29T09:24:00+08:00" pubdate data-updated="true">Feb 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。</p>
+
+<p><a href="http://fuse-ext2.sourceforge.net">fuse-ext2</a>是ext2文件系统在<a href="http://fuse.sourceforge.net">FUSE</a>上的实现，支持Linux和Mac OS X。FUSE是在操作系统用户态下实现的文件系统，源自Linux，Mac OS X的移植版本主要有三个，<a href="http://code.google.com/p/macfuse/">MacFUSE</a>、<a href="http://fuse4x.org">Fuse4X</a>和<a href="http://osxfuse.github.com">OSXFUSE</a>，其中，MacFUSE已经停止开发，后二者是MacFUSE的继承者。Fuse4X和OSXFUSE都把对FUSE最新API的支持作为项目目标，但Fuse4X不提供对MacFUSE旧版本接口的兼容，OSXFUSE则同时兼容MacFUSE旧接口。fuse-ext2二进制安装包是基于MacFUSE编译的，所以我们选择OSXFUSE，获取最佳的功能与兼容性。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/02/29/mac-ext2fs/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -365,6 +402,10 @@ NSStatusBar * &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/27/nsurlerrordomain-3001/">诡异的NSURLErrorDomain －3001错误</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/31/linode-library-offline/">Linode Library 离线文档</a>
       </li>
     
@@ -378,10 +419,6 @@ NSStatusBar * &hellip;">
     
       <li class="post">
         <a href="/blog/2012/04/20/uuid/">各种OS中生成UUID的方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a>
       </li>
     
   </ul>

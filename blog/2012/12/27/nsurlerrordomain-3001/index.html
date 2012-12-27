@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>About Me - linfan's blog</title>
+  <title>诡异的NSURLErrorDomain －3001错误 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="About Me Feb 21st, 2012 码农一名，从事Windows/Unix/Mac开发。 我的网站 Linasoft
-Galaworks 我的应用 AutoPlay Menu Builder
-功能强大的光盘自动运行菜单制作工具 EZ MP3 Creator
-免费开源的CD音乐抓取/ &hellip;">
+  <meta name="description" content="最近在使用NSURLDownload下载文件时，遇到NSURLErrorDomain －3001错误，具体的错误日志如下。 The operation couldn’t be completed. (NSURLErrorDomain error -3001.) Google无果， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ Galaworks 我的应用 AutoPlay Menu Builder
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/about/">
+  <link rel="canonical" href="http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,11 +63,15 @@ Galaworks 我的应用 AutoPlay Menu Builder
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">About Me</h1>
-    <p class="meta">
+    
+      <h1 class="entry-title">诡异的NSURLErrorDomain －3001错误</h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -82,45 +83,75 @@ Galaworks 我的应用 AutoPlay Menu Builder
   
 
 
-<time datetime="2012-02-21T21:51:00+08:00" pubdate data-updated="true">Feb 21<span>st</span>, 2012</time></p>
+<time datetime="2012-12-27T21:36:00+08:00" pubdate data-updated="true">Dec 27<span>th</span>, 2012</time>
+        
+      </p>
+    
   </header>
+
+
+<div class="entry-content"><p>最近在使用NSURLDownload下载文件时，遇到NSURLErrorDomain －3001错误，具体的错误日志如下。</p>
+
+<p><em>The operation couldn’t be completed. (NSURLErrorDomain error -3001.)</em></p>
+
+<p>Google无果，最后居然发现是因为目标目录只读所致。由于很难从错误信息得知真正原因，故记录于此备忘。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <p>码农一名，从事Windows/Unix/Mac开发。</p>
 
-<h3>我的网站</h3>
+<span class="byline author vcard">Posted by <span class="fn">linfan</span></span>
 
-<p><a href="http://www.linasoft.com">Linasoft</a><br/>
-<a href="http://www.galaworks.com">Galaworks</a></p>
+      
 
-<h3>我的应用</h3>
 
-<p><a href="http://www.linasoft.com/apmbuilder.php">AutoPlay Menu Builder</a><br/>
-功能强大的光盘自动运行菜单制作工具</p>
 
-<p><a href="https://github.com/cdfmr/ezmp3c">EZ MP3 Creator</a><br/>
-免费开源的CD音乐抓取/转换工具</p>
 
-<p><a href="http://itunes.apple.com/us/app/freeman/id510934532?ls=1&amp;mt=12">FreeMan</a> (Mac)<br/>
-清理内存的小工具</p>
 
-<p><a href="http://itunes.apple.com/cn/app/lunarcal/id459976036?mt=12">LunarCal</a> (Mac)<br/>
-菜单栏上的农历应用</p>
 
-<p><a href="http://itunes.apple.com/us/app/pdf-image-reverser/id448593212?mt=12">PDF Image Reverser</a> (Mac)<br/>
-提取PDF文件中的图像</p>
 
-<p><a href="http://itunes.apple.com/us/app/pdf-image-converter/id450055277?mt=12">PDF Image Converter</a> (Mac)<br/>
-转换PDF文件为图像</p>
-
-<p><a href="http://itunes.apple.com/cn/app/hanzconvert/id442107196?mt=12">HanzConvert</a> (Mac)<br/>
-汉字编码(UTF-8/GB18030/BIG-5)转换器</p>
-
-<h3>联系方式</h3>
-
-<p>linfan at mail dot com</p>
 
   
+
+
+<time datetime="2012-12-27T21:36:00+08:00" pubdate data-updated="true">Dec 27<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/" data-via="" data-counturl="http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/31/linode-library-offline/" title="Previous Post: Linode Library 离线文档">&laquo; Linode Library 离线文档</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -194,6 +225,22 @@ Galaworks 我的应用 AutoPlay Menu Builder
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'linfan';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/';
+        var disqus_url = 'http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 

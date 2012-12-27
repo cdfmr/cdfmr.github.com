@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="Linode Library是Linode这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。 下载地址： &hellip;">
+  <meta name="description" content="最近在使用NSURLDownload下载文件时，遇到NSURLErrorDomain －3001错误，具体的错误日志如下。 The operation couldn’t be completed. (NSURLErrorDomain error -3001.) Google无果， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/27/nsurlerrordomain-3001/">诡异的NSURLErrorDomain －3001错误</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-27T21:36:00+08:00" pubdate data-updated="true">Dec 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在使用NSURLDownload下载文件时，遇到NSURLErrorDomain －3001错误，具体的错误日志如下。</p>
+
+<p><em>The operation couldn’t be completed. (NSURLErrorDomain error -3001.)</em></p>
+
+<p>Google无果，最后居然发现是因为目标目录只读所致。由于很难从错误信息得知真正原因，故记录于此备忘。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -454,49 +494,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/29/mac-ext2fs/">Mac OS X下读写ext2/ext3文件系统</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-29T09:24:00+08:00" pubdate data-updated="true">Feb 29<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。</p>
-
-<p><a href="http://fuse-ext2.sourceforge.net">fuse-ext2</a>是ext2文件系统在<a href="http://fuse.sourceforge.net">FUSE</a>上的实现，支持Linux和Mac OS X。FUSE是在操作系统用户态下实现的文件系统，源自Linux，Mac OS X的移植版本主要有三个，<a href="http://code.google.com/p/macfuse/">MacFUSE</a>、<a href="http://fuse4x.org">Fuse4X</a>和<a href="http://osxfuse.github.com">OSXFUSE</a>，其中，MacFUSE已经停止开发，后二者是MacFUSE的继承者。Fuse4X和OSXFUSE都把对FUSE最新API的支持作为项目目标，但Fuse4X不提供对MacFUSE旧版本接口的兼容，OSXFUSE则同时兼容MacFUSE旧接口。fuse-ext2二进制安装包是基于MacFUSE编译的，所以我们选择OSXFUSE，获取最佳的功能与兼容性。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/29/mac-ext2fs/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -512,6 +509,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/27/nsurlerrordomain-3001/">诡异的NSURLErrorDomain －3001错误</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/10/31/linode-library-offline/">Linode Library 离线文档</a>
       </li>
     
@@ -525,10 +526,6 @@
     
       <li class="post">
         <a href="/blog/2012/04/20/uuid/">各种OS中生成UUID的方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a>
       </li>
     
   </ul>

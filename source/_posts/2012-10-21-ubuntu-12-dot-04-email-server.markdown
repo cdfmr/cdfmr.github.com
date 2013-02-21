@@ -6,7 +6,7 @@ comments: true
 categories: Linux Ubuntu Postfix Dovecot MySQL
 ---
 
-基本可按照Linode上的[这篇教学](https://library.linode.com/email/postfix/dovecot-mysql-ubuntu-10.04-lucid#sph_setting-up-domains-and-users)进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。
+基本可按照Linode上的[这篇教学](https://library.linode.com/email/postfix/dovecot-mysql-ubuntu-10.04-lucid)进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。
 
 本文内容已经在[Hostigation](https://hostigation.com/billing/aff.php?aff=405)的KVM-VPS上测试通过。
 

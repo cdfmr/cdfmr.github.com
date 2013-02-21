@@ -4,7 +4,7 @@
   <title><![CDATA[Category: MySQL | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2012-12-27T21:53:56+08:00</updated>
+  <updated>2013-02-21T22:05:07+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -18,7 +18,7 @@
     <link href="http://linfan.info/blog/2012/10/21/ubuntu-12-dot-04-email-server/"/>
     <updated>2012-10-21T16:14:00+08:00</updated>
     <id>http://linfan.info/blog/2012/10/21/ubuntu-12-dot-04-email-server</id>
-    <content type="html"><![CDATA[<p>基本可按照Linode上的<a href="https://library.linode.com/email/postfix/dovecot-mysql-ubuntu-10.04-lucid#sph_setting-up-domains-and-users">这篇教学</a>进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。</p>
+    <content type="html"><![CDATA[<p>基本可按照Linode上的<a href="https://library.linode.com/email/postfix/dovecot-mysql-ubuntu-10.04-lucid">这篇教学</a>进行，但此文是基于Ubuntu 10.04的，在Ubuntu 12.04上安装时需要做出以下变动。</p>
 
 <p>本文内容已经在<a href="https://hostigation.com/billing/aff.php?aff=405">Hostigation</a>的KVM-VPS上测试通过。</p>
 

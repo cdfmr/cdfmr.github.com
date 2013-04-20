@@ -33,7 +33,9 @@ Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发�
 
 Homebrew的安装非常简单，在终端程序中输入以下命令即可。
 
-`/usr/bin/ruby -e "$(/usr/bin/curl -fksSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"`
+`ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"`
+
+由于Homebrew的安装地址可能变化，请到[官方网站](http://mxcl.github.io/homebrew/index_zh-cn.html)查看最新的安装方法。
 
 安装过程需要输入root口令。
 

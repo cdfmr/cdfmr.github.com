@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。 fuse-ext2是ext2文件系统在FUSE上的实现，支持Linux和Mac OS X。FUSE是在操作系统用户态下实现的文件系统，源自Linux &hellip;">
+  <meta name="description" content="目前，在Mac OS X中运行Windows程序，不外乎两种方法。一是在虚拟机软件如VirtualBox、VMware Fusion、Parallels Desktop中安装完整的Windows操作系统；另一种则是利用Wine或其商业版本Crossover Office直接运行Windows软件 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/01/wine-mac/">使用Wine在Mac OS X中运行Windows程序</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-01T00:06:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>目前，在Mac OS X中运行Windows程序，不外乎两种方法。一是在虚拟机软件如<a href="http://www.virtualbox.org">VirtualBox</a>、<a href="http://www.vmware.com/mac">VMware Fusion</a>、<a href="http://www.parallels.com/products/desktop/">Parallels Desktop</a>中安装完整的Windows操作系统；另一种则是利用<a href="http://www.winehq.org">Wine</a>或其商业版本<a href="http://www.codeweavers.com">Crossover Office</a>直接运行Windows软件。</p>
+
+<p>Wine的名字是一个有意思的缩写，Wine Is Not an Emulator，如其所表，Wine并非虚拟机，它实现功能的方法是提供对Windows API的兼容，从而使Windows程序能够运行在Linux/Mac OS X操作系统中。与虚拟机相比，Wine的运行效率和系统资源占用都有很大优势，但兼容性会差一些，不过很多软件包括Office、Photoshop之类的大型软件都能运行。<a href="http://appdb.winehq.org">这里</a>有一个Wine的兼容性列表。</p>
+
+<p>本文谈一下Wine在Mac OS X中的安装和配置。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/01/wine-mac/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -402,6 +447,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/04/calendar-color/">修改Mountain Lion提醒列表的颜色</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/27/nsurlerrordomain-3001/">诡异的NSURLErrorDomain －3001错误</a>
       </li>
     
@@ -415,10 +464,6 @@
     
       <li class="post">
         <a href="/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/">在沙盒环境中使用Finder打开文件夹</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/04/20/uuid/">各种OS中生成UUID的方法</a>
       </li>
     
   </ul>

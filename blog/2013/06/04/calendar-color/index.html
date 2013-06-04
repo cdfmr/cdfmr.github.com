@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Xcode: 使用Git自动设置项目版本 - linfan's blog</title>
+  <title>修改Mountain Lion提醒列表的颜色 - linfan's blog</title>
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。 与SVN不同， &hellip;">
+  <meta name="description" content="Mountain Lion操作系统中，提醒事项从日历应用中分离，成为了独立的应用。新的提醒事项应用不再使用颜色标记事项列表，也无法设置列表的颜色。可是，很多第三方应用，比如Fantastical以及拙作LunarCal都会使用列表的颜色进行展示。于是写了这个小程序，用来在Mountain &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/">
+  <link rel="canonical" href="http://linfan.info/blog/2013/06/04/calendar-color/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">Xcode: 使用Git自动设置项目版本</h1>
+      <h1 class="entry-title">修改Mountain Lion提醒列表的颜色</h1>
     
     
       <p class="meta">
@@ -83,43 +83,19 @@
   
 
 
-<time datetime="2012-03-27T15:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2012</time>
+<time datetime="2013-06-04T21:54:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。</p>
+<div class="entry-content"><p>Mountain Lion操作系统中，提醒事项从日历应用中分离，成为了独立的应用。新的提醒事项应用不再使用颜色标记事项列表，也无法设置列表的颜色。可是，很多第三方应用，比如Fantastical以及拙作<a href="http://www.galaworks.com/lunarcal/">LunarCal</a>都会使用列表的颜色进行展示。于是写了这个小程序，用来在Mountain Lion操作系统中修改提醒列表的颜色。</p>
 
-<!--more-->
+<p><img src="/blog/images/2013-06-04-calendar-color.png" alt="CalColor" /></p>
 
-
-<p>与SVN不同，Git使用散列值作为每次提交的标记，而不是像SVN那样使用递增序列，因此不便直接用作CFBundleVersion。正愁以后每次都要麻烦地手工设置了，苦思冥想一番之后豁然开朗，虽然Git没有数值化的版本号，但我可以自己数一数提交次数啊，于是有了这个脚本。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'> /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion `git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l`&quot;</span> <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>很简单，数一下Git版本库的提交次数，使用PlistBuddy将其设置为CFBundleVersion。</p>
-
-<p>顺便附上以前使用的SVN脚本，稍稍不同的是将版本号补齐到3位。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">rev</span><span class="o">=</span><span class="sb">`</span>svnversion -n<span class="sb">`</span>
-</span><span class='line'><span class="k">while</span> <span class="o">[</span> <span class="k">${#</span><span class="nv">rev</span><span class="k">}</span> -lt 3 <span class="o">]</span> ; <span class="k">do</span>
-</span><span class='line'><span class="k">    </span><span class="nv">rev</span><span class="o">=</span><span class="s2">&quot;0${rev}&quot;</span>
-</span><span class='line'><span class="k">done</span>
-</span><span class='line'><span class="nb">echo</span> -n <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>
+<p><a href="/blog/files/calcolor.zip">下载</a><br/>
+<a href="/blog/files/calcolor_src.zip">源码</a></p>
 </div>
 
 
@@ -142,12 +118,12 @@
   
 
 
-<time datetime="2012-03-27T15:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2012</time>
+<time datetime="2013-06-04T21:54:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/mac-nbsp-os-nbsp-x/'>Mac&nbsp;OS&nbsp;X</a>
   
 </span>
 
@@ -156,7 +132,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/" data-via="" data-counturl="http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2013/06/04/calendar-color/" data-via="" data-counturl="http://linfan.info/blog/2013/06/04/calendar-color/" >Tweet</a>
   
   
   
@@ -165,10 +141,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/03/26/mac-app-self-relaunch/" title="Previous Post: 实现Mac应用的自我重启">&laquo; 实现Mac应用的自我重启</a>
+        <a class="basic-alignment left" href="/blog/2012/12/27/nsurlerrordomain-3001/" title="Previous Post: 诡异的NSURLErrorDomain －3001错误">&laquo; 诡异的NSURLErrorDomain －3001错误</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/04/20/uuid/" title="Next Post: 各种OS中生成UUID的方法">各种OS中生成UUID的方法 &raquo;</a>
       
     </p>
   </footer>
@@ -258,8 +232,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/';
-        var disqus_url = 'http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/';
+        var disqus_identifier = 'http://linfan.info/blog/2013/06/04/calendar-color/';
+        var disqus_url = 'http://linfan.info/blog/2013/06/04/calendar-color/';
         var disqus_script = 'embed.js';
       
     (function () {

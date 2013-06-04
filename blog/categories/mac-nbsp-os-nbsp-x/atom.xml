@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-04-20T09:34:45+08:00</updated>
+  <updated>2013-06-04T22:21:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,20 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[修改Mountain Lion提醒列表的颜色]]></title>
+    <link href="http://linfan.info/blog/2013/06/04/calendar-color/"/>
+    <updated>2013-06-04T21:54:00+08:00</updated>
+    <id>http://linfan.info/blog/2013/06/04/calendar-color</id>
+    <content type="html"><![CDATA[<p>Mountain Lion操作系统中，提醒事项从日历应用中分离，成为了独立的应用。新的提醒事项应用不再使用颜色标记事项列表，也无法设置列表的颜色。可是，很多第三方应用，比如Fantastical以及拙作<a href="http://www.galaworks.com/lunarcal/">LunarCal</a>都会使用列表的颜色进行展示。于是写了这个小程序，用来在Mountain Lion操作系统中修改提醒列表的颜色。</p>
+
+<p><img src="/blog/images/2013-06-04-calendar-color.png" alt="CalColor" /></p>
+
+<p><a href="/blog/files/calcolor.zip">下载</a><br/>
+<a href="/blog/files/calcolor_src.zip">源码</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[诡异的NSURLErrorDomain －3001错误]]></title>
@@ -381,56 +395,6 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[实现Mac应用的自我重启]]></title>
-    <link href="http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/"/>
-    <updated>2012-03-26T19:31:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/03/26/mac-app-self-relaunch</id>
-    <content type="html"><![CDATA[<p>对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。</p>
-
-<p>实现自我重启的方法很多，易于理解且实现简单的一种如下。</p>
-
-<ol>
-<li>启动一个子进程；</li>
-<li>主进程退出；</li>
-<li>子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。</li>
-</ol>
-
-
-<!--more-->
-
-
-<p>子进程可以是一个简单的命令行程序，不过最简易的方法莫过于使用Shell，以下是代码片段。</p>
-
-<p><div><script src='https://gist.github.com/2204627.js?file='></script>
-<noscript><pre><code>@implementation NSApplication (Relaunch)
-
-- (void)relaunchAfterDelay:(float)seconds
-{
-	NSTask *task = [[[NSTask alloc] init] autorelease];
-	NSMutableArray *args = [NSMutableArray array];
-	[args addObject:@&quot;-c&quot;];
-	[args addObject:[NSString stringWithFormat:@&quot;sleep %f; open \&quot;%@\&quot;&quot;, seconds, [[NSBundle mainBundle] bundlePath]]];
-	[task setLaunchPath:@&quot;/bin/sh&quot;];
-	[task setArguments:args];
-	[task launch];
-	
-	[self terminate:nil];
-}
-
-@end</code></pre></noscript></div>
-</p>
-
-<p>以上代码只实现了延时重启，并未检测主进程状态。</p>
-
-<p>使用方法：</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSApp</span> <span class="nl">relaunchAfterDelay:</span><span class="mf">2.0</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   

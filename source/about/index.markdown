@@ -35,4 +35,4 @@ footer: false
 汉字编码(UTF-8/GB18030/BIG-5)转换器
 
 ###联系方式
-linfan at mail dot com
+im.linfan at gmail dot com

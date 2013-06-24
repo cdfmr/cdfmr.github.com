@@ -4,7 +4,7 @@
   <title><![CDATA[Category: C | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/c/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-06-23T00:14:52+08:00</updated>
+  <updated>2013-06-24T19:35:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -19,8 +19,6 @@
     <updated>2013-06-22T23:57:00+08:00</updated>
     <id>http://linfan.info/blog/2013/06/22/greader-archive-to-html</id>
     <content type="html"><![CDATA[<p>Google Reader就要关闭了，抓紧时间用<a href="https://github.com/Aulddays/GReader-Archive">GReader Archive</a>导出订阅的文章。可是XML文件很难直接阅读，于是写了<a href="https://github.com/cdfmr/ga2html">ga2html</a>将其转换为HTML页面。</p>
-
-<p>仓促写就，也仅在OS X下做了简单测试，只是基本可用。</p>
 
 <p><a href="https://github.com/cdfmr/ga2html">GitHub</a></p>
 ]]></content>

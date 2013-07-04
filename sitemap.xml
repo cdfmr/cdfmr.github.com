@@ -78,7 +78,7 @@
     </url>
     <url>
         <loc>http://linfan.info/about/</loc>
-        <lastmod>2013-06-07T23:26:43+08:00</lastmod>
+        <lastmod>2013-07-04T22:55:37+08:00</lastmod>
     </url>
     <url>
         <loc>http://linfan.info/blog/archives/</loc>
@@ -87,9 +87,5 @@
     <url>
         <loc>http://linfan.info/</loc>
         <lastmod>2013-06-24T19:34:44+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/opensource/</loc>
-        <lastmod>2012-06-16T00:45:02+08:00</lastmod>
     </url>
 </urlset>

@@ -10,10 +10,10 @@ footer: false
 
 ### 我的应用
 
-[AutoPlay Menu Builder](http://www.linasoft.com/apmbuilder.php)  
+[AutoPlay Menu Builder](http://www.linasoft.com)  
 功能强大的光盘自动运行菜单制作工具
 
-[LunarCal](http://itunes.apple.com/cn/app/lunarcal/id459976036?mt=12) (Mac)  
+[LunarCal](http://www.galaworks.com/lunarcal) (Mac)  
 菜单栏上的农历应用
 
 [FreeMan](http://itunes.apple.com/us/app/freeman/id510934532?ls=1&mt=12) (Mac)  

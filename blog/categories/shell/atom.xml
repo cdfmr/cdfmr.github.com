@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Shell | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/shell/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2013-09-15T23:02:05+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[用Shell实现简单的Web爬虫]]></title>
+    <link href="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/"/>
+    <updated>2013-09-15T22:47:00+08:00</updated>
+    <id>http://linfan.info/blog/2013/09/15/web-crawler-by-shell</id>
+    <content type="html"><![CDATA[<p><div><script src='https://gist.github.com/6571304.js?file='></script>
+<noscript><pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/6571304&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>

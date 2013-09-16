@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Postfix | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/postfix/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-15T23:02:05+08:00</updated>
+  <updated>2013-09-17T00:07:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -60,26 +60,26 @@
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>postconf -e <span class="s1">&#39;myhostname = server.example.com&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;mydestination = server.example.com, localhost, localhost.localdomain&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;mynetworks = 127.0.0.0/8&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;message_size_limit = 30720000&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_alias_domains =&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_alias_maps = proxy:mysql:/etc/postfix/mysql-virtual_forwardings.cf, mysql:/etc/postfix/mysql-virtual_email2email.cf&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_mailbox_domains = proxy:mysql:/etc/postfix/mysql-virtual_domains.cf&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_mailbox_maps = proxy:mysql:/etc/postfix/mysql-virtual_mailboxes.cf&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_mailbox_base = /home/vmail&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_uid_maps = static:5000&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_gid_maps = static:5000&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_sasl_auth_enable = yes&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;broken_sasl_auth_clients = yes&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_sasl_authenticated_header = yes&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_recipient_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_use_tls = yes&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_tls_cert_file = /etc/postfix/smtpd.cert&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;smtpd_tls_key_file = /etc/postfix/smtpd.key&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;proxy_read_maps = $local_recipient_maps $mydestination $virtual_alias_maps $virtual_alias_domains $virtual_mailbox_maps $virtual_mailbox_domains $relay_recipient_maps $relay_domains $canonical_maps $sender_canonical_maps $recipient_canonical_maps $relocated_maps $transport_maps $mynetworks $virtual_mailbox_limit_maps&#39;</span>
-</span><span class='line'>postconf -e <span class="s1">&#39;virtual_transport = dovecot&#39;</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>postconf -e &amp;lsquo;myhostname <span class="o">=</span> server.example.com&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;mydestination <span class="o">=</span> server.example.com, localhost, localhost.localdomain&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;mynetworks <span class="o">=</span> 127.0.0.0/8&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;message_size_limit <span class="o">=</span> 30720000&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_alias_domains <span class="o">=</span>&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_alias_maps <span class="o">=</span> proxy:mysql:/etc/postfix/mysql-virtual_forwardings.cf, mysql:/etc/postfix/mysql-virtual_email2email.cf&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_mailbox_domains <span class="o">=</span> proxy:mysql:/etc/postfix/mysql-virtual_domains.cf&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_mailbox_maps <span class="o">=</span> proxy:mysql:/etc/postfix/mysql-virtual_mailboxes.cf&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_mailbox_base <span class="o">=</span> /home/vmail&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_uid_maps <span class="o">=</span> static:5000&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_gid_maps <span class="o">=</span> static:5000&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;smtpd_sasl_auth_enable <span class="o">=</span> yes&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;broken_sasl_auth_clients <span class="o">=</span> yes&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;smtpd_sasl_authenticated_header <span class="o">=</span> yes&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;smtpd_recipient_restrictions <span class="o">=</span> permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;smtpd_use_tls <span class="o">=</span> yes&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;smtpd_tls_cert_file <span class="o">=</span> /etc/postfix/smtpd.cert&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;smtpd_tls_key_file <span class="o">=</span> /etc/postfix/smtpd.key&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;proxy_read_maps <span class="o">=</span> <span class="nv">$local_recipient_maps</span> <span class="nv">$mydestination</span> <span class="nv">$virtual_alias_maps</span> <span class="nv">$virtual_alias_domains</span> <span class="nv">$virtual_mailbox_maps</span> <span class="nv">$virtual_mailbox_domains</span> <span class="nv">$relay_recipient_maps</span> <span class="nv">$relay_domains</span> <span class="nv">$canonical_maps</span> <span class="nv">$sender_canonical_maps</span> <span class="nv">$recipient_canonical_maps</span> <span class="nv">$relocated_maps</span> <span class="nv">$transport_maps</span> <span class="nv">$mynetworks</span> <span class="nv">$virtual_mailbox_limit_maps</span>&amp;rsquo;
+</span><span class='line'>postconf -e &amp;lsquo;virtual_transport <span class="o">=</span> dovecot&amp;rsquo;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
@@ -88,7 +88,7 @@
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>submission inet n - n – – smtpd
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>submission inet n &amp;ndash; n – – smtpd
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>配置SASL认证服务</h2>
@@ -114,7 +114,7 @@
 </span><span class='line'>sql_user: mail_admin
 </span><span class='line'>sql_passwd: mail_admin_password
 </span><span class='line'>sql_database: mail
-</span><span class='line'>sql_select: <span class="k">select </span>password from users where <span class="nv">email</span> <span class="o">=</span> <span class="s1">&#39;%u@%r&#39;</span>
+</span><span class='line'>sql_select: <span class="k">select </span>password from users where <span class="nv">email</span> <span class="o">=</span> &amp;lsquo;%u@%r&amp;rsquo;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>配置Dovecot</h2>
@@ -168,7 +168,7 @@
 <span class='line-number'>45</span>
 <span class='line-number'>46</span>
 <span class='line-number'>47</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">log_timestamp</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-%d %H:%M:%S &quot;</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">log_timestamp</span> <span class="o">=</span> &amp;ldquo;%Y-%m-%d %H:%M:%S &amp;rdquo;
 </span><span class='line'><span class="nv">mail_location</span> <span class="o">=</span> maildir:/home/vmail/%d/%n/Maildir
 </span><span class='line'>namespace <span class="o">{</span>
 </span><span class='line'>  <span class="nv">inbox</span> <span class="o">=</span> yes
@@ -210,7 +210,7 @@
 </span><span class='line'>protocol lda <span class="o">{</span>
 </span><span class='line'>  <span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
 </span><span class='line'>  <span class="nv">log_path</span> <span class="o">=</span> /home/vmail/dovecot-deliver.log
-</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> postmaster@example.com
+</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x70;&amp;#111;&amp;#x73;&amp;#116;&amp;#109;&amp;#x61;&amp;#x73;&amp;#116;&amp;#101;&amp;#x72;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;&amp;#x6d;&amp;#112;&amp;#x6c;&amp;#101;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&quot;</span>&gt;&amp;#112;&amp;#x6f;&amp;#115;&amp;#x74;&amp;#109;&amp;#97;&amp;#115;&amp;#116;&amp;#101;&amp;#x72;&amp;#64;&amp;#x65;&amp;#x78;&amp;#x61;&amp;#109;&amp;#112;&amp;#x6c;&amp;#101;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109;&lt;/a&gt;
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>protocol pop3 <span class="o">{</span>
 </span><span class='line'>  <span class="nv">pop3_uidl_format</span> <span class="o">=</span> %08Xu%08Xv

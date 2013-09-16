@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Drupal | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/drupal/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-15T23:02:05+08:00</updated>
+  <updated>2013-09-17T00:07:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -98,7 +98,7 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="err">$</span><span class="n">_editor_path</span> <span class="o">.</span> <span class="s">&#39;plugins/syntaxhighlight/plugin.js&#39;</span><span class="p">))</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="err">$</span><span class="n">_editor_path</span> <span class="o">.</span> <span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">plugins</span><span class="o">/</span><span class="n">syntaxhighlight</span><span class="o">/</span><span class="n">plugin</span><span class="o">.</span><span class="n">js</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;))</span>
 </span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="err">$</span><span class="n">arr</span><span class="p">[</span><span class="s">&#39;syntaxhighlight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>

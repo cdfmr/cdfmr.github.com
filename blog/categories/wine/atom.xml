@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Wine | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/wine/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-15T23:02:05+08:00</updated>
+  <updated>2013-09-17T00:07:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -32,7 +32,7 @@
 <p>通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令即可。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine --devel
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine &amp;mdash;devel
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>命令中的<code>--devel</code>参数表示安装开发版，否则默认安装稳定版。Wine的开发版本也足够稳定，不必担心，而其兼容性会高于稳定版。</p>
@@ -43,7 +43,7 @@
 
 <p>Wine支持字体平滑，默认情况下未开启，下载这个注册表文件并使用<code>wine regedit wine_smoothfonts.reg</code>导入即可开启字体平滑。</p>
 
-<p><div><script src='https://gist.github.com/1947925.js?file='></script>
+<p><div><script src='https://gist.github.com/1947925.js'></script>
 <noscript><pre><code>REGEDIT4
 
 [HKEY_CURRENT_USER\Control Panel\Desktop]
@@ -59,7 +59,7 @@
 
 <p>下载<a href="http://downloads.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz">文泉驿微米黑</a>字体文件，解压其中的<code>wqy-microhei.ttc</code>文件到<code>~/.wine/drive_c/windows/Fonts</code>目录中，或者直接安装到Mac OS X系统中。然后下载下面的注册表文件，使用<code>wine regedit wine_fontsubstitutes_wqymicrohei.reg</code>导入。使用系统字体时，将文件中的<code>WenQuanYi Micro Hei</code>和<code>WenQuanYi Micro Hei Mono</code>替换成相应的系统字体名称，且不需要另外安装到<code>~/.wine</code>目录中，Wine会自动扫描系统字体。</p>
 
-<p><div><script src='https://gist.github.com/1947935.js?file='></script>
+<p><div><script src='https://gist.github.com/1947935.js'></script>
 <noscript><pre><code>REGEDIT4
 
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]
@@ -108,7 +108,7 @@
 <p>Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2&quot;</span>&gt;http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2&lt;/a&gt;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>补充：官方的下载地址已经失效，可以从<a href="http://files.linfan.info/fcitx-3.5-070703.tar.bz2">这里</a>下载。</p>
@@ -122,7 +122,7 @@
 <p>在<code>~/.bash_profile</code>中增加一行。</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&quot;@im=fcitx&quot;</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span>&amp;ldquo;@im<span class="o">=</span>fcitx&amp;rdquo;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>安装完成后，运行<code>fcitx</code>，之后按<code>⌃C</code>结束，这会让Fcitx创建它的配置文件。编辑<code>~/.fcitx/profile</code>，将<code>主窗口位置Y</code>的值修改为22以上，这样Fcitx的状态条就不会被菜单栏挡住了（菜单栏的高度是22）。新版XQuartz中，这个步骤不是必须，因为X服务器在计算坐标时已经考虑了菜单栏的存在。Fcitx的所有设置都可以在<code>~/.fcitx/profile</code>和<code>~/.fcitx/config</code>这两个文件中修改，请参考Fcitx的相关文档。</p>

@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-15T23:02:05+08:00</updated>
+  <updated>2013-09-17T00:07:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -18,7 +18,7 @@
     <link href="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/"/>
     <updated>2013-09-15T22:47:00+08:00</updated>
     <id>http://linfan.info/blog/2013/09/15/web-crawler-by-shell</id>
-    <content type="html"><![CDATA[<div><script src='https://gist.github.com/6571304.js?file='></script>
+    <content type="html"><![CDATA[<div><script src='https://gist.github.com/6571304.js'></script>
 <noscript><pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/6571304&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</code></pre></noscript></div>
 
 ]]></content>
@@ -607,7 +607,7 @@
 
 <p>子进程可以是一个简单的命令行程序，不过最简易的方法莫过于使用Shell，以下是代码片段。</p>
 
-<div><script src='https://gist.github.com/2204627.js?file='></script>
+<div><script src='https://gist.github.com/2204627.js'></script>
 <noscript><pre><code>@implementation NSApplication (Relaunch)
 
 - (void)relaunchAfterDelay:(float)seconds
@@ -699,7 +699,7 @@
 </ul>
 
 
-<div><script src='https://gist.github.com/1992771.js?file='></script>
+<div><script src='https://gist.github.com/1992771.js'></script>
 <noscript><pre><code>--- /etc/authorization.bak 2012-03-07 10:44:43.000000000 +0800
 +++ /etc/authorization  2012-03-07 10:50:41.000000000 +0800
 @@ -7568,7 +7568,7 @@
@@ -803,7 +803,7 @@
 
 <p>Wine支持字体平滑，默认情况下未开启，下载这个注册表文件并使用<code>wine regedit wine_smoothfonts.reg</code>导入即可开启字体平滑。</p>
 
-<div><script src='https://gist.github.com/1947925.js?file='></script>
+<div><script src='https://gist.github.com/1947925.js'></script>
 <noscript><pre><code>REGEDIT4
 
 [HKEY_CURRENT_USER\Control Panel\Desktop]
@@ -819,7 +819,7 @@
 
 <p>下载<a href="http://downloads.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz">文泉驿微米黑</a>字体文件，解压其中的<code>wqy-microhei.ttc</code>文件到<code>~/.wine/drive_c/windows/Fonts</code>目录中，或者直接安装到Mac OS X系统中。然后下载下面的注册表文件，使用<code>wine regedit wine_fontsubstitutes_wqymicrohei.reg</code>导入。使用系统字体时，将文件中的<code>WenQuanYi Micro Hei</code>和<code>WenQuanYi Micro Hei Mono</code>替换成相应的系统字体名称，且不需要另外安装到<code>~/.wine</code>目录中，Wine会自动扫描系统字体。</p>
 
-<div><script src='https://gist.github.com/1947935.js?file='></script>
+<div><script src='https://gist.github.com/1947935.js'></script>
 <noscript><pre><code>REGEDIT4
 
 [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\FontSubstitutes]

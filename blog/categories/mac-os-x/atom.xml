@@ -2,9 +2,9 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
-  <link href="http://linfan.info/blog/categories/mac-nbsp-os-nbsp-x/atom.xml" rel="self"/>
+  <link href="http://linfan.info/blog/categories/mac-os-x/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-15T23:02:05+08:00</updated>
+  <updated>2013-09-17T00:07:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -339,7 +339,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;...&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;&amp;</span><span class="n">hellip</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
@@ -391,7 +391,7 @@
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;done
-</span><span class='line'><span class="nb">echo</span> -n <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
+</span><span class='line'><span class="nb">echo</span> -n &amp;ldquo;<span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span>&amp;rdquo; | xargs -0 /usr/libexec/PlistBuddy -c &amp;ldquo;Set :CFBundleVersion <span class="k">${</span><span class="nv">rev</span><span class="k">}</span>&amp;rdquo;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>

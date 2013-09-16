@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-15T23:02:05+08:00</updated>
+  <updated>2013-09-17T00:07:11+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -58,7 +58,7 @@
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;done
-</span><span class='line'><span class="nb">echo</span> -n <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span> | xargs -0 /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion ${rev}&quot;</span>
+</span><span class='line'><span class="nb">echo</span> -n &amp;ldquo;<span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span>&amp;rdquo; | xargs -0 /usr/libexec/PlistBuddy -c &amp;ldquo;Set :CFBundleVersion <span class="k">${</span><span class="nv">rev</span><span class="k">}</span>&amp;rdquo;
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>

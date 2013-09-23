@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-17T00:07:11+08:00</updated>
+  <updated>2013-09-23T19:59:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -18,8 +18,92 @@
     <link href="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/"/>
     <updated>2013-09-15T22:47:00+08:00</updated>
     <id>http://linfan.info/blog/2013/09/15/web-crawler-by-shell</id>
-    <content type="html"><![CDATA[<div><script src='https://gist.github.com/6571304.js'></script>
+    <content type="html"><![CDATA[<p>对于结构不太复杂的网页，使用grep和sed分析提取目标URL，之后使用wget下载。</p>
+
+<p>以下是两个例子。</p>
+
+<!--more-->
+
+
+<ul>
+<li>抓取<a href="http://jandan.net">煎蛋</a>“妹子图”栏目</li>
+</ul>
+
+
+<div><script src='https://gist.github.com/6571304.js'></script>
 <noscript><pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/6571304&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</code></pre></noscript></div>
+
+
+<ul>
+<li>抓取<a href="http://www.panoramio.com">Panoramio</a>网站某个用户上传的所有照片</li>
+</ul>
+
+
+<div><script src='https://gist.github.com/6606109.js'></script>
+<noscript><pre><code>#!/bin/sh
+
+delay=0
+timeout=10
+retry=2
+
+usage()
+{
+    echo &quot;Usage: `basename $0` userid&quot;
+    exit 1
+}
+
+[ $# -ne 1 ] &amp;&amp; usage
+
+global_index=1
+page=1
+while true ; do
+    echo &quot;[INFO] Processing page $page&quot;
+    wget -q -O .tmp http://www.panoramio.com/user/$1?photo_page=$page
+    if [ $? -ne 0 ] ; then
+        echo &quot;[WARNING] Can not get content of page $page&quot;
+        break
+    fi
+
+    if [ -z &quot;$total&quot; ] ; then
+        total=`grep -iE '&lt;a href=&quot;\/user\/.*\/stats' .tmp | head -n 1 | sed 's/.*stats&quot;&gt;//;s/&lt;.*//'`
+    fi
+    imgs=`grep -ioE '&lt;a href=&quot;\/photo\/[0-9]*&quot;$' .tmp | sed 's/.*\///;s/&quot;//'`
+    alts=`grep -ioE '^              &gt;..*&lt;\/a&gt;$' .tmp | sed 's/&lt;.*//;s/.*&gt;//'`
+
+    index=1
+    for img in $imgs ; do
+        url=http://static.panoramio.com/photos/original/$img.jpg
+        alt=`{ for alt in $alts ; do echo $alt ; done } | head -n $index | tail -n 1`
+        file=`echo $global_index | awk '{printf &quot;%03d&quot;, $0}'`_$alt.jpg
+        index=$((index+1))
+        global_index=$((global_index+1))
+
+        if [ -f $file ] ; then
+            continue
+        fi
+
+        echo &quot;[INFO] Downloading $url&quot;
+        wget -q --tries=$retry --timeout=$timeout -O &quot;$file&quot; &quot;$url&quot;
+        if [ $? -ne 0 ] ; then
+            rm -f &quot;$file&quot;
+            echo &quot;[WARNING] Failed to download $url to $file&quot;
+        fi
+        sleep $delay
+    done
+
+    if [ $global_index -gt $total ] ; then
+        break
+    fi  
+
+    page=$((page+1))
+done
+
+rm -f .tmp
+
+exit 0
+</code></pre></noscript></div>
+
+
 
 ]]></content>
   </entry>

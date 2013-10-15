@@ -22,7 +22,7 @@ footer: false
 [HanzConvert](http://itunes.apple.com/cn/app/hanzconvert/id442107196?mt=12) (Mac)  
 汉字编码(UTF-8/GB18030/BIG-5)转换器
 
-[OpenSource](https://github.com/cdfmr)  
+[Open Source](https://github.com/cdfmr)  
 托管在GitHub上的一些开源代码
 
 ### 联系方式

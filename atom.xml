@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-09-23T19:59:39+08:00</updated>
+  <updated>2013-10-15T19:49:00+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[几个非官方的OpenWrt软件包]]></title>
+    <link href="http://linfan.info/blog/2013/10/15/openwrt-packages/"/>
+    <updated>2013-10-15T15:08:00+08:00</updated>
+    <id>http://linfan.info/blog/2013/10/15/openwrt-packages</id>
+    <content type="html"><![CDATA[<p><a href="https://openwrt.org">OpenWrt</a>是一个优秀的开源路由器固件，也是一个高度可定制的Linux发行版。OpenWrt包含opkg软件包管理工具，可以从软件源中轻松安装数以千计的软件包。即便如此，有时我们还是需要从官方源之外寻找其它软件包，以满足某些特殊的需求。本文就收集了我目前使用的一些非官方软件包，其中有自己创建的，但大部分来自于第三方。</p>
+
+<!--more-->
+
+
+<h3>busybox</h3>
+
+<p>官方源busybox中的ls命令将中文字符显示为问号，于是Google找到<a href="http://www.pppei.net/blog/post/507">ring0</a>编译的版本，在此基础上打包成ipk文件。该软件包将busybox安装于/usr/bin目录中，且只对ls命令创建了软链接，故只替换了ls命令，不会破坏预装的/bin/busybox，卸载后即可恢复为预装版本。</p>
+
+<p><a href="http://linfan.info/blog/files/busybox-unicode_1.19.4_ar71xx.ipk">下载</a></p>
+
+<h3>dnspod-client</h3>
+
+<p><a href="http://www.dnspod.cn">DNSPod</a>动态域名客户端，基于<a href="http://www.vinoca.org/2012/06/10/openwrt%E4%BD%BF%E7%94%A8dnspod%E7%9A%84%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90ddns%E5%8A%9F%E8%83%BD">vinoca</a>的脚本改造而来。安装完成后，修改/etc/config/dnspod文件填入正确的用户名、密码及域名信息，并且需要在DNSPod上预先创建相应的子域名。</p>
+
+<p><a href="http://linfan.info/blog/files/dnspod-client_1.0_all.ipk">下载</a></p>
+
+<h3>hfs-fsck</h3>
+
+<p>HFS+文件系统检查工具，解决HFS+文件系统只读的问题，参见<a href="http://www.geektu.com/post/2013-08-11-yong-openwrt-diy-time-capsule">原文</a>。</p>
+
+<p><a href="http://linfan.info/blog/files/hfs-fsck_332.25-1_ar71xx.ipk">下载</a></p>
+
+<h3>luci-app-aria2</h3>
+
+<p>Aria2下载器的Web前端，已经忘记从哪里下载而来了。我做了部分修改，修正了脚本文件中的一些BUG，并且将<a href="https://github.com/binux/yaaw">yaaw</a>替换成了<a href="https://github.com/ziahamza/webui-aria2">webui-aria2</a>（个人喜好）。</p>
+
+<p><a href="http://linfan.info/blog/files/luci-app-aria2_1.0_all.ipk">下载</a></p>
+
+<h3>luci-app-file-explorer</h3>
+
+<p>基于Web的文件浏览器（只读）。安装此软件包会重写/etc/httpd.conf文件，用于设置访问口令。OpenWrt预装时该文件是不存在的，而且在大多数情况下也不会使用。如果在安装前已经对该文件进行过配置，请注意备份。</p>
+
+<p><a href="http://linfan.info/blog/files/luci-app-file-explorer_1.0_all.ipk">下载</a></p>
+
+<p>最后，对软件包的原作者表示感谢。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用Shell实现简单的Web爬虫]]></title>
@@ -1513,30 +1557,6 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 <h2>题外话</h2>
 
 <p>如果你是一名程序员，不排斥控制台操作方式，并且只想简简单单地写一写博客，强烈推荐<a href="http://octopress.org">Octopress</a>，个中好处请自行<a href="http://www.google.com/search?q=Octopress">Google</a>之。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello, Octopress!]]></title>
-    <link href="http://linfan.info/blog/2012/02/22/hello-octopress/"/>
-    <updated>2012-02-22T10:15:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/02/22/hello-octopress</id>
-    <content type="html"><![CDATA[
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>octopress
-</span><span class='line'>rake new_post<span class="o">[</span><span class="s2">&quot;hello octopress&quot;</span><span class="o">]</span>
-</span><span class='line'>vi <span class="nb">source</span>/_post/2012-02-22-hello-octopress.markdown
-</span><span class='line'>rake generate
-</span><span class='line'>rake deploy
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   

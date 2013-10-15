@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="对于结构不太复杂的网页，使用grep和sed分析提取目标URL，之后使用wget下载。 以下是两个例子。 ">
+  <meta name="description" content="OpenWrt是一个优秀的开源路由器固件，也是一个高度可定制的Linux发行版。OpenWrt包含opkg软件包管理工具，可以从软件源中轻松安装数以千计的软件包。即便如此，有时我们还是需要从官方源之外寻找其它软件包，以满足某些特殊的需求。本文就收集了我目前使用的一些非官方软件包，其中有自己创建的， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -63,6 +63,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/15/openwrt-packages/">几个非官方的OpenWrt软件包</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T15:08:00+08:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="https://openwrt.org">OpenWrt</a>是一个优秀的开源路由器固件，也是一个高度可定制的Linux发行版。OpenWrt包含opkg软件包管理工具，可以从软件源中轻松安装数以千计的软件包。即便如此，有时我们还是需要从官方源之外寻找其它软件包，以满足某些特殊的需求。本文就收集了我目前使用的一些非官方软件包，其中有自己创建的，但大部分来自于第三方。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/10/15/openwrt-packages/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -438,56 +479,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/26/mac-app-self-relaunch/">实现Mac应用的自我重启</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-26T19:31:00+08:00" pubdate data-updated="true">Mar 26<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。</p>
-
-<p>实现自我重启的方法很多，易于理解且实现简单的一种如下。</p>
-
-<ol>
-<li>启动一个子进程；</li>
-<li>主进程退出；</li>
-<li>子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/03/26/mac-app-self-relaunch/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -501,6 +492,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/10/15/openwrt-packages/">几个非官方的OpenWrt软件包</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/09/15/web-crawler-by-shell/">用Shell实现简单的Web爬虫</a>
@@ -518,17 +513,13 @@
         <a href="/blog/2012/12/27/nsurlerrordomain-3001/">诡异的NSURLErrorDomain －3001错误</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/10/31/linode-library-offline/">Linode Library 离线文档</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/app-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/c/'>C</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/google-reader/'>Google&nbsp;Reader</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-os-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/shell/'>Shell</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xml/'>XML</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/app-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/c/'>C</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/google-reader/'>Google&nbsp;Reader</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-os-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/openwrt/'>OpenWrt</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/shell/'>Shell</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xml/'>XML</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

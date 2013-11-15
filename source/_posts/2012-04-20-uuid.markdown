@@ -3,7 +3,7 @@ layout: post
 title: "各种OS中生成UUID的方法"
 date: 2012-04-20 20:50
 comments: true
-categories: Linux Mac&nbsp;OS&nbsp;X Windows Cocoa
+categories: Linux Mac Windows Cocoa
 ---
 
 开发人员或多或少都应该知道UUID或GUID，这是摘自[维基百科](http://zh.wikipedia.org/zh-cn/UUID)的一段描述。

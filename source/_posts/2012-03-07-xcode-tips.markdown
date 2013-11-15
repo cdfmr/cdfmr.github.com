@@ -3,7 +3,7 @@ layout: post
 title: "Xcode的点滴记录"
 date: 2012-03-07 09:58
 comments: true
-categories: Mac&nbsp;OS&nbsp;X Xcode
+categories: Mac Xcode
 ---
 
 升级到Lion以及Xcode 4之后，发现Xcode 4在配置上与Xcode 3有些不同，记录于此备忘。

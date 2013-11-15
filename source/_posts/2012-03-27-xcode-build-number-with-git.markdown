@@ -3,7 +3,7 @@ layout: post
 title: "Xcode: 使用Git自动设置项目版本"
 date: 2012-03-27 15:13
 comments: true
-categories: Mac&nbsp;OS&nbsp;X Xcode Git SVN
+categories: Mac Xcode Git SVN
 ---
 
 本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。

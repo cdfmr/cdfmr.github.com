@@ -3,7 +3,7 @@ layout: post
 title: "Mac OS X下读写ext2/ext3文件系统"
 date: 2012-02-29 09:24
 comments: true
-categories: Mac&nbsp;OS&nbsp;X
+categories: Mac
 ---
 
 我的移动硬盘上，有个分区是ext2文件系统的，不能在Mac OS X中挂载。幸好，在开源世界里，我们总是能找到各种问题的解决方法，感谢无私的开发者。

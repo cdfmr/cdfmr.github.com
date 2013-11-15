@@ -3,7 +3,7 @@ layout: post
 title: "Homebrew的安装与使用"
 date: 2012-02-25 19:50
 comments: true
-categories: Mac&nbsp;OS&nbsp;X
+categories: Mac
 ---
 
 Mac OS X是基于Unix的操作系统，可以安装大部分为Unix/Linux开发的软件。然而，如果只是以使用为目的，对每个软件都进行手工编译不是很方便，也不利于管理已安装的软件，于是出现了类似于Linux中APT、Yum等类似的软件包管理系统，其中最著名的有MacPorts、Fink、Homebrew等。

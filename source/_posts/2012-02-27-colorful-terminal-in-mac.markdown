@@ -3,7 +3,7 @@ layout: post
 title: "让Mac OS X的终端多姿多彩"
 date: 2012-02-27 13:57
 comments: true
-categories: Mac&nbsp;OS&nbsp;X
+categories: Mac
 ---
 
 与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。

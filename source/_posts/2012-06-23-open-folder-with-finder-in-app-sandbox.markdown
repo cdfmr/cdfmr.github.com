@@ -3,7 +3,7 @@ layout: post
 title: "在沙盒环境中使用Finder打开文件夹"
 date: 2012-06-23 15:39
 comments: true
-categories: Cocoa Mac&nbsp;OS&nbsp;X App&nbsp;Sandbox
+categories: Cocoa Mac App&nbsp;Sandbox
 ---
 
 从6月1日开始，Apple要求所有提交到App Store的应用程序都必须运行在沙盒环境中，这可苦了我们这些悲催的码农。一则受到沙盒环境的种种限制，一些很常用的操作都没法实现；二则App Sandbox本身就是BUG重重，这个更是有理没处说。

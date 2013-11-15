@@ -3,7 +3,7 @@ layout: post
 title: "Mac OS X下使用bindfs实现mount的目录绑定功能"
 date: 2012-02-28 00:02
 comments: true
-categories: Mac&nbsp;OS&nbsp;X
+categories: Mac
 ---
 Linux下的mount命令有一个`--bind`参数，将目录挂载到另一个目录下。Mac OS X的mount命令不支持`--bind`，不过我们可以使用[bindfs](http://code.google.com/p/bindfs/)实现相同的功能。
 

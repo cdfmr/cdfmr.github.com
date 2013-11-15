@@ -3,7 +3,7 @@ layout: post
 title: "诡异的NSURLErrorDomain －3001错误"
 date: 2012-12-27 21:36
 comments: true
-categories: Mac&nbsp;OS&nbsp;X Cocoa
+categories: Mac Cocoa
 ---
 
 最近在使用NSURLDownload下载文件时，遇到NSURLErrorDomain －3001错误，具体的错误日志如下。

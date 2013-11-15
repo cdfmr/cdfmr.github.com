@@ -3,7 +3,7 @@ layout: post
 title: "Cocoa菜单栏右侧图标的实现"
 date: 2012-02-28 21:35
 comments: true
-categories: Cocoa Mac&nbsp;OS&nbsp;X
+categories: Cocoa Mac
 ---
 
 与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。

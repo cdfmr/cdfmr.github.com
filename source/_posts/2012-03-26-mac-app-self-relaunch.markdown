@@ -3,7 +3,7 @@ layout: post
 title: "实现Mac应用的自我重启"
 date: 2012-03-26 19:31
 comments: true
-categories: Mac&nbsp;OS&nbsp;X Cocoa
+categories: Mac Cocoa
 ---
 
 对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。

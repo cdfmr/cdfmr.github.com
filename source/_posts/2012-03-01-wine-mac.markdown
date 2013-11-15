@@ -3,7 +3,7 @@ layout: post
 title: "使用Wine在Mac OS X中运行Windows程序"
 date: 2012-03-01 00:06
 comments: true
-categories: Mac&nbsp;OS&nbsp;X Windows Wine
+categories: Mac Windows Wine
 ---
 
 目前，在Mac OS X中运行Windows程序，不外乎两种方法。一是在虚拟机软件如[VirtualBox](http://www.virtualbox.org)、[VMware Fusion](http://www.vmware.com/mac)、[Parallels Desktop](http://www.parallels.com/products/desktop/)中安装完整的Windows操作系统；另一种则是利用[Wine](http://www.winehq.org)或其商业版本[Crossover Office](http://www.codeweavers.com)直接运行Windows软件。

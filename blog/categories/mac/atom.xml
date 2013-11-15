@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Mac&nbsp;OS&nbsp;X | linfan's blog]]></title>
-  <link href="http://linfan.info/blog/categories/mac-os-x/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Mac | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-10-15T19:49:00+08:00</updated>
+  <updated>2013-11-15T22:05:51+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[鼠须管输入法的几项配置]]></title>
+    <link href="http://linfan.info/blog/2013/11/15/rime-ime-config/"/>
+    <updated>2013-11-15T21:42:00+08:00</updated>
+    <id>http://linfan.info/blog/2013/11/15/rime-ime-config</id>
+    <content type="html"><![CDATA[<!--more-->
+
+
+<h3>默认输入英文</h3>
+
+<p>如果输入法默认处于英文状态，就可以删除英文输入法，直接使用Shift切换中英文输入。</p>
+
+<p>配置文件：<code>luna_pinyin_simp.schema.yaml</code></p>
+
+<p>配置项：<code>switches</code> &ndash;> <code>ascii mode</code> &ndash;> <code>reset</code></p>
+
+<p>值：<code>1</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>switches:
+</span><span class='line'>  &ndash; name: ascii_mode&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>reset: 1
+</span><span class='line'>states: [ 中文, 西文 ]
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Shift直接输入英文</h3>
+
+<p>默认情况下，在输入中文时按下Shift键会临时切换到英文状态，回车输入英文后恢复中文输入状态，按如下方法修改为直接输入英文并切换到英文输入状态。</p>
+
+<p>配置文件：<code>default.yaml</code></p>
+
+<p>配置项：<code>ascii_composer</code> &ndash;> <code>switch_key</code> &ndash;> <code>Shift_L</code> / <code>Shift_R</code></p>
+
+<p>值：<code>commit_code</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ascii_composer:
+</span><span class='line'>  good_old_caps_lock: true
+</span><span class='line'>  switch_key:&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>Caps_Lock: commit_code
+</span><span class='line'>Control_L: noop
+</span><span class='line'>Control_R: noop
+</span><span class='line'>Shift_L: commit_code
+</span><span class='line'>Shift_R: commit_code
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[修改Mountain Lion提醒列表的颜色]]></title>
@@ -343,58 +415,6 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Xcode: 使用Git自动设置项目版本]]></title>
-    <link href="http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/"/>
-    <updated>2012-03-27T15:13:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/03/27/xcode-build-number-with-git</id>
-    <content type="html"><![CDATA[<p>本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。</p>
-
-<!--more-->
-
-
-<p>与SVN不同，Git使用散列值作为每次提交的标记，而不是像SVN那样使用递增序列，因此不便直接用作CFBundleVersion。正愁以后每次都要麻烦地手工设置了，苦思冥想一番之后豁然开朗，虽然Git没有数值化的版本号，但我可以自己数一数提交次数啊，于是有了这个脚本。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;/usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion `git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l`&quot;</span> <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span>
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>很简单，数一下Git版本库的提交次数，使用PlistBuddy将其设置为CFBundleVersion。</p>
-
-<p>顺便附上以前使用的SVN脚本，稍稍不同的是将版本号补齐到3位。</p>
-
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">rev</span><span class="o">=</span>&lt;code&gt;svnversion -n&lt;/code&gt;
-</span><span class='line'><span class="k">while</span> <span class="o">[</span> <span class="k">${#</span><span class="nv">rev</span><span class="k">}</span> -lt 3 <span class="o">]</span> ; <span class="k">do</span>&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;rev<span class="o">=</span><span class="s2">&quot;0${rev}&quot;</span>
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;done
-</span><span class='line'><span class="nb">echo</span> -n &amp;ldquo;<span class="k">${</span><span class="nv">TARGET_BUILD_DIR</span><span class="k">}</span>/<span class="k">${</span><span class="nv">INFOPLIST_PATH</span><span class="k">}</span>&amp;rdquo; | xargs -0 /usr/libexec/PlistBuddy -c &amp;ldquo;Set :CFBundleVersion <span class="k">${</span><span class="nv">rev</span><span class="k">}</span>&amp;rdquo;
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>使用方法：新建一个<code>Run Script</code>类型的<code>Build Phase</code>。</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-10-15T19:49:00+08:00</updated>
+  <updated>2013-11-15T22:05:51+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -12,6 +12,66 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[鼠须管输入法的几项配置]]></title>
+    <link href="http://linfan.info/blog/2013/11/15/rime-ime-config/"/>
+    <updated>2013-11-15T21:42:00+08:00</updated>
+    <id>http://linfan.info/blog/2013/11/15/rime-ime-config</id>
+    <content type="html"><![CDATA[<!--more-->
+
+
+<h3>默认输入英文</h3>
+
+<p>如果输入法默认处于英文状态，就可以删除英文输入法，直接使用Shift切换中英文输入。</p>
+
+<p>配置文件：<code>luna_pinyin_simp.schema.yaml</code></p>
+
+<p>配置项：<code>switches</code> &ndash;> <code>ascii mode</code> &ndash;> <code>reset</code></p>
+
+<p>值：<code>1</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>switches:
+</span><span class='line'>  - name: ascii_mode
+</span><span class='line'>    reset: 1
+</span><span class='line'>    states: [ 中文, 西文 ]</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Shift直接输入英文</h3>
+
+<p>默认情况下，在输入中文时按下Shift键会临时切换到英文状态，回车输入英文后恢复中文输入状态，按如下方法修改为直接输入英文并切换到英文输入状态。</p>
+
+<p>配置文件：<code>default.yaml</code></p>
+
+<p>配置项：<code>ascii_composer</code> &ndash;> <code>switch_key</code> &ndash;> <code>Shift_L</code> / <code>Shift_R</code></p>
+
+<p>值：<code>commit_code</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ascii_composer:
+</span><span class='line'>  good_old_caps_lock: true
+</span><span class='line'>  switch_key:
+</span><span class='line'>    Caps_Lock: commit_code
+</span><span class='line'>    Control_L: noop
+</span><span class='line'>    Control_R: noop
+</span><span class='line'>    Shift_L: commit_code
+</span><span class='line'>    Shift_R: commit_code</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[几个非官方的OpenWrt软件包]]></title>
@@ -397,6 +457,8 @@ exit 0
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
+
+
 ]]></content>
   </entry>
   
@@ -672,6 +734,8 @@ exit 0
 </span><span class='line'>
 </span><span class='line'><span class="n">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
 
 ]]></content>
   </entry>
@@ -1453,110 +1517,6 @@ Homebrew自动建立的formula已经包含了基本的<code>configure</code>和<
 <h2></h2>
 
 <p>关于Homebrew的其它功能，比如将自定义软件包提交到官方发布等，请参考Homebrew项目的<a href="http://mxcl.github.com/homebrew/">主页</a>及其Man Page。你将发现Homebrew不仅是“家酿”，更是“佳酿”。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[打造完美的Drupal编辑器]]></title>
-    <link href="http://linfan.info/blog/2012/02/23/perfect-drupal-editor/"/>
-    <updated>2012-02-23T10:06:00+08:00</updated>
-    <id>http://linfan.info/blog/2012/02/23/perfect-drupal-editor</id>
-    <content type="html"><![CDATA[<p>一个Octopress架设的博客，怎么上来就是一篇Drupal的文章呢？很简单，本来是打算用Drupal来架设个人博客的，结果在上线前发现了Octopress，于是叛逃了 :) 。尽管不再使用Drupal，但安装Drupal过程中的一些经验还是值得记录与分享的。</p>
-
-<p>言归正传，Drupal预设的编辑器过于简陋，而我当时对“完美”的定义是：可视化、图像上传、代码高亮，并且使用 <a href="http://ckeditor.com/">CKEditor</a> + <a href="http://drupal.org/project/imce">IMCE</a> + <a href="http://alexgorbatchev.com/">SyntaxHighlighter</a> 实现了预期目标。以下是安装过程，基于Drupal 7环境。</p>
-
-<!--more-->
-
-
-<h2>安装CKEditor</h2>
-
-<p>CKEditor是最好的在线HTML编辑器之一，也是将要实现的Drupal编辑器的核心组成部分。</p>
-
-<p>下载<a href="http://download.cksource.com/CKEditor%20for%20Drupal/CKEditor%203.6.2%20for%20Drupal/ckeditor_3.6.2_for_drupal_7.zip">CKEditor 3.6 for Drupal 7</a>并在Drupal模块管理界面中安装（也可直接通过URL安装）。启用CKEditor，此时Drupal已经有了一个不错的所见即所得编辑器。</p>
-
-<h2>安装IMCE</h2>
-
-<p>IMCE是一个文件管理器，用于实现图像文件的上传。其实，CKEditor本身就捆绑了一个非常好的文件管理器CKFinder，但CKFinder是收费软件（CKEditor是免费/收费双重授权的，我们使用其免费授权），故使用免费的IMCE进行替换，本文也不讨论CKFinder的配置。</p>
-
-<p>下载<a href="http://ftp.drupal.org/files/projects/imce-7.x-1.5.tar.gz">IMCE</a>，安装并启用。</p>
-
-<p>进入CKEditor的配置页面，编辑<code>Advanced</code>配置档案，展开<code>FILE BROWSER SETTINGS</code>，可以看到<code>File browser type</code>设置为<code>CKFinder</code>，将其修改为<code>IMCE</code>。按同样方法修改<code>Full</code>配置档案。</p>
-
-<h2>代码高亮</h2>
-
-<p>到目前为止，Drupal编辑器已经基本成型了，可以应付绝大部分的编辑需要。不过作为<del> 酷毙 </del>苦逼的码农，怎么能缺少代码高亮功能呢。</p>
-
-<p>代码高亮可以通过SyntaxHighlighter实现，并且只支持<code>Full HTML</code>文本格式。相对于CKEditor和IMCE，这个东东的安装会复杂一些，慢慢道来。</p>
-
-<p>1. 下载<a href="http://alexgorbatchev.com/SyntaxHighlighter/download/download.php?sh_current">SyntaxHighlighter</a>，解压到<code>sites/all/libraries</code>目录下（新安装的Drupal是没有这个目录的，需要手工创建）。为什么不在模块管理界面中安装呢，因为这只是一个Javascript库，不是Drupal模块。</p>
-
-<p>2. 下载<a href="http://ftp.drupal.org/files/projects/syntaxhighlighter-7.x-2.x-dev.tar.gz">SyntaxHighlighter的Drupal模块</a>，安装并启用。</p>
-
-<p>3. 进入<code>SyntaxHighlighter</code>的配置页面，勾选需要支持的语言，保存设置。<strong>注意：不要修改代码使用的标签名称，因为之后安装的某个插件只识别默认的&lt;pre>标签</strong>。</p>
-
-<p>4. 进入<code>文本格式</code>的配置页面，编辑<code>Full HTML</code>格式，在<code>启用过滤器</code>分组中勾选<code>Syntax highlighter</code>，并在<code>过滤器处理顺序</code>中将其置为第一个；取消选择<code>将换行符号转换为HTML</code>，否则代码换行处会插入&lt;br>标签。保存设置。</p>
-
-<p>OK，现在新建一篇文章，选择格式为<code>Full HTML</code>，点击CKEditor工具栏左上的<code>Source</code>按钮切换到源文件模式，输入以下内容，预览一下，是不是已经可以显示代码高亮了？</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">&quot;brush:cpp&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>int main(int argc, char **argv)
-</span><span class='line'>{
-</span><span class='line'>    printf(&quot;Hello, World!\n&quot;);
-</span><span class='line'>    return 0;
-</span><span class='line'>}
-</span><span class='line'><span class="nt">&lt;/code&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>让CKEditor支持代码高亮</h2>
-
-<p>这样显然不够，虽然实现了代码高亮显示，但怎样才能在CKEditor中直接输入代码呢？我们需要安装一个叫做<a href="http://code.google.com/p/ckeditor-syntaxhighlight/">ckeditor-syntaxhighlight</a>的插件。</p>
-
-<p>1. 下载<a href="http://ckeditor-syntaxhighlight.googlecode.com/files/ckeditor-syntaxhighlight-1.0.tar.bz2">ckeditor-syntaxhighlight</a>，将其中的<code>ckeditor-syntaxhighlight/plugins/syntaxhighlight</code>解压到<code>sites/all/modules/ckeditor/ckeditor/plugins</code>目录下。</p>
-
-<p>2. 编辑<code>sites/all/modules/ckeditor/includes/ckeditor.lib.inc</code>文件，在<code>ckeditor_load_plugins</code>函数的<code>CKEditor build-in plugins</code>段中加入以下代码。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">file_exists</span><span class="p">(</span><span class="err">$</span><span class="n">_editor_path</span> <span class="o">.</span> <span class="s">&#39;plugins/syntaxhighlight/plugin.js&#39;</span><span class="p">))</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="err">$</span><span class="n">arr</span><span class="p">[</span><span class="s">&#39;syntaxhighlight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
-</span><span class='line'>    <span class="p">(</span>
-</span><span class='line'>        <span class="s">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s">&#39;syntaxhighlight&#39;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&#39;desc&#39;</span> <span class="o">=&gt;</span> <span class="n">t</span><span class="p">(</span><span class="s">&#39;Syntaxhighlight plugin&#39;</span><span class="p">),</span>
-</span><span class='line'>        <span class="s">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="err">$</span><span class="n">base_path</span> <span class="o">.</span> <span class="err">$</span><span class="n">editor_path</span> <span class="o">.</span> <span class="s">&#39;plugins/syntaxhighlight/&#39;</span><span class="p">,</span>
-</span><span class='line'>        <span class="s">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="s">&#39;f&#39;</span>
-</span><span class='line'>    <span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>3. 编辑<code>sites/all/modules/ckeditor/ckeditor.config.js</code>文件，在<code>Drupal.settings.cke_toolbar_DrupalFull</code>数组的最后加入<code>'Code'</code>，即数组内容的最后一行修改为<code>['DrupalBreak', 'DrupalPageBreak', 'Code']</code>，保存。</p>
-
-<p>4. 进入CKEditor的配置页面，编辑<code>Full</code>配置档案，展开<code>EDITOR APPEARANCE</code>，在<code>Plugins</code>分组中勾选<code>Syntaxhighlight plugin</code>，保存设置。</p>
-
-<p>好了，新建一篇<code>Full HTML</code>格式的文章，看看CKEditor工具栏上最后一排是不是新增了一个<code>code</code>按钮，点击一下看看。如果看不到新增的按钮，在CKEditor的<code>Full</code>配置中，展开<code>EDITOR APPEARANCE</code>，在<code>工具栏</code>分组中，重新<code>Load sample toolbar: Full</code>，保存设置。</p>
-
-<p>大功告成！</p>
-
-<h2>题外话</h2>
-
-<p>如果你是一名程序员，不排斥控制台操作方式，并且只想简简单单地写一写博客，强烈推荐<a href="http://octopress.org">Octopress</a>，个中好处请自行<a href="http://www.google.com/search?q=Octopress">Google</a>之。</p>
 ]]></content>
   </entry>
   

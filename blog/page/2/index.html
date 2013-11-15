@@ -9,9 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="对于应用程序的某些配置项，需要重新启动应用才能生效。比较友好的方式是提醒用户，并在用户确认后完成自我重启。 实现自我重启的方法很多，易于理解且实现简单的一种如下。 启动一个子进程；
-主进程退出；
-子进程延时一定时间后拉起主进程，或者检测主进程已经关闭后重新拉起。 ">
+  <meta name="description" content="本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +63,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/27/xcode-build-number-with-git/">Xcode: 使用Git自动设置项目版本</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-27T15:13:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>本来一直使用SVN进行版本管理，并习惯于将代码版本（revision）作为Xcode项目的编译号（CFBundleVersion）。最近开始了解Git，被其种种美好所诱惑，于是一股脑将个人的所有项目都转移到Git，然后发现CFBundleVersion不好设置了。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/03/27/xcode-build-number-with-git/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -471,49 +510,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/23/perfect-drupal-editor/">打造完美的Drupal编辑器</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-23T10:06:00+08:00" pubdate data-updated="true">Feb 23<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>一个Octopress架设的博客，怎么上来就是一篇Drupal的文章呢？很简单，本来是打算用Drupal来架设个人博客的，结果在上线前发现了Octopress，于是叛逃了 :) 。尽管不再使用Drupal，但安装Drupal过程中的一些经验还是值得记录与分享的。</p>
-
-<p>言归正传，Drupal预设的编辑器过于简陋，而我当时对“完美”的定义是：可视化、图像上传、代码高亮，并且使用 <a href="http://ckeditor.com/">CKEditor</a> + <a href="http://drupal.org/project/imce">IMCE</a> + <a href="http://alexgorbatchev.com/">SyntaxHighlighter</a> 实现了预期目标。以下是安装过程，基于Drupal 7环境。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/23/perfect-drupal-editor/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -531,6 +527,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/15/rime-ime-config/">鼠须管输入法的几项配置</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/15/openwrt-packages/">几个非官方的OpenWrt软件包</a>
       </li>
     
@@ -546,17 +546,13 @@
         <a href="/blog/2013/06/04/calendar-color/">修改Mountain Lion提醒列表的颜色</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/12/27/nsurlerrordomain-3001/">诡异的NSURLErrorDomain －3001错误</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/app-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/c/'>C</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/google-reader/'>Google&nbsp;Reader</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac-os-x/'>Mac&nbsp;OS&nbsp;X</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/openwrt/'>OpenWrt</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/shell/'>Shell</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xml/'>XML</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
+    <a class='category' href='/blog/categories/app-sandbox/'>App&nbsp;Sandbox</a>, <a class='category' href='/blog/categories/c/'>C</a>, <a class='category' href='/blog/categories/cocoa/'>Cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>Dovecot</a>, <a class='category' href='/blog/categories/drupal/'>Drupal</a>, <a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/google-reader/'>Google&nbsp;Reader</a>, <a class='category' href='/blog/categories/hp-ux/'>HP-UX</a>, <a class='category' href='/blog/categories/ime/'>IME</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/mac/'>Mac</a>, <a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/openwrt/'>OpenWrt</a>, <a class='category' href='/blog/categories/postfix/'>Postfix</a>, <a class='category' href='/blog/categories/sftp/'>SFTP</a>, <a class='category' href='/blog/categories/svn/'>SVN</a>, <a class='category' href='/blog/categories/shell/'>Shell</a>, <a class='category' href='/blog/categories/ubuntu/'>Ubuntu</a>, <a class='category' href='/blog/categories/vps/'>VPS</a>, <a class='category' href='/blog/categories/windows/'>Windows</a>, <a class='category' href='/blog/categories/wine/'>Wine</a>, <a class='category' href='/blog/categories/xml/'>XML</a>, <a class='category' href='/blog/categories/xcode/'>Xcode</a>
   </li>
   </ul>
 </section>

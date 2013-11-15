@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: IME | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/ime/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2013-11-15T22:05:51+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[鼠须管输入法的几项配置]]></title>
+    <link href="http://linfan.info/blog/2013/11/15/rime-ime-config/"/>
+    <updated>2013-11-15T21:42:00+08:00</updated>
+    <id>http://linfan.info/blog/2013/11/15/rime-ime-config</id>
+    <content type="html"><![CDATA[<!--more-->
+
+
+<h3>默认输入英文</h3>
+
+<p>如果输入法默认处于英文状态，就可以删除英文输入法，直接使用Shift切换中英文输入。</p>
+
+<p>配置文件：<code>luna_pinyin_simp.schema.yaml</code></p>
+
+<p>配置项：<code>switches</code> &ndash;> <code>ascii mode</code> &ndash;> <code>reset</code></p>
+
+<p>值：<code>1</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>switches:
+</span><span class='line'>  &ndash; name: ascii_mode&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>reset: 1
+</span><span class='line'>states: [ 中文, 西文 ]
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Shift直接输入英文</h3>
+
+<p>默认情况下，在输入中文时按下Shift键会临时切换到英文状态，回车输入英文后恢复中文输入状态，按如下方法修改为直接输入英文并切换到英文输入状态。</p>
+
+<p>配置文件：<code>default.yaml</code></p>
+
+<p>配置项：<code>ascii_composer</code> &ndash;> <code>switch_key</code> &ndash;> <code>Shift_L</code> / <code>Shift_R</code></p>
+
+<p>值：<code>commit_code</code></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ascii_composer:
+</span><span class='line'>  good_old_caps_lock: true
+</span><span class='line'>  switch_key:&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>Caps_Lock: commit_code
+</span><span class='line'>Control_L: noop
+</span><span class='line'>Control_R: noop
+</span><span class='line'>Shift_L: commit_code
+</span><span class='line'>Shift_R: commit_code
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

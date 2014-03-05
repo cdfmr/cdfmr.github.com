@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Drupal | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/drupal/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -55,7 +55,7 @@
 
 <p>OK，现在新建一篇文章，选择格式为<code>Full HTML</code>，点击CKEditor工具栏左上的<code>Source</code>按钮切换到源文件模式，输入以下内容，预览一下，是不是已经可以显示代码高亮了？</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -85,7 +85,7 @@
 
 <p>2. 编辑<code>sites/all/modules/ckeditor/includes/ckeditor.lib.inc</code>文件，在<code>ckeditor_load_plugins</code>函数的<code>CKEditor build-in plugins</code>段中加入以下代码。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>

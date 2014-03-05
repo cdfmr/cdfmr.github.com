@@ -4,7 +4,7 @@
   <title><![CDATA[Category: App&nbsp;Sandbox | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/app-sandbox/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -33,7 +33,7 @@
 
 <p>于是上网寻求解决方案，最终在<a href="http://code.google.com/p/theunarchiver/">The Unarchiver</a>的代码中找到了。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -111,7 +111,7 @@
 
 <p>使用这个方法，必须在App Sandbox的授权文件中为Finder增加特例。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="nl">Key:</span>   <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">security</span><span class="p">.</span><span class="n">temporary</span><span class="o">-</span><span class="n">exception</span><span class="p">.</span><span class="n">apple</span><span class="o">-</span><span class="n">events</span>
 </span><span class='line'><span class="nl">Value:</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">finder</span>

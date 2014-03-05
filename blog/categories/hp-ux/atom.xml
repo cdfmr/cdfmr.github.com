@@ -4,7 +4,7 @@
   <title><![CDATA[Category: HP-UX | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/hp-ux/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -25,7 +25,7 @@
 
 <p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续追查libssh2_sftp_rename_ex的实现，逐步跟踪到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -41,7 +41,7 @@
 
 <p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到以下输出。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">sftp</span><span class="o">&gt;</span> <span class="n">version</span>
 </span><span class='line'><span class="n">SFTP</span> <span class="n">protocol</span> <span class="n">version</span> <span class="mi">3</span>

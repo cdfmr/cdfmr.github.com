@@ -9,7 +9,10 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="对于结构不太复杂的网页，使用grep和sed分析提取目标URL，之后使用wget下载。 以下是两个例子。 抓取煎蛋“妹子图”栏目 &lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/ &hellip;">
+  <meta name="description" content="对于结构不太复杂的网页，使用grep和sed分析提取目标URL，之后使用wget下载。 以下是两个例子。 抓取煎蛋“妹子图”栏目 #!/bin/sh delay=0
+timeout=10
+retry=2 usage()
+{ echo &quot;Usage: `basename $0` &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,13 +21,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/">
+  <link rel="canonical" href="http://linfan.info/blog/2013/09/15/web-crawler-by-shell">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="linfan's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -102,7 +106,49 @@
 
 
 <div><script src='https://gist.github.com/6571304.js'></script>
-<noscript><pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/6571304&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</code></pre></noscript></div>
+<noscript><pre><code>#!/bin/sh
+
+delay=0
+timeout=10
+retry=2
+
+usage()
+{
+    echo &quot;Usage: `basename $0` frompage topage&quot;
+    exit 1
+}
+
+[ $# -ne 2 ] &amp;&amp; usage
+[ $1 -le 0 ] || [ $2 -le 0 ] || [ $1 -gt $2 ] &amp;&amp; usage
+
+page=$1
+while [ $page -le $2 ] ; do
+    echo &quot;[INFO] Downloading page $page ...&quot;
+
+    imgs=`wget -q -O - http://jandan.net/ooxx/page-$page | grep -ioE '&lt;img src=&quot;http.*\.(jpg|gif)&quot; */&gt;' | sed 's/&lt;[Ii][Mm][Gg].*[Ss][Rr][Cc]\s*=\s*&quot;*//;s/[&quot; ].*//'`
+    [ -z &quot;$imgs&quot; ] &amp;&amp; {
+        echo &quot;[WARNING] Failed to get image list of page $page&quot;
+        page=$((page+1))
+        continue
+    }      
+
+    index=1
+    for img in $imgs ; do
+        wget -q --tries=$retry --timeout=$timeout -O &quot;$page-$index.${img##*.}&quot; &quot;$img&quot;
+        if [ $? -ne 0 ] ; then
+            rm -f &quot;$page-$index.${img##*.}&quot;
+            echo &quot;[WARNING] Failed to download $img&quot;
+        else
+            index=$((index+1))
+        fi
+    done
+
+    page=$((page+1))
+    [ $page -le $2 ] &amp;&amp; sleep $delay
+done
+
+exit 0
+</code></pre></noscript></div>
 
 
 <ul>
@@ -212,7 +258,7 @@ exit 0
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/" data-via="" data-counturl="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/" data-via="" data-counturl="http://linfan.info/blog/2013/09/15/web-crawler-by-shell/" >Tweet</a>
   
   
   
@@ -301,7 +347,7 @@ exit 0
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
+  Copyright &copy; 2014 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -319,7 +365,7 @@ exit 0
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -335,7 +381,7 @@ exit 0
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

@@ -18,13 +18,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/03/01/wine-mac/">
+  <link rel="canonical" href="http://linfan.info/blog/2012/03/01/wine-mac">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="linfan's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -102,7 +103,7 @@
 
 <p>通过<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令即可。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine --devel
 </span></code></pre></td></tr></table></div></figure>
 
@@ -169,7 +170,7 @@
 
 <p>此外，需要在<code>~/.bash_profile</code>中增加以下两行，否则文件名中的汉字还是乱码。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">LC_CTYPE</span><span class="o">=</span>en_US.UTF-8
 </span><span class='line'><span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
@@ -180,7 +181,7 @@
 
 <p>Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
 </span></code></pre></td></tr></table></div></figure>
 
@@ -189,14 +190,14 @@
 
 <p>下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在<code>system "make install"</code>之前增加一行<code>system "make"</code>。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install fcitx
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>在<code>~/.bash_profile</code>中增加一行。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&quot;@im=fcitx&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -205,14 +206,14 @@
 
 <p>输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.x.X11 app_to_run /usr/local/bin/fcitx
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>如果使用XQuartz而非系统预装的X11，输入以下命令设置。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.macosforge.xquartz.X11 app_to_run /usr/local/bin/fcitx
 </span></code></pre></td></tr></table></div></figure>
 
@@ -260,7 +261,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/01/wine-mac/" data-via="" data-counturl="http://linfan.info/blog/2012/03/01/wine-mac/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/03/01/wine-mac/" data-via="" data-counturl="http://linfan.info/blog/2012/03/01/wine-mac/" >Tweet</a>
   
   
   
@@ -349,7 +350,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
+  Copyright &copy; 2014 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -367,7 +368,7 @@
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -383,7 +384,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

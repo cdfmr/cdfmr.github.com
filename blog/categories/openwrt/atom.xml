@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OpenWrt | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/openwrt/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -20,7 +20,7 @@
     <id>http://linfan.info/blog/2013/10/15/openwrt-packages</id>
     <content type="html"><![CDATA[<p><a href="https://openwrt.org">OpenWrt</a>是一个优秀的开源路由器固件，也是一个高度可定制的Linux发行版。OpenWrt包含opkg软件包管理工具，可以从软件源中轻松安装数以千计的软件包。即便如此，有时我们还是需要从官方源之外寻找其它软件包，以满足某些特殊的需求。本文就收集了我目前使用的一些非官方软件包，其中有自己创建的，但大部分来自于第三方。</p>
 
-<p>我的路由器是网件WNDRMAC，以下软件包使用于ar71xx系列芯片，部分软件包文件名以all结尾，说明其与硬件平台无关，也适用于其它芯片，但我只在WNDRMAC上进行过验证。</p>
+<p>我的路由器是网件WNDRMAC，以下软件包适用于ar71xx系列芯片，部分软件包文件名以all结尾，说明其与硬件平台无关，也适用于其它芯片，但我只在WNDRMAC上进行过验证。</p>
 
 <!--more-->
 

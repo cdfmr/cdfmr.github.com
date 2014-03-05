@@ -24,13 +24,14 @@ NSStatusBar * &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/">
+  <link rel="canonical" href="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="linfan's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -97,7 +98,7 @@ NSStatusBar * &hellip;">
 
 <div class="entry-content"><p>与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -121,13 +122,13 @@ NSStatusBar * &hellip;">
 
 <p>首先要声明将要调用的非公开API。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">NSStatusBar</span> <span class="nl">(NSStatusBar_Private)</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">_statusItemWithLength:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">l</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">_insertStatusItem:</span><span class="p">(</span><span class="n">NSStatusItem</span> <span class="o">*</span><span class="p">)</span><span class="n">i</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">_statusItemWithLength:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="nv">l</span> <span class="nf">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">p</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">_insertStatusItem:</span><span class="p">(</span><span class="n">NSStatusItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">i</span> <span class="nf">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">p</span><span class="p">;</span>
 </span><span class='line'><span class="k">@end</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -138,7 +139,7 @@ NSStatusBar * &hellip;">
 
 <p><strong>方法一</strong></p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -169,7 +170,7 @@ NSStatusBar * &hellip;">
 
 <p><strong>方法二</strong></p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -193,7 +194,7 @@ NSStatusBar * &hellip;">
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">restartSystemUIServer</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">restartSystemUIServer</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="n">NSTask</span> <span class="o">*</span><span class="n">killSystemUITask</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSTask</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
 </span><span class='line'>    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
@@ -204,7 +205,7 @@ NSStatusBar * &hellip;">
 </span><span class='line'>    <span class="p">[</span><span class="n">killSystemUITask</span> <span class="n">launch</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">createStatusBar</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">createStatusBar</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_statusItemWithLength:withPriority:</span><span class="p">)])</span>
 </span><span class='line'>    <span class="p">{</span>
@@ -224,7 +225,7 @@ NSStatusBar * &hellip;">
 
 <p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -276,7 +277,7 @@ NSStatusBar * &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" data-via="" data-counturl="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" data-via="" data-counturl="http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/" >Tweet</a>
   
   
   
@@ -365,7 +366,7 @@ NSStatusBar * &hellip;">
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
+  Copyright &copy; 2014 - linfan - <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA</a> -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
@@ -383,7 +384,7 @@ NSStatusBar * &hellip;">
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
@@ -399,7 +400,7 @@ NSStatusBar * &hellip;">
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>

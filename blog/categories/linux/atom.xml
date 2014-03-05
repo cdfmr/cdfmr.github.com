@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -40,7 +40,7 @@
 
 <p>需增加<code>dovecot-mysql</code>包。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>apt-get install dovecot-mysql
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
@@ -51,7 +51,7 @@
 </ul>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -98,7 +98,7 @@
 </ul>
 
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>submission inet n &amp;ndash; n – – smtpd
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
@@ -106,7 +106,7 @@
 
 <p>修改文件<code>/etc/postfix/sasl/smtpd.conf</code>为如下内容。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -132,7 +132,7 @@
 
 <p>这是符合新版本Dovecot要求的<code>/etc/dovecot/dovecot.conf</code>配置文件。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -221,7 +221,7 @@
 </span><span class='line'>protocol lda <span class="o">{</span>
 </span><span class='line'>  <span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
 </span><span class='line'>  <span class="nv">log_path</span> <span class="o">=</span> /home/vmail/dovecot-deliver.log
-</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#112;&amp;#111;&amp;#115;&amp;#116;&amp;#x6d;&amp;#97;&amp;#x73;&amp;#x74;&amp;#101;&amp;#114;&amp;#64;&amp;#x65;&amp;#x78;&amp;#97;&amp;#109;&amp;#112;&amp;#108;&amp;#x65;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#109;&quot;</span>&gt;&amp;#112;&amp;#x6f;&amp;#x73;&amp;#116;&amp;#x6d;&amp;#97;&amp;#115;&amp;#116;&amp;#x65;&amp;#114;&amp;#64;&amp;#x65;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#x6c;&amp;#x65;&amp;#46;&amp;#x63;&amp;#111;&amp;#109;&lt;/a&gt;
+</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#108;&amp;#x74;&amp;#111;&amp;#x3a;&amp;#x70;&amp;#x6f;&amp;#x73;&amp;#x74;&amp;#109;&amp;#97;&amp;#x73;&amp;#x74;&amp;#x65;&amp;#114;&amp;#64;&amp;#x65;&amp;#x78;&amp;#x61;&amp;#109;&amp;#x70;&amp;#x6c;&amp;#x65;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&quot;</span>&gt;&amp;#x70;&amp;#x6f;&amp;#x73;&amp;#x74;&amp;#109;&amp;#x61;&amp;#115;&amp;#116;&amp;#101;&amp;#x72;&amp;#64;&amp;#101;&amp;#120;&amp;#97;&amp;#109;&amp;#112;&amp;#x6c;&amp;#x65;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#109;&lt;/a&gt;
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>protocol pop3 <span class="o">{</span>
 </span><span class='line'>  <span class="nv">pop3_uidl_format</span> <span class="o">=</span> %08Xu%08Xv
@@ -252,7 +252,7 @@
 
 <h2>Linux/Mac OS X</h2>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -306,7 +306,7 @@
 
 <h2>HP-UX</h2>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -372,7 +372,7 @@
 
 <p>进行Cocoa开发时，使用CFUUIDCreate函数可生成UUID，以下代码摘自<a href="http://vgable.com/blog/2008/02/24/creating-a-uuid-guid-in-cocoa/">Vincent Gable’s Blog</a>。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -383,7 +383,7 @@
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">+</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="n">stringWithUUID</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="nf">stringWithUUID</span>
 </span><span class='line'><span class="p">{</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">CFUUIDRef</span> <span class="n">uuidObj</span> <span class="o">=</span> <span class="n">CFUUIDCreate</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span><span class="c1">//create a new UUID</span>
@@ -404,7 +404,7 @@
 
 <p>JDK 1.5以上内建了UUID的支持，使用非常简单。</p>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>

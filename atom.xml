@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -80,7 +80,7 @@
     <id>http://linfan.info/blog/2013/10/15/openwrt-packages</id>
     <content type="html"><![CDATA[<p><a href="https://openwrt.org">OpenWrt</a>是一个优秀的开源路由器固件，也是一个高度可定制的Linux发行版。OpenWrt包含opkg软件包管理工具，可以从软件源中轻松安装数以千计的软件包。即便如此，有时我们还是需要从官方源之外寻找其它软件包，以满足某些特殊的需求。本文就收集了我目前使用的一些非官方软件包，其中有自己创建的，但大部分来自于第三方。</p>
 
-<p>我的路由器是网件WNDRMAC，以下软件包使用于ar71xx系列芯片，部分软件包文件名以all结尾，说明其与硬件平台无关，也适用于其它芯片，但我只在WNDRMAC上进行过验证。</p>
+<p>我的路由器是网件WNDRMAC，以下软件包适用于ar71xx系列芯片，部分软件包文件名以all结尾，说明其与硬件平台无关，也适用于其它芯片，但我只在WNDRMAC上进行过验证。</p>
 
 <!--more-->
 
@@ -137,7 +137,49 @@
 
 
 <div><script src='https://gist.github.com/6571304.js'></script>
-<noscript><pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/6571304&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</code></pre></noscript></div>
+<noscript><pre><code>#!/bin/sh
+
+delay=0
+timeout=10
+retry=2
+
+usage()
+{
+    echo &quot;Usage: `basename $0` frompage topage&quot;
+    exit 1
+}
+
+[ $# -ne 2 ] &amp;&amp; usage
+[ $1 -le 0 ] || [ $2 -le 0 ] || [ $1 -gt $2 ] &amp;&amp; usage
+
+page=$1
+while [ $page -le $2 ] ; do
+    echo &quot;[INFO] Downloading page $page ...&quot;
+
+    imgs=`wget -q -O - http://jandan.net/ooxx/page-$page | grep -ioE '&lt;img src=&quot;http.*\.(jpg|gif)&quot; */&gt;' | sed 's/&lt;[Ii][Mm][Gg].*[Ss][Rr][Cc]\s*=\s*&quot;*//;s/[&quot; ].*//'`
+    [ -z &quot;$imgs&quot; ] &amp;&amp; {
+        echo &quot;[WARNING] Failed to get image list of page $page&quot;
+        page=$((page+1))
+        continue
+    }      
+
+    index=1
+    for img in $imgs ; do
+        wget -q --tries=$retry --timeout=$timeout -O &quot;$page-$index.${img##*.}&quot; &quot;$img&quot;
+        if [ $? -ne 0 ] ; then
+            rm -f &quot;$page-$index.${img##*.}&quot;
+            echo &quot;[WARNING] Failed to download $img&quot;
+        else
+            index=$((index+1))
+        fi
+    done
+
+    page=$((page+1))
+    [ $page -le $2 ] &amp;&amp; sleep $delay
+done
+
+exit 0
+</code></pre></noscript></div>
 
 
 <ul>
@@ -279,7 +321,7 @@ exit 0
 
 <p>需增加<code>dovecot-mysql</code>包。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>apt-get install dovecot-mysql
 </span></code></pre></td></tr></table></div></figure>
 
@@ -291,7 +333,7 @@ exit 0
 </ul>
 
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -339,7 +381,7 @@ exit 0
 </ul>
 
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>submission inet n - n – – smtpd
 </span></code></pre></td></tr></table></div></figure>
 
@@ -348,7 +390,7 @@ exit 0
 
 <p>修改文件<code>/etc/postfix/sasl/smtpd.conf</code>为如下内容。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -375,7 +417,7 @@ exit 0
 
 <p>这是符合新版本Dovecot要求的<code>/etc/dovecot/dovecot.conf</code>配置文件。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -484,7 +526,7 @@ exit 0
 
 <p>于是上网寻求解决方案，最终在<a href="http://code.google.com/p/theunarchiver/">The Unarchiver</a>的代码中找到了。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -557,7 +599,7 @@ exit 0
 
 <p>使用这个方法，必须在App Sandbox的授权文件中为Finder增加特例。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="nl">Key:</span>   <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">security</span><span class="p">.</span><span class="n">temporary</span><span class="o">-</span><span class="n">exception</span><span class="p">.</span><span class="n">apple</span><span class="o">-</span><span class="n">events</span>
 </span><span class='line'><span class="nl">Value:</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">finder</span>
@@ -600,7 +642,7 @@ exit 0
 
 <h2>Linux/Mac OS X</h2>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -643,7 +685,7 @@ exit 0
 
 <h2>HP-UX</h2>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -698,7 +740,7 @@ exit 0
 
 <p>进行Cocoa开发时，使用CFUUIDCreate函数可生成UUID，以下代码摘自<a href="http://vgable.com/blog/2008/02/24/creating-a-uuid-guid-in-cocoa/">Vincent Gable’s Blog</a>。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -706,7 +748,7 @@ exit 0
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">+</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="n">stringWithUUID</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span> <span class="nf">stringWithUUID</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="n">CFUUIDRef</span> <span class="n">uuidObj</span> <span class="o">=</span> <span class="n">CFUUIDCreate</span><span class="p">(</span><span class="nb">nil</span><span class="p">);</span><span class="c1">//create a new UUID</span>
 </span><span class='line'>    <span class="c1">//get the string representation of the UUID</span>
@@ -725,7 +767,7 @@ exit 0
 
 <p>JDK 1.5以上内建了UUID的支持，使用非常简单。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -754,7 +796,7 @@ exit 0
 
 <p>与SVN不同，Git使用散列值作为每次提交的标记，而不是像SVN那样使用递增序列，因此不便直接用作CFBundleVersion。正愁以后每次都要麻烦地手工设置了，苦思冥想一番之后豁然开朗，虽然Git没有数值化的版本号，但我可以自己数一数提交次数啊，于是有了这个脚本。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'> /usr/libexec/PlistBuddy -c <span class="s2">&quot;Set :CFBundleVersion `git log | grep -P &#39;commit [\da-f]{40}&#39; | wc -l`&quot;</span> <span class="s2">&quot;${TARGET_BUILD_DIR}/${INFOPLIST_PATH}&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -763,7 +805,7 @@ exit 0
 
 <p>顺便附上以前使用的SVN脚本，稍稍不同的是将版本号补齐到3位。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -824,7 +866,7 @@ exit 0
 
 <p>使用方法：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSApp</span> <span class="nl">relaunchAfterDelay:</span><span class="mf">2.0</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -849,7 +891,7 @@ exit 0
 
 <p>Xcode 3中设置ORGANIZATIONNAME宏定义。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode PBXCustomTemplateMacroDefinitions <span class="s1">&#39;{ORGANIZATIONNAME=&quot;YourNameHere&quot;;}&#39;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -864,7 +906,7 @@ exit 0
 
 <p>Xcode 3的设置：</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write com.apple.Xcode XCCodeSenseFormattingOptions -dict BlockSeparator <span class="s2">&quot;\n&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -944,7 +986,7 @@ exit 0
 
 <p>查阅libssh2的文档及include/libssh2_sftp.h文件，得知libssh2_sftp_rename实际是libssh2_sftp_rename_ex的宏定义，该宏传入的flags参数是LIBSSH2_SFTP_RENAME_OVERWRITE | LIBSSH2_SFTP_RENAME_ATOMIC | LIBSSH2_SFTP_RENAME_NATIVE，即包含了覆盖已存在文件的选项，可为什么还是失败呢？继续追查libssh2_sftp_rename_ex的实现，逐步跟踪到src/sftp.c文件中的sftp_rename函数，发现这段代码。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">sftp</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">)</span>
 </span><span class='line'>    <span class="n">_libssh2_store_u32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sftp</span><span class="o">-&gt;</span><span class="n">rename_s</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
@@ -953,7 +995,7 @@ exit 0
 
 <p>这是flags参数唯一出现的地方，也就是说只有SFTP服务器协议版本不小于5时，重命名的那些选项才有效，HP-UX上出现的很有可能就是这种情况。为了证实，使用系统内建的sftp工具连接，输入version命令，得到以下输出。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">sftp</span><span class="o">&gt;</span> <span class="n">version</span>
 </span><span class='line'><span class="n">SFTP</span> <span class="n">protocol</span> <span class="n">version</span> <span class="mi">3</span>
@@ -984,7 +1026,7 @@ exit 0
 
 <p>通过<a href="http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>安装Wine非常简单，输入以下命令即可。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install wine --devel
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1051,7 +1093,7 @@ exit 0
 
 <p>此外，需要在<code>~/.bash_profile</code>中增加以下两行，否则文件名中的汉字还是乱码。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">LC_CTYPE</span><span class="o">=</span>en_US.UTF-8
 </span><span class='line'><span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
@@ -1062,7 +1104,7 @@ exit 0
 
 <p>Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于<a href="http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew create http://www.fcitx.org/download/fcitx-3.5-070703.tar.bz2
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1071,14 +1113,14 @@ exit 0
 
 <p>下载完成后，Homebrew会自动打开创建的编译脚本进行编辑，在<code>system "make install"</code>之前增加一行<code>system "make"</code>。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>brew install fcitx
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>在<code>~/.bash_profile</code>中增加一行。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">export </span><span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">&quot;@im=fcitx&quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1087,14 +1129,14 @@ exit 0
 
 <p>输入汉字时，必须先运行Fcitx，可以让Fcitx随X11自动启动。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.x.X11 app_to_run /usr/local/bin/fcitx
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>如果使用XQuartz而非系统预装的X11，输入以下命令设置。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>defaults write org.macosforge.xquartz.X11 app_to_run /usr/local/bin/fcitx
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1125,14 +1167,14 @@ exit 0
 
 <p>默认情况下，fuse-ext2进行只读挂载，可以修改<code>/System/Library/Filesystems/fuse-ext2.fs/fuse-ext2.util</code>文件进行读写挂载。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo vi /System/Library/Filesystems/fuse-ext2.fs/fuse-ext2.util
 </span></code></pre></td></tr></table></div></figure>
 
 
 <p>修改Mount函数（第200行前后），为OPTIONS变量增加<code>rw+</code>标志。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1172,7 +1214,7 @@ exit 0
     <id>http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar</id>
     <content type="html"><![CDATA[<p>与Windows中的Tray Icon不同，Mac OS X中类似的UI元素位于屏幕右上角菜单栏的右侧，官方命名为Status Item，我们可以使用NSStatusBar和NSStatusItem类在菜单栏上为自己的应用添加图标。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1196,13 +1238,13 @@ exit 0
 
 <p>首先要声明将要调用的非公开API。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">NSStatusBar</span> <span class="nl">(NSStatusBar_Private)</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">_statusItemWithLength:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">l</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nl">_insertStatusItem:</span><span class="p">(</span><span class="n">NSStatusItem</span> <span class="o">*</span><span class="p">)</span><span class="n">i</span> <span class="nl">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">p</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">_statusItemWithLength:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="nv">l</span> <span class="nf">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">p</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">_insertStatusItem:</span><span class="p">(</span><span class="n">NSStatusItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">i</span> <span class="nf">withPriority:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">p</span><span class="p">;</span>
 </span><span class='line'><span class="k">@end</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1213,7 +1255,7 @@ exit 0
 
 <p><strong>方法一</strong></p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1244,7 +1286,7 @@ exit 0
 
 <p><strong>方法二</strong></p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1268,7 +1310,7 @@ exit 0
 <span class='line-number'>22</span>
 <span class='line-number'>23</span>
 <span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">restartSystemUIServer</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">restartSystemUIServer</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="n">NSTask</span> <span class="o">*</span><span class="n">killSystemUITask</span> <span class="o">=</span> <span class="p">[[[</span><span class="n">NSTask</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">]</span> <span class="n">autorelease</span><span class="p">];</span>
 </span><span class='line'>    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
@@ -1279,7 +1321,7 @@ exit 0
 </span><span class='line'>    <span class="p">[</span><span class="n">killSystemUITask</span> <span class="n">launch</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">createStatusBar</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">createStatusBar</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">statusBar</span> <span class="nl">respondsToSelector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">_statusItemWithLength:withPriority:</span><span class="p">)])</span>
 </span><span class='line'>    <span class="p">{</span>
@@ -1299,7 +1341,7 @@ exit 0
 
 <p>另外，方法一在Snow Leopard下运行时，如果用户输入<code>killall SystemUIServer</code>重启SystemUIServer服务，会导致图标错位到Spotlight图标的右侧。解决方法是捕获系统的“com.apple.menuextra.added”通知（这个通知也是非公开的），调用方法一重新添加图标。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1336,7 +1378,7 @@ exit 0
 
 <p>安装完成后，需要在系统启动时加载FUSE内核扩展。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo cp -rfX /usr/local/Cellar/fuse4x-kext/0.8.14/Library/Extensions/fuse4x.kext /System/Library/Extensions
 </span><span class='line'>sudo chmod +s /System/Library/Extensions/fuse4x.kext/Support/load_fuse4x
@@ -1387,7 +1429,7 @@ exit 0
 </ol>
 
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -1409,7 +1451,7 @@ exit 0
 
 <p>这个很简单，加上<code>--color</code>参数就可以了，为了使用方便，可以在<code>~/.bash_profile</code>配置文件中加上alias定义。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">alias </span><span class="nv">grep</span><span class="o">=</span><span class="s1">&#39;grep --color&#39;</span>

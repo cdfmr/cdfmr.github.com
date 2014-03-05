@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Shell | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2013-12-08T22:13:16+08:00</updated>
+  <updated>2014-03-05T21:52:39+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -31,7 +31,49 @@
 
 
 <p><div><script src='https://gist.github.com/6571304.js'></script>
-<noscript><pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href=&quot;https://github.com/gist/6571304&quot;&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;</code></pre></noscript></div>
+<noscript><pre><code>#!/bin/sh
+
+delay=0
+timeout=10
+retry=2
+
+usage()
+{
+	echo &quot;Usage: `basename $0` frompage topage&quot;
+	exit 1
+}
+
+[ $# -ne 2 ] &amp;&amp; usage
+[ $1 -le 0 ] || [ $2 -le 0 ] || [ $1 -gt $2 ] &amp;&amp; usage
+
+page=$1
+while [ $page -le $2 ] ; do
+	echo &quot;[INFO] Downloading page $page ...&quot;
+
+	imgs=`wget -q -O - http://jandan.net/ooxx/page-$page | grep -ioE '&lt;img src=&quot;http.*\.(jpg|gif)&quot; */&gt;' | sed 's/&lt;[Ii][Mm][Gg].*[Ss][Rr][Cc]\s*=\s*&quot;*//;s/[&quot; ].*//'`
+	[ -z &quot;$imgs&quot; ] &amp;&amp; {
+		echo &quot;[WARNING] Failed to get image list of page $page&quot;
+		page=$((page+1))
+		continue
+	}	   
+
+	index=1
+	for img in $imgs ; do
+		wget -q --tries=$retry --timeout=$timeout -O &quot;$page-$index.${img##*.}&quot; &quot;$img&quot;
+		if [ $? -ne 0 ] ; then
+			rm -f &quot;$page-$index.${img##*.}&quot;
+			echo &quot;[WARNING] Failed to download $img&quot;
+		else
+			index=$((index+1))
+		fi
+	done
+
+	page=$((page+1))
+	[ $page -le $2 ] &amp;&amp; sleep $delay
+done
+
+exit 0
+</code></pre></noscript></div>
 </p>
 
 <ul>

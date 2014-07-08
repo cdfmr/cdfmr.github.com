@@ -1,111 +1,167 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/22/hello-octopress/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/23/perfect-drupal-editor/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/28/bindfs-on-mac/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/02/29/mac-ext2fs/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/03/01/wine-mac/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/03/05/hpux-sftp/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/03/07/xcode-tips/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/04/20/uuid/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/10/21/ubuntu-12-dot-04-email-server/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/10/31/linode-library-offline/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2013/06/04/calendar-color/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2013/06/22/greader-archive-to-html/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2013/09/15/web-crawler-by-shell/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2013/10/15/openwrt-packages/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/2013/11/15/rime-ime-config/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/about/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/about/resume.html</loc>
-        <lastmod>2014-07-04T00:32:31+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/blog/archives/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
-    <url>
-        <loc>http://linfan.info/robots.txt</loc>
-        <lastmod>2014-03-05T21:31:03+08:00</lastmod>
-    </url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>http://linfan.info/blog/2013/11/15/rime-ime-config/</loc>
+    <lastmod>2013-11-15T21:42:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2013/10/15/openwrt-packages/</loc>
+    <lastmod>2013-10-15T15:08:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2013/09/15/web-crawler-by-shell/</loc>
+    <lastmod>2013-09-15T22:47:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2013/06/22/greader-archive-to-html/</loc>
+    <lastmod>2013-06-22T23:57:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2013/06/04/calendar-color/</loc>
+    <lastmod>2013-06-04T21:54:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/12/27/nsurlerrordomain-3001/</loc>
+    <lastmod>2012-12-27T21:36:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/10/31/linode-library-offline/</loc>
+    <lastmod>2012-10-31T20:13:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/10/21/ubuntu-12-dot-04-email-server/</loc>
+    <lastmod>2012-10-21T16:14:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/</loc>
+    <lastmod>2012-06-23T15:39:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/04/20/uuid/</loc>
+    <lastmod>2012-04-20T20:50:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/03/27/xcode-build-number-with-git/</loc>
+    <lastmod>2012-03-27T15:13:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/03/26/mac-app-self-relaunch/</loc>
+    <lastmod>2012-03-26T19:31:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/03/07/xcode-tips/</loc>
+    <lastmod>2012-03-07T09:58:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/03/05/hpux-sftp/</loc>
+    <lastmod>2012-03-05T22:44:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/03/01/wine-mac/</loc>
+    <lastmod>2012-03-01T00:06:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/29/mac-ext2fs/</loc>
+    <lastmod>2012-02-29T09:24:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/28/cocoa-icon-on-right-side-of-menu-bar/</loc>
+    <lastmod>2012-02-28T21:35:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/28/bindfs-on-mac/</loc>
+    <lastmod>2012-02-28T00:02:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/27/colorful-terminal-in-mac/</loc>
+    <lastmod>2012-02-27T13:57:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/25/homebrew-installation-and-usage/</loc>
+    <lastmod>2012-02-25T19:50:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/23/perfect-drupal-editor/</loc>
+    <lastmod>2012-02-23T10:06:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/blog/2012/02/22/hello-octopress/</loc>
+    <lastmod>2012-02-22T10:15:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>http://linfan.info/blog/archives/</loc>
+    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/</loc>
+    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/about/</loc>
+    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>http://linfan.info/about/resume.html</loc>
+    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  
 </urlset>

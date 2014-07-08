@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2014-07-04T00:36:10+08:00</updated>
+  <updated>2014-07-08T22:40:27+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -67,8 +67,6 @@
 </span><span class='line'>    Control_R: noop
 </span><span class='line'>    Shift_L: commit_code
 </span><span class='line'>    Shift_R: commit_code</span></code></pre></td></tr></table></div></figure>
-
-
 
 ]]></content>
   </entry>
@@ -501,8 +499,6 @@ exit 0
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-
 ]]></content>
   </entry>
   
@@ -779,8 +775,6 @@ exit 0
 </span><span class='line'><span class="n">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-
 ]]></content>
   </entry>
   
@@ -869,8 +863,6 @@ exit 0
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSApp</span> <span class="nl">relaunchAfterDelay:</span><span class="mf">2.0</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
 
 ]]></content>
   </entry>

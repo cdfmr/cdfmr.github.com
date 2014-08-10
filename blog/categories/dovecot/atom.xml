@@ -4,7 +4,7 @@
   <title><![CDATA[Category: dovecot | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/dovecot/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2014-07-08T22:40:27+08:00</updated>
+  <updated>2014-08-10T15:03:31+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -210,7 +210,7 @@
 </span><span class='line'>protocol lda <span class="o">{</span>
 </span><span class='line'>  <span class="nv">auth_socket_path</span> <span class="o">=</span> /var/run/dovecot/auth-master
 </span><span class='line'>  <span class="nv">log_path</span> <span class="o">=</span> /home/vmail/dovecot-deliver.log
-</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#x3a;&amp;#112;&amp;#x6f;&amp;#115;&amp;#116;&amp;#109;&amp;#97;&amp;#x73;&amp;#x74;&amp;#101;&amp;#x72;&amp;#x40;&amp;#101;&amp;#120;&amp;#x61;&amp;#109;&amp;#112;&amp;#108;&amp;#x65;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&quot;</span>&gt;<span class="p">&amp;</span><span class="c">#112;&amp;#x6f;&amp;#115;&amp;#116;&amp;#109;&amp;#x61;&amp;#115;&amp;#116;&amp;#101;&amp;#114;&amp;#x40;&amp;#101;&amp;#x78;&amp;#x61;&amp;#x6d;&amp;#112;&amp;#108;&amp;#x65;&amp;#x2e;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
+</span><span class='line'>  <span class="nv">postmaster_address</span> <span class="o">=</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#108;&amp;#x74;&amp;#x6f;&amp;#x3a;&amp;#x70;&amp;#111;&amp;#115;&amp;#x74;&amp;#109;&amp;#x61;&amp;#x73;&amp;#x74;&amp;#x65;&amp;#x72;&amp;#x40;&amp;#x65;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#108;&amp;#101;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109;&quot;</span>&gt;<span class="p">&amp;</span><span class="c">#112;&amp;#x6f;&amp;#115;&amp;#x74;&amp;#109;&amp;#97;&amp;#115;&amp;#x74;&amp;#x65;&amp;#114;&amp;#64;&amp;#101;&amp;#x78;&amp;#97;&amp;#x6d;&amp;#112;&amp;#108;&amp;#101;&amp;#46;&amp;#x63;&amp;#x6f;&amp;#x6d;&lt;/a&gt;</span>
 </span><span class='line'><span class="o">}</span>
 </span><span class='line'>protocol pop3 <span class="o">{</span>
 </span><span class='line'>  <span class="nv">pop3_uidl_format</span> <span class="o">=</span> %08Xu%08Xv

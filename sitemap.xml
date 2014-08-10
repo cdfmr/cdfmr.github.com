@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://linfan.info/blog/2014/08/10/pediy-raiden2/</loc>
+    <lastmod>2014-08-10T09:18:44+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://linfan.info/blog/2013/11/15/rime-ime-config/</loc>
     <lastmod>2013-11-15T21:42:00+08:00</lastmod>
     <priority>0.8</priority>
@@ -137,28 +143,28 @@
   
   <url>
     <loc>http://linfan.info/blog/archives/</loc>
-    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <lastmod>2014-08-10T15:03:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://linfan.info/</loc>
-    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <lastmod>2014-08-10T15:03:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://linfan.info/about/</loc>
-    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <lastmod>2014-08-10T15:03:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://linfan.info/about/resume.html</loc>
-    <lastmod>2014-07-08T22:40:27+08:00</lastmod>
+    <lastmod>2014-08-10T15:03:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: reverse | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/reverse/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2014-08-10T15:03:31+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PEDIY：解除雷电2对光盘的依赖]]></title>
+    <link href="http://linfan.info/blog/2014/08/10/pediy-raiden2/"/>
+    <updated>2014-08-10T09:18:44+08:00</updated>
+    <id>http://linfan.info/blog/2014/08/10/pediy-raiden2</id>
+    <content type="html"><![CDATA[<p>雷电2的经典毋庸置疑，由于街机模拟的不完善，其PC版仍旧是体验这款游戏的最佳方式。在遥远的1997年，限于当时的软硬件环境，PC版采用CD音轨作为背景音乐，运行时需要光盘或虚拟光驱，既不方便又占用大量存储空间。因此我一直希望有一个方便的版本，不依赖光盘但保留背景音乐以获取完整的游戏体验。经过一番努力，终于成功使用Ogg音乐文件代替CD音轨回放，完美解除了雷电2对光盘的依赖。本文是此次逆向工程的记录，仅限于技术研究，勿用于破解及盗版用途。</p>
+
+<!--more-->
+
+
+<p>以下记录基于雷电2英文版，可执行文件Raidenii.exe，文件日期1997-12-1 23:12，CRC值B14D0DE9。</p>
+
+<h2>分析</h2>
+
+<ul>
+<li><p>反汇编主程序Raidenii.exe，根据其导入的API函数以及字符串资源等信息，可以得知雷电2使用DirectSound实现音效，而使用MCI实现背景音乐的回放，两者没有共用代码。</p></li>
+<li><p>搜索代码中所有对MCI函数的调用，发现只有mciSendCommand及mciGetErrorString，并进一步分析MCI命令代码及函数的输入参数和返回值，整理如下（音量控制使用auxSetVolume，勿遗漏）。</p>
+
+<ul>
+<li><p>int proc_00402E70()<br/>
+获取音量控制设备，保存设备ID到某全局变量中。</p></li>
+<li><p>int proc_00402F20()<br/>
+初始化CD回放设备，同样保存设备ID到某全局变量中。</p></li>
+<li><p>int proc_00402FA0()<br/>
+关闭CD回放设备。</p></li>
+<li><p>int proc_00402FF0()<br/>
+停止播放。</p></li>
+<li><p>int proc_00403040(unsigned char)<br/>
+播放音轨，参数为音轨编号。</p></li>
+<li><p>int proc_00403100()<br/>
+暂停播放。</p></li>
+<li><p>int proc_00403140()<br/>
+恢复播放。</p></li>
+<li><p>int proc_00403180(unsigned char, int, int, int)<br/>
+获取CD音轨的参数如音轨长度等，第一个参数为音轨编号，其余参数为输出参数，用于记录音轨长度等数据。</p></li>
+<li><p>int proc_004031F0(int)<br/>
+获取MCI错误的文字描述，参数为错误代码（MCIERROR）。</p></li>
+<li><p>int proc_00403260(int, int, int)<br/>
+MCI消息处理函数，三个参数为设备ID、WPARAM及LPARAM，用于在一条音轨播放结束时切换到新的音轨。</p></li>
+<li><p>int proc_004032C0(int)<br/>
+设置音量，参数为0~100。</p></li>
+<li><p>0040692D ~ 00406AF6<br/>
+位于WinMain函数，光盘检测的相关代码。</p></li>
+</ul>
+</li>
+<li><p>由上面的分析不难看出，雷电2的背景音乐回放并不复杂，并且模块化相当好，编写一个新的模块，实现以上这些功能进行替换是可行的。整理初步的方案如下。</p>
+
+<ul>
+<li><p>采用Ogg作为新的背景音乐，并使用Audiere音频库实现回放，编写一个DLL文件实现以上接口。</p></li>
+<li><p>由于部分函数如获取音量控制设备、获取音轨参数等不再使用，无需实现。</p></li>
+<li><p>Audiere的回调方式不同于MCI，并非使用消息系统，因此在初始化时将消息处理函数作为参数保存并记录，在Audiere回调事件发生时进行调用。</p></li>
+<li><p>将新编写的DLL注入到Raidenii.exe，并修改以上函数的实现，改为调用DLL中的相关代码。</p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>准备工作</h2>
+
+<ul>
+<li><p>提取CD音轨</p>
+
+<p>  压缩为Ogg文件，保存到游戏所在目录的MUSIC子目录中，依次命名为 BGM01.OGG ~ BGM11.OGG。</p></li>
+<li><p>编写fakecd.dll</p>
+
+<p>  <div><script src='https://gist.github.com/7458344d8b3f2616a829.js'></script>
+<noscript><pre><code>#include &lt;windows.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+#include &quot;audiere.h&quot;
+using namespace audiere;
+
+#define FAKECD_API __declspec(dllexport)
+
+AudioDevicePtr g_device = 0;
+OutputStreamPtr g_stream = 0;
+StopCallbackPtr g_callback = 0;
+unsigned int g_volume = 100;
+signed int (*g_stop_callback)(int, int, int) = 0;
+
+#ifdef NDEBUG
+    #define dbgprint(format, args...)
+#else
+    #define dbgprint(format, args...) \
+    { \
+        char buffer[1024]; \
+        sprintf(buffer, format, ##args); \
+        OutputDebugString(buffer); \
+    }
+#endif
+
+class fakecd_stop_callback : public RefImplementation&lt;StopCallback&gt;
+{
+public:
+    void ADR_CALL streamStopped(StopEvent* event)
+    {
+        if (event-&gt;getReason() == StopEvent::STREAM_ENDED)
+        {
+            dbgprint(&quot;FAKECD_CALLBACK&quot;);
+
+            if (g_stop_callback)
+                g_stop_callback(0, 0, 0);
+        }
+    }
+};
+
+extern &quot;C&quot;
+{
+
+FAKECD_API DWORD fakecd_init(signed int (*stop_callback)(int, int, int))
+{
+    dbgprint(&quot;FAKECD_INIT: %d&quot;, (int)stop_callback);
+
+    g_device = OpenDevice();
+    if (!g_device)
+        return EXIT_FAILURE;
+
+    g_callback = new fakecd_stop_callback();
+    g_device-&gt;registerCallback(g_callback.get());
+    g_stop_callback = stop_callback;
+
+    return EXIT_SUCCESS;
+}
+
+FAKECD_API DWORD fakecd_play(unsigned char track)
+{
+    dbgprint(&quot;FAKECD_PLAY: %d&quot;, (int)track);
+
+    if (!g_device)
+        return EXIT_FAILURE;
+
+    char base_path[MAX_PATH];
+    HMODULE happ = GetModuleHandle(0);
+    GetModuleFileName(happ, base_path, MAX_PATH);
+    int i = strlen(base_path) - 1;
+    while (i &gt; 0 &amp;&amp; base_path[i] != '\\') i--;
+    base_path[i] = 0;
+
+    char ogg_path[MAX_PATH];
+    sprintf(ogg_path, &quot;%s\\MUSIC\\BGM%02d.OGG&quot;, base_path, track);
+    dbgprint(&quot;FILE: %s&quot;, ogg_path);
+    g_stream = OpenSound(g_device, ogg_path, true, FF_OGG);
+    if (!g_stream)
+        return EXIT_FAILURE;
+
+    g_stream-&gt;setVolume(g_volume / 100.0);
+    g_stream-&gt;play();
+
+    return EXIT_SUCCESS;
+}
+
+FAKECD_API DWORD fakecd_pause()
+{
+    dbgprint(&quot;FAKECD_PAUSE&quot;);
+
+    if (g_stream)
+        g_stream-&gt;stop();
+
+    return EXIT_SUCCESS;
+}
+
+FAKECD_API DWORD fakecd_resume()
+{
+    dbgprint(&quot;FAKECD_RESUME&quot;);
+
+    if (g_stream)
+        g_stream-&gt;play();
+
+    return EXIT_SUCCESS;
+}
+
+FAKECD_API DWORD fakecd_stop()
+{
+    dbgprint(&quot;FAKECD_STOP&quot;);
+
+    fakecd_pause();
+    g_stream = 0;
+
+    return EXIT_SUCCESS;
+}
+
+FAKECD_API DWORD fakecd_set_volume(unsigned int volume)
+{
+    dbgprint(&quot;FAKECD_VOLUME: %d&quot;, (int)volume);
+
+    g_volume = volume;
+    if (g_volume &gt; 100)
+        g_volume = 100;
+
+    if (g_stream)
+        g_stream-&gt;setVolume(g_volume / 100.0);
+
+    return EXIT_SUCCESS;
+}
+
+FAKECD_API DWORD fakecd_uninit()
+{
+    dbgprint(&quot;FAKECD_UNINIT&quot;);
+
+    fakecd_stop();
+
+    g_device = 0;
+    g_callback = 0;
+
+    return EXIT_SUCCESS;
+}
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+    if (fdwReason == DLL_PROCESS_DETACH)
+        fakecd_uninit();
+
+	return TRUE;
+}
+
+}
+</code></pre></noscript></div>
+</p></li>
+</ul>
+
+
+<h2>动手术</h2>
+
+<ul>
+<li><p>使用LordPE编辑Raidenii.exe，在其导入表中添加fakecd.dll导出的接口函数，并记录下所有新导入函数的地址。</p></li>
+<li><p>修改Raidenii.exe，调用fakecd.dll实现背景音乐回放。</p>
+
+<p>  <div><script src='https://gist.github.com/0515e9f2f63e77c4ac5b.js'></script>
+<noscript><pre><code>;跳过光盘检测
+0040692D    E9 C5010000      JMP 00406AF7
+
+;初始化设备
+00402F20    60               PUSHAD                          ;保留作案现场
+00402F21    68 60324000      PUSH 00403260                   ;回调函数
+00402F26    FF15 74E0CB00    CALL DWORD PTR DS:[fakecd_init] ;偷梁换柱
+00402F2C    83C4 04          ADD ESP,4                       ;平衡堆栈
+00402F2F    61               POPAD                           ;恢复现场
+00402F30    33C0             XOR EAX,EAX                     ;返回值
+00402F32    C3               RETN
+
+;暂停播放
+00403100    60               PUSHAD
+00403101    FF15 78E0CB00    CALL DWORD PTR DS:[fakecd_pause]
+00403107    61               POPAD
+00403108    33C0             XOR EAX,EAX
+0040310A    C3               RETN
+
+;播放
+00403040    33DB             XOR EBX,EBX
+00403042    8A5C24 04        MOV BL,BYTE PTR SS:[ESP+4] ;音轨编号
+00403046    4B               DEC EBX                    ;校正，因为第一条轨道是数据轨
+00403047    60               PUSHAD
+00403048    53               PUSH EBX
+00403049    FF15 7CE0CB00    CALL DWORD PTR DS:[fakecd_play]
+0040304F    83C4 04          ADD ESP,4
+00403052    61               POPAD
+00403053    33C0             XOR EAX,EAX
+00403055    C3               RETN
+
+;恢复播放
+00403140    60               PUSHAD
+00403141    FF15 80E0CB00    CALL DWORD PTR DS:[fakecd_resume]
+00403147    61               POPAD
+00403148    33C0             XOR EAX,EAX
+0040314A    C3               RETN
+
+;设置音量
+004032C0    8B4C24 04        MOV ECX,DWORD PTR SS:[ESP+4] ;音量参数
+004032C4    60               PUSHAD
+004032C5    51               PUSH ECX
+004032C6    FF15 84E0CB00    CALL DWORD PTR DS:[fakecd_set_volume]
+004032CC    83C4 04          ADD ESP,4
+004032CF    61               POPAD
+004032D0    33C0             XOR EAX,EAX
+004032D2    C3               RETN
+
+;停止播放
+00402FF0    60               PUSHAD
+00402FF1    FF15 88E0CB00    CALL DWORD PTR DS:[fakecd_stop]
+00402FF7    61               POPAD
+00402FF8    33C0             XOR EAX,EAX
+00402FFA    A3 24174D00      MOV DWORD PTR DS:[4D1724],EAX ;下一条音轨，原有逻辑，下同
+00402FFF    A3 20174D00      MOV DWORD PTR DS:[4D1720],EAX ;播放状态
+00403004    C3               RETN
+00403005    90               NOP                           ;填充
+00403006    90               NOP                           ;防止破坏其它指令的正常显示
+00403007    90               NOP
+00403008    90               NOP
+
+;关闭设备
+00402FA0    60               PUSHAD
+00402FA1    FF15 8CE0CB00    CALL DWORD PTR DS:[fakecd_uninit&gt;]
+00402FA7    61               POPAD
+00402FA8    33C0             XOR EAX,EAX
+00402FAA    C3               RETN
+
+;回调函数（一首音乐播放完毕后触发），此函数基本未修改，只是去除了对消息参数的检测
+00403260    A1 20174D00      MOV EAX,DWORD PTR DS:[4D1720]
+00403265    85C0             TEST EAX,EAX
+00403267    74 10            JE SHORT 00403279
+00403269    60               PUSHAD
+0040326A    A1 24174D00      MOV EAX,DWORD PTR DS:[4D1724]
+0040326F    50               PUSH EAX
+00403270    E8 CBFDFFFF      CALL 00403040
+00403275    83C4 04          ADD ESP,4
+00403278    61               POPAD
+00403279    33C0             XOR EAX,EAX
+0040327B    C3               RETN
+</code></pre></noscript></div>
+</p></li>
+</ul>
+
+
+<p>收工！</p>
+]]></content>
+  </entry>
+  
+</feed>

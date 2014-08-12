@@ -83,3 +83,7 @@ categories: Reverse
 	{% gist 0515e9f2f63e77c4ac5b %}
 	
 收工！
+
+## 补充
+
+另一种方案：Hook并重新实现mciSendCommand（部分，覆盖游戏使用的范围），这种方案不需要对游戏本身进行太多分析，只要搜集游戏对mciSendCommand函数的调用即可。

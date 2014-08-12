@@ -4,7 +4,7 @@
   <title><![CDATA[linfan's blog]]></title>
   <link href="http://linfan.info/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2014-08-11T00:33:21+08:00</updated>
+  <updated>2014-08-12T19:12:35+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -362,6 +362,10 @@ return TRUE;
 </code></pre></noscript></div></p>
 
 <p>收工！</p>
+
+<h2>补充</h2>
+
+<p>另一种方案：Hook并重新实现mciSendCommand（部分，覆盖游戏使用的范围），这种方案不需要对游戏本身进行太多分析，只要搜集游戏对mciSendCommand函数的调用即可。</p>
 ]]></content>
   </entry>
   

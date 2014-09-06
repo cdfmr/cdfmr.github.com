@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: github | linfan's blog]]></title>
+  <link href="http://linfan.info/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://linfan.info/"/>
+  <updated>2014-09-06T15:44:33+08:00</updated>
+  <id>http://linfan.info/</id>
+  <author>
+    <name><![CDATA[linfan]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[整理几个旧项目]]></title>
+    <link href="http://linfan.info/blog/2014/09/06/some-old-projects/"/>
+    <updated>2014-09-06T15:17:04+08:00</updated>
+    <id>http://linfan.info/blog/2014/09/06/some-old-projects</id>
+    <content type="html"><![CDATA[<p>翻出来几个多年前的旧项目，顺手发布到GitHub。</p>
+
+<h3><a href="https://github.com/cdfmr/deebook">DeeBook</a></h3>
+
+<p>多年前EXE电子书大行其道，而且大部分都是基于IE的，DeeBook就是此类电子书的通用反编译器。</p>
+
+<h3><a href="https://github.com/cdfmr/neopop-ezx">NeoPop-EZX</a></h3>
+
+<p>古董手机Moto E680i上的NGP模拟器。</p>
+
+<h3><a href="https://github.com/cdfmr/smsplus-ezx">SMSPlus-EZX</a></h3>
+
+<p>古董手机Moto E680i上的SMS/GG模拟器。</p>
+]]></content>
+  </entry>
+  
+</feed>

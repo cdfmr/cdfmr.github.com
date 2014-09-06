@@ -9,7 +9,7 @@
   <meta name="author" content="linfan">
 
   
-  <meta name="description" content="开发人员或多或少都应该知道UUID或GUID，这是摘自维基百科的一段描述。 通用唯一识别码 (Universally Unique Identifier, UUID) 是一个软件建构的标准，亦为自由软件基金会 (Open Software Foundation, OSF) 的组织在分散式计算环境 &hellip;">
+  <meta name="description" content="从6月1日开始，Apple要求所有提交到App Store的应用程序都必须运行在沙盒环境中，这可苦了我们这些悲催的码农。一则受到沙盒环境的种种限制，一些很常用的操作都没法实现；二则App Sandbox本身就是BUG重重，这个更是有理没处说。 举个例子，常规环境中，一般使用Shared File &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +64,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/">在沙盒环境中使用Finder打开文件夹</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-23T15:39:00+08:00" pubdate data-updated="true">Jun 23<sup>rd</sup>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>从6月1日开始，Apple要求所有提交到App Store的应用程序都必须运行在沙盒环境中，这可苦了我们这些悲催的码农。一则受到沙盒环境的种种限制，一些很常用的操作都没法实现；二则App Sandbox本身就是BUG重重，这个更是有理没处说。</p>
+
+<p>举个例子，常规环境中，一般使用Shared File List API来设置程序随系统自动运行。到了沙盒环境中，Apple不许我们使用此API了，而建议使用Service Management来实现类似功能。Service Management不如传统方法直接，必须将一个Helper程序设置为启动项，由Helper程序唤起主程序，而且创建的启动项不能显示在系统设置中。这就算了，问题是Helper程序怎么也不能唤起主程序，这个BUG直到10.7.4才解决。</p>
+
+<p>言归正传，本文要说的是另一个BUG。通常，如果需要展示某个文件夹的内容，我们会使用NSWorkspace的OpenURL方法。即使在沙盒环境中，只要已经取得了该文件夹的相关权限，此方法显然也应该没问题。但Apple不这么想，直到目前的Lion 10.7.4中，即便是打开沙盒容器中的目录都无法成功，可以在控制台看见这样的信息。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/06/23/open-folder-with-finder-in-app-sandbox/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -472,47 +517,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/27/colorful-terminal-in-mac/">让Mac OS X的终端多姿多彩</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-27T13:57:00+08:00" pubdate data-updated="true">Feb 27<sup>th</sup>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>与Linux相比，Mac OS X的终端总是欠缺些什么。对了，是色彩，Linux的ls命令使用不同颜色区分各种文件类型，Vim编辑器也支持语法高亮，而Mac终端却总是以黑白示人。其实，只要稍微做一些工作，Mac的终端同样可以多姿多彩，请往下看。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2012/02/27/colorful-terminal-in-mac/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -530,6 +534,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/06/some-old-projects/">整理几个旧项目</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/08/10/pediy-raiden2/">PEDIY：解除雷电2对光盘的依赖</a>
       </li>
     
@@ -545,17 +553,13 @@
         <a href="/blog/2013/09/15/web-crawler-by-shell/">用Shell实现简单的Web爬虫</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/06/22/greader-archive-to-html/">将GReader Archive生成的XML文件导出为HTML页面</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
   <ul>
   <li>
-    <a class='category' href='/blog/categories/app-sandbox/'>app&nbsp;sandbox</a>, <a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/cocoa/'>cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>dovecot</a>, <a class='category' href='/blog/categories/drupal/'>drupal</a>, <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/google-reader/'>google&nbsp;reader</a>, <a class='category' href='/blog/categories/hp-ux/'>hp-ux</a>, <a class='category' href='/blog/categories/ime/'>ime</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/mysql/'>mysql</a>, <a class='category' href='/blog/categories/openwrt/'>openwrt</a>, <a class='category' href='/blog/categories/postfix/'>postfix</a>, <a class='category' href='/blog/categories/reverse/'>reverse</a>, <a class='category' href='/blog/categories/sftp/'>sftp</a>, <a class='category' href='/blog/categories/shell/'>shell</a>, <a class='category' href='/blog/categories/svn/'>svn</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>, <a class='category' href='/blog/categories/vps/'>vps</a>, <a class='category' href='/blog/categories/windows/'>windows</a>, <a class='category' href='/blog/categories/wine/'>wine</a>, <a class='category' href='/blog/categories/xcode/'>xcode</a>, <a class='category' href='/blog/categories/xml/'>xml</a>
+    <a class='category' href='/blog/categories/app-sandbox/'>app&nbsp;sandbox</a>, <a class='category' href='/blog/categories/c/'>c</a>, <a class='category' href='/blog/categories/cocoa/'>cocoa</a>, <a class='category' href='/blog/categories/dovecot/'>dovecot</a>, <a class='category' href='/blog/categories/drupal/'>drupal</a>, <a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/google-reader/'>google&nbsp;reader</a>, <a class='category' href='/blog/categories/hp-ux/'>hp-ux</a>, <a class='category' href='/blog/categories/ime/'>ime</a>, <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/mac/'>mac</a>, <a class='category' href='/blog/categories/mysql/'>mysql</a>, <a class='category' href='/blog/categories/openwrt/'>openwrt</a>, <a class='category' href='/blog/categories/postfix/'>postfix</a>, <a class='category' href='/blog/categories/reverse/'>reverse</a>, <a class='category' href='/blog/categories/sftp/'>sftp</a>, <a class='category' href='/blog/categories/shell/'>shell</a>, <a class='category' href='/blog/categories/svn/'>svn</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>, <a class='category' href='/blog/categories/vps/'>vps</a>, <a class='category' href='/blog/categories/windows/'>windows</a>, <a class='category' href='/blog/categories/wine/'>wine</a>, <a class='category' href='/blog/categories/xcode/'>xcode</a>, <a class='category' href='/blog/categories/xml/'>xml</a>
   </li>
   </ul>
 </section>

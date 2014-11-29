@@ -4,7 +4,7 @@
   <title><![CDATA[Category: wine | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/wine/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2014-10-24T22:36:40+08:00</updated>
+  <updated>2014-11-29T23:52:13+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -104,6 +104,8 @@
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>输入法</h2>
+
+<p>补充：从1.6版本开始，Wine默认使用Mac原生驱动，不再依赖于X11，请略过此节。</p>
 
 <p>Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于<a href="/blog/2012/02/25/homebrew-installation-and-usage/">Homebrew</a>。</p>
 

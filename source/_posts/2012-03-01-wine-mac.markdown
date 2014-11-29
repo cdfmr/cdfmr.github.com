@@ -49,6 +49,8 @@ export LC_ALL=en_US.UTF-8
 
 ## 输入法
 
+补充：从1.6版本开始，Wine默认使用Mac原生驱动，不再依赖于X11，请略过此节。
+
 Wine的UI渲染是基于X11环境的，无法使用Mac OS X原生的输入法，需要另外安装基于X11的输入法。经过试验，Fcitx 3.5可以顺利安装。以下安装和配置步骤同样基于[Homebrew](/blog/2012/02/25/homebrew-installation-and-usage/)。
 
 {% codeblock lang:bash %}

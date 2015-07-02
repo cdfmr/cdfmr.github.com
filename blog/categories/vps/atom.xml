@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vps | linfan's blog]]></title>
   <link href="http://linfan.info/blog/categories/vps/atom.xml" rel="self"/>
   <link href="http://linfan.info/"/>
-  <updated>2014-11-29T23:52:13+08:00</updated>
+  <updated>2015-07-02T21:43:14+08:00</updated>
   <id>http://linfan.info/</id>
   <author>
     <name><![CDATA[linfan]]></name>
@@ -20,7 +20,7 @@
     <id>http://linfan.info/blog/2012/10/31/linode-library-offline</id>
     <content type="html"><![CDATA[<p><a href="https://library.linode.com">Linode Library</a>是<a href="https://www.linode.com">Linode</a>这家VPS供应商维护的一个文档库，内容涉及到Linux VPS的方方面面，包括Linux基础知识、系统安装维护、各种服务架设等。即使不使用Linode的VPS，这些文档也具有极大的参考价值，于是将它离线并打包成了CHM文件，供大家下载、查阅。</p>
 
-<p>下载地址：<a href="http://files.linfan.info/linode_library_offline_2012.10.31.chm">Linode Library Offline 2012.10.31</a></p>
+<p>下载地址：<a href="http://pan.baidu.com/s/1gd4IxF1">Linode Library Offline 2012.10.31</a></p>
 ]]></content>
   </entry>
   

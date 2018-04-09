@@ -88,4 +88,4 @@ categories: Reverse
 
 另一种方案：Hook并重新实现mciSendCommand及mciSendString（部分，覆盖游戏使用的范围），这种方案不需要对游戏本身进行太多分析，只要搜集游戏对MCI函数的调用即可，通用性也强得多。
 
-[参考实现](https://github.com/cdfmr/fakecd)
+[参考实现](https://github.com/cdfmr/smartcda)
